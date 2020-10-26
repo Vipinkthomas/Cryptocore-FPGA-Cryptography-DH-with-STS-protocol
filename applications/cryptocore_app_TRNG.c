@@ -27,6 +27,7 @@ int main(void)
 
 	__u32 trng_val = 0;
 	__u32 i = 0;
+	__u32 val = 0;
 	
 	double seconds;
 	struct timespec tstart={0,0}, tend={0,0};
@@ -77,7 +78,11 @@ int main(void)
 	{  } };
 
 	clock_gettime(CLOCK_MONOTONIC, &tstart);
-	
+	//new code
+
+	ret_val = ioctl(dd, IOCTL_READ_RAM_B1, &val);
+	printf(val);
+
 	// Read TRNG FIRO
 	for(i=0; i<TRNG_512_test.prec/32; i++){
 		ret_val = ioctl(dd, IOCTL_READ_TRNG_FIFO, &trng_val);

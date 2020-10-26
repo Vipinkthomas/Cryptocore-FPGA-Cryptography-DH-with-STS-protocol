@@ -15,5 +15,6 @@
 #define 	IOCTL_SET_TRNG_TSTAB		_IOW(IOCTL_BASE, 3, __u32)
 #define 	IOCTL_SET_TRNG_TSAMPLE		_IOW(IOCTL_BASE, 4, __u32)
 #define 	IOCTL_READ_TRNG_FIFO		_IOR(IOCTL_BASE, 5, __u32)
+#define 	IOCTL_READ_RAM_B		_IOR(IOCTL_BASE, 6, __u32)
 
 // Define further IOCTL commands here...
