@@ -78,10 +78,7 @@ int main(void)
 	{  } };
 
 	clock_gettime(CLOCK_MONOTONIC, &tstart);
-	//new code
 
-	ret_val = ioctl(dd, IOCTL_READ_RAM_B, &val);
-	printf("%08x",val);
 
 	// Read TRNG FIRO
 	for(i=0; i<TRNG_512_test.prec/32; i++){
@@ -92,10 +89,19 @@ int main(void)
 			printf("Error occured\n");
 		}
 	}
-	
+
+	//new code
+	val=TRNG_512_test.rand[0];
+
+	ret_val = ioctl(dd, IOCTL_READ_RAM_B, &val);
+	printf("%08x",val);
+
 	clock_gettime(CLOCK_MONOTONIC, &tend);
 
 	printf("rand: ");
+	
+
+
 	for(i=0; i<TRNG_512_test.prec/32; i++){
 		printf("%08x", TRNG_512_test.rand[i]);
 	}
