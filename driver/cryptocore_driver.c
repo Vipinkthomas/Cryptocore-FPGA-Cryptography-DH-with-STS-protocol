@@ -249,6 +249,7 @@ static long cryptocore_driver_ioctl( struct file *instance, unsigned int cmd, un
 	u32 i;
 	u32 trng_val = 0;
    u32 val = 0;
+   u32 mwmac_cmd;
 
 	mwmac_irq_var = 0;
 
