@@ -80,7 +80,7 @@ int main(void)
 	clock_gettime(CLOCK_MONOTONIC, &tstart);
 	//new code
 
-	ret_val = ioctl(dd, IOCTL_READ_RAM_B1, &val);
+	ret_val = ioctl(dd, IOCTL_READ_RAM_B, &val);
 	printf(val);
 
 	// Read TRNG FIRO
