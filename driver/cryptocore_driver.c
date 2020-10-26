@@ -248,6 +248,7 @@ static long cryptocore_driver_ioctl( struct file *instance, unsigned int cmd, un
 	int rc;
 	u32 i;
 	u32 trng_val = 0;
+   u32 val = 0;
 
 	mwmac_irq_var = 0;
 
@@ -284,6 +285,12 @@ static long cryptocore_driver_ioctl( struct file *instance, unsigned int cmd, un
 					udelay(1000); // Give TRNG FIFO time to fill
 				}				
 			}
+			break;
+      case IOCTL_READ_RAM_B:
+         val=0x00000001;
+         iowrite32(val, MWMAC_RAM_ptr+0x3);
+			val = ioread32(MWMAC_RAM_ptr+0x3);
+			put_user(val, (u32 *)arg);
 			break;
 
 		// Add further CryptoCore commands here
