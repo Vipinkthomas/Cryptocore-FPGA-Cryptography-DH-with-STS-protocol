@@ -290,13 +290,11 @@ static long cryptocore_driver_ioctl( struct file *instance, unsigned int cmd, un
       case IOCTL_READ_RAM_B:
          get_user(val, (u32 *)arg);
          iowrite32(val, (MWMAC_RAM_ptr+0x3+0x4));
-         iowrite32(val, (MWMAC_RAM_ptr+0x2+0x4));
-         iowrite32(val, (MWMAC_RAM_ptr+0x200));
-         mwmac_cmd = (1 << 0) | (0 << 1) | (1 << 2) | (0 << 3) | (0x0 << 4) | (MONTMULT << 8)| (MWMAC_RAM_B1 << 12) | (MWMAC_RAM_A1 << 17) | (0x0 << 22) | (0x0 << 27);
+         mwmac_cmd = (1 << 0) | (0 << 1) | (1 << 2) | (0 << 3) | (0x0 << 4) | (COPYH2H << 8) | (MWMAC_RAM_B1 << 12) | (MWMAC_RAM_TS1 << 17) | (0x0 << 22) | (0x0 << 27);
          iowrite32(mwmac_cmd, MWMAC_CMD_ptr);
          while(!mwmac_irq_var);
          mwmac_irq_var = 0;
-			val = ioread32((MWMAC_RAM_ptr+0x3+0x4));
+			val = ioread32((MWMAC_RAM_ptr+0x1+0x4));
 			put_user(val, (u32 *)arg);
 			break;
 
