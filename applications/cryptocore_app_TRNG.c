@@ -81,7 +81,7 @@ int main(void)
 	//new code
 
 	ret_val = ioctl(dd, IOCTL_READ_RAM_B, &val);
-	printf(val);
+	printf("%08x",val);
 
 	// Read TRNG FIRO
 	for(i=0; i<TRNG_512_test.prec/32; i++){
