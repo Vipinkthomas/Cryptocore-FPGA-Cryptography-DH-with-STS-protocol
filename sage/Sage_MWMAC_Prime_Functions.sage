@@ -23,7 +23,7 @@ def Prime_MontExp(b,e,n,prec):
 	exp = e
 	for i in reversed(xrange(prec)):
 		x = (x * x * rinv) % n
-		if(Integer(exp).digits(base=2,padto=prec)[i] == 1):
+		if(Integer(exp).digits(base=10,padto=prec)[i] == 1):
 			x = (b * x * rinv) % n
 		print(x)
 	#
