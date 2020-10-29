@@ -256,8 +256,6 @@ static long cryptocore_driver_ioctl( struct file *instance, unsigned int cmd, un
 	int rc;
 	u32 i;
 	u32 trng_val = 0;
-   u32 val = 0;
-   u32 mwmac_cmd;
 
 	mwmac_irq_var = 0;
 
@@ -295,7 +293,6 @@ static long cryptocore_driver_ioctl( struct file *instance, unsigned int cmd, un
 				}				
 			}
 			break;
-<<<<<<< HEAD
 		case IOCTL_MWMAC_MONTMULT:
 			rc = copy_from_user(MontMult_params_ptr, (void *)arg, sizeof(MontMult_params_t));
 			MWMAC_MontMult(MontMult_params_ptr);
@@ -351,19 +348,6 @@ static long cryptocore_driver_ioctl( struct file *instance, unsigned int cmd, un
 			MWMAC_MontMult1(MontMult1_params_ptr);
 			rc = copy_to_user((void *)arg, MontMult1_params_ptr, sizeof(MontMult1_params_t));
 			break;
-=======
-      case IOCTL_READ_RAM_B:
-         get_user(val, (u32 *)arg);
-         iowrite32(val, (MWMAC_RAM_ptr+0x3+0x4));
-         mwmac_cmd = (1 << 0) | (0 << 1) | (1 << 2) | (0 << 3) | (0x0 << 4) | (COPYH2H << 8) | (MWMAC_RAM_B1 << 12) | (MWMAC_RAM_TS1 << 17) | (0x0 << 22) | (0x0 << 27);
-         iowrite32(mwmac_cmd, MWMAC_CMD_ptr);
-         while(!mwmac_irq_var);
-         mwmac_irq_var = 0;
-			val = ioread32((MWMAC_RAM_ptr+0x1+0x4));
-			put_user(val, (u32 *)arg);
-			break;
-
->>>>>>> 0098fc9efa8a5099b08e170082cd345b74cad91a
 		// Add further CryptoCore commands here
 
 		default:
