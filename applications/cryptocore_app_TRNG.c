@@ -27,6 +27,7 @@ int main(void)
 
 	__u32 trng_val = 0;
 	__u32 i = 0;
+	__u32 val = 0;
 	
 	double seconds;
 	struct timespec tstart={0,0}, tend={0,0};
@@ -77,7 +78,8 @@ int main(void)
 	{  } };
 
 	clock_gettime(CLOCK_MONOTONIC, &tstart);
-	
+
+
 	// Read TRNG FIRO
 	for(i=0; i<TRNG_512_test.prec/32; i++){
 		ret_val = ioctl(dd, IOCTL_READ_TRNG_FIFO, &trng_val);
@@ -87,10 +89,19 @@ int main(void)
 			printf("Error occured\n");
 		}
 	}
-	
+
+	//new code
+	val=TRNG_512_test.rand[0];
+
+	ret_val = ioctl(dd, IOCTL_READ_RAM_B, &val);
+	printf("%08x",val);
+
 	clock_gettime(CLOCK_MONOTONIC, &tend);
 
 	printf("rand: ");
+	
+
+
 	for(i=0; i<TRNG_512_test.prec/32; i++){
 		printf("%08x", TRNG_512_test.rand[i]);
 	}
