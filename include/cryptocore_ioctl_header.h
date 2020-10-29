@@ -112,7 +112,6 @@ typedef struct MontMult1_params{
 #define IOCTL_BASE 'k' 					// magic number
 
 // NOTE: magic | cmdnumber | size of data to pass
-<<<<<<< HEAD
 #define 	IOCTL_SET_TRNG_CMD		_IOW(IOCTL_BASE,   1, __u32)
 #define 	IOCTL_SET_TRNG_CTR		_IOW(IOCTL_BASE,   2, __u32)
 #define 	IOCTL_SET_TRNG_TSTAB	_IOW(IOCTL_BASE,   3, __u32)
@@ -130,6 +129,5 @@ typedef struct MontMult1_params{
 #define		IOCTL_MWMAC_COPYH2H		_IOWR(IOCTL_BASE, 14, CopyH2H_params_t)
 #define		IOCTL_MWMAC_COPYV2H		_IOWR(IOCTL_BASE, 15, CopyV2H_params_t)
 #define		IOCTL_MWMAC_MONTMULT1	_IOWR(IOCTL_BASE, 16, MontMult1_params_t)
-
 
 // Define further IOCTL commands here...
