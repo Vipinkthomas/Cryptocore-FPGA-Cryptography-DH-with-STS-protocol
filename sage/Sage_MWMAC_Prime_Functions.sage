@@ -24,6 +24,9 @@ def Prime_MontExp(b,e,n,prec):
 		x = (x * x * rinv) % n
 		if(Integer(exp).digits(base=2,padto=prec)[i] == 1):
 			x = (b * x * rinv) % n
+	#
+	Prime_MontMult1(x,n,prec);
+	#
 	c = x
 
 	return(c)
