@@ -173,8 +173,8 @@ int main(void)
 	printf("\n\n");
 
     printf("C(Mod_Exp) = MontMult1(MontExp(B,B,E,B,P)): 0x");
-	for(i=0; i<MontExp_512_test.prec/32; i++){
-		printf("%08x", MontExp_512_test.c[i]);
+	for(i=0; i<MontMult1_512_test.prec/32; i++){
+		printf("%08x", MontMult1_512_test.c[i]);
 	}
 	printf("\n\n");
 
