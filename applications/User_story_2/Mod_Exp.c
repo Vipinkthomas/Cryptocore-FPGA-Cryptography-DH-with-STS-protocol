@@ -159,10 +159,7 @@ int main(void)
 		printf("Error occured\n");
 	}
 
-    ret_val = ioctl(dd, IOCTL_MWMAC_MONTMULT1, &MontMult1_512_test);
-	if(ret_val != 0) {
-		printf("Error occured\n");
-	}
+    
 
 	clock_gettime(CLOCK_MONOTONIC, &tend);
 
@@ -170,10 +167,13 @@ int main(void)
 	for(i=0; i<MontExp_512_test.prec/32; i++){
 		MontMult1_512_test.b[i]=MontExp_512_test.c[i];
 		printf("%08x", MontExp_512_test.c[i]);
-		printf("\n\n");
-		printf("%08x", MontMult1_512_test.b[i]);
 	}
 	printf("\n\n");
+
+	ret_val = ioctl(dd, IOCTL_MWMAC_MONTMULT1, &MontMult1_512_test);
+	if(ret_val != 0) {
+		printf("Error occured\n");
+	}
 
     printf("C(Mod_Exp) = MontMult1(MontExp(B,B,E,B,P)): 0x");
 	for(i=0; i<MontMult1_512_test.prec/32; i++){
