@@ -1450,9 +1450,6 @@ static void MWMAC_MontMult1(MontMult1_params_t *MontMult1_params_ptr)
 	}
 	else {
 		mwmac_sec_calc = 1;
-	}
-	for(i=0; i<rw_prec/32; i++){
-		MontMult1_params_ptr->b[rw_prec/32-1-i]=ioread32((MWMAC_RAM_ptr+0x2+i*0x4));
 	}	
 	Clear_MWMAC_RAM();
 
