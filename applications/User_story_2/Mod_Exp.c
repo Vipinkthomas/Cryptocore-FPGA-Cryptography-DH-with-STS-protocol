@@ -185,32 +185,32 @@ int main(void)
 		printf("MontExp 512 took about %.5f us\n\n", seconds*1000000.0);	
 
 	// Clear c
-	for(i=0; i<MontExp_512_test.prec/32; i++){
-		MontExp_512_test.c[i] = 0;
-	}	
+	// for(i=0; i<MontExp_512_test.prec/32; i++){
+	// 	MontExp_512_test.c[i] = 0;
+	// }	
 	
 //	MontExp_512_test.sec_calc = 1;	
 
-	clock_gettime(CLOCK_MONOTONIC, &tstart);
-	ret_val = ioctl(dd, IOCTL_MWMAC_MONTEXP, &MontExp_512_test);
-	if(ret_val != 0) {
-		printf("Error occured\n");
-	}
-	clock_gettime(CLOCK_MONOTONIC, &tend);
+	// clock_gettime(CLOCK_MONOTONIC, &tstart);
+	// ret_val = ioctl(dd, IOCTL_MWMAC_MONTEXP, &MontExp_512_test);
+	// if(ret_val != 0) {
+	// 	printf("Error occured\n");
+	// }
+	// clock_gettime(CLOCK_MONOTONIC, &tend);
 
-	printf("C = MontExp(B,B,E,B,P): 0x");
-	for(i=0; i<MontExp_512_test.prec/32; i++){
-		printf("%08x", MontExp_512_test.c[i]);
-	}
-	printf("\n\n");
+	// printf("C = MontExp(B,B,E,B,P): 0x");
+	// for(i=0; i<MontExp_512_test.prec/32; i++){
+	// 	printf("%08x", MontExp_512_test.c[i]);
+	// }
+	// printf("\n\n");
 
     
 
-	seconds = ((double)tend.tv_sec + 1.0e-9*tend.tv_nsec) - ((double)tstart.tv_sec + 1.0e-9*tstart.tv_nsec);
-	if (seconds*1000000.0 > 1000.0)
-		printf("MontExp 512 (sec calc) took about %.5f ms\n\n", seconds*1000.0);
-	else 
-		printf("MontExp 512 (sec calc) took about %.5f us\n\n", seconds*1000000.0);
+	// seconds = ((double)tend.tv_sec + 1.0e-9*tend.tv_nsec) - ((double)tstart.tv_sec + 1.0e-9*tstart.tv_nsec);
+	// if (seconds*1000000.0 > 1000.0)
+	// 	printf("MontExp 512 (sec calc) took about %.5f ms\n\n", seconds*1000.0);
+	// else 
+	// 	printf("MontExp 512 (sec calc) took about %.5f us\n\n", seconds*1000000.0);
 	
 	close_physical (dd);   // close /dev/cryptocore
 	return 0;
