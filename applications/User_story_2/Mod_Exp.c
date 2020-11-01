@@ -80,7 +80,7 @@ int main(void)
 	{  },
 	};
 
-    MontMult1_params MontMult1_512_test = {512,
+    MontMult1_params_t MontMult1_512_test = {512,
 	1,
 	0,
 	{ 0xe8866e4b, 0x8b4cafa2, 0x63f190c6, 0x35bbc098, 
