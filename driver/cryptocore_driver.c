@@ -1458,11 +1458,12 @@ static void MWMAC_MontMult1(MontMult1_params_t *MontMult1_params_ptr)
 	for(i=0; i<rw_prec/32; i++){
 		iowrite32(MontMult1_params_ptr->n[rw_prec/32-1-i], (MWMAC_RAM_ptr+0x2+i*0x4));
 	}
-	
-	// Write Parameter b to B Register Memory
-	for(i=0; i<rw_prec/32; i++){
-		iowrite32(MontMult1_params_ptr->b[rw_prec/32-1-i], (MWMAC_RAM_ptr+0x3+i*0x4));
-	}	
+	//
+
+	//Edited: Write Parameter b to B Register Memory
+	//for(i=0; i<rw_prec/32; i++){
+	//	iowrite32(MontMult1_params_ptr->b[rw_prec/32-1-i], (MWMAC_RAM_ptr+0x3+i*0x4));
+	//}	
 	
 	// MontMult1(B1, P1)
 	//            Start     Abort       f_sel     sec_calc        precision         operation
