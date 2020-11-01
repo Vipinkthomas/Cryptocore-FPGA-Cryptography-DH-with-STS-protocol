@@ -170,6 +170,7 @@ int main(void)
 	for(i=0; i<MontExp_512_test.prec/32; i++){
 		MontMult1_512_test.b[i]=MontExp_512_test.c[i];
 		printf("%08x", MontExp_512_test.c[i]);
+		printf("%08x", MontMult1_512_test.b[i]);
 	}
 	printf("\n\n");
 
