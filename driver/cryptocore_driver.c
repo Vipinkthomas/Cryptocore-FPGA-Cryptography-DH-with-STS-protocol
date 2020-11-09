@@ -87,6 +87,7 @@
 #define COPYH2H				0x8
 #define COPYV2H				0x9
 #define MONTMULT1			0xA
+#define MONTEXPFULL			0xB
 
 // CryptoCore RAM Locations
 
@@ -192,6 +193,9 @@ static void MWMAC_CopyV2V(CopyV2V_params_t *CopyV2V_params_ptr);
 static void MWMAC_CopyH2H(CopyH2H_params_t *CopyH2H_params_ptr);
 static void MWMAC_CopyV2H(CopyV2H_params_t *CopyV2H_params_ptr);
 static void MWMAC_MontMult1(MontMult1_params_t *MontMult1_params_ptr);
+static void MWMAC_MontExpFull(MontExp_params_t *MontExp_params_ptr);
+static void MWMAC_ModExp(ModExp_params_t *ModExp_params_ptr);
+static void MWMAC_ModRed(ModRed_params_t *ModRed_params_ptr);
 // Add further Function Prototypes here...
 
 irq_handler_t key_irq_handler(int irq, void *dev_id, struct pt_regs *regs)
@@ -252,7 +256,9 @@ static long cryptocore_driver_ioctl( struct file *instance, unsigned int cmd, un
 	CopyH2H_params_t *CopyH2H_params_ptr = kmalloc(sizeof(CopyH2H_params_t), GFP_DMA);
 	CopyV2H_params_t *CopyV2H_params_ptr = kmalloc(sizeof(CopyV2H_params_t), GFP_DMA);
 	MontMult1_params_t *MontMult1_params_ptr = kmalloc(sizeof(MontMult1_params_t), GFP_DMA);
-
+	ModExp_params_t *ModExp_params_ptr = kmalloc(sizeof(ModExp_params_t), GFP_DMA);
+	ModRed_params_t *ModRed_params_ptr = kmalloc(sizeof(ModRed_params_t), GFP_DMA);
+	
 	int rc;
 	u32 i;
 	u32 trng_val = 0;
@@ -348,6 +354,21 @@ static long cryptocore_driver_ioctl( struct file *instance, unsigned int cmd, un
 			MWMAC_MontMult1(MontMult1_params_ptr);
 			rc = copy_to_user((void *)arg, MontMult1_params_ptr, sizeof(MontMult1_params_t));
 			break;
+		case IOCTL_MWMAC_MONTEXP_FULL:
+			rc = copy_from_user(MontExp_params_ptr, (void *)arg, sizeof(MontExp_params_t));
+			MWMAC_MontExpFull(MontExp_params_ptr);
+			rc = copy_to_user((void *)arg, MontExp_params_ptr, sizeof(MontExp_params_t));
+			break;	
+		case IOCTL_MWMAC_MODEXP:
+			rc = copy_from_user(ModExp_params_ptr, (void *)arg, sizeof(ModExp_params_t));
+			MWMAC_ModExp(ModExp_params_ptr);
+			rc = copy_to_user((void *)arg, ModExp_params_ptr, sizeof(ModExp_params_t));
+			break;
+		case IOCTL_MWMAC_MODRED:
+			rc = copy_from_user(ModRed_params_ptr, (void *)arg, sizeof(ModRed_params_t));
+			MWMAC_ModRed(ModRed_params_ptr);
+			rc = copy_to_user((void *)arg, ModRed_params_ptr, sizeof(ModRed_params_t));
+			break;
 		// Add further CryptoCore commands here
 
 		default:
@@ -365,6 +386,8 @@ static long cryptocore_driver_ioctl( struct file *instance, unsigned int cmd, un
 			kfree(CopyH2H_params_ptr);
 			kfree(CopyV2H_params_ptr);
 			kfree(MontMult1_params_ptr);
+			kfree(ModExp_params_ptr);
+			kfree(ModRed_params_ptr);
 			
 			return -EINVAL;
 	}
@@ -381,7 +404,8 @@ static long cryptocore_driver_ioctl( struct file *instance, unsigned int cmd, un
 	kfree(CopyH2H_params_ptr);
 	kfree(CopyV2H_params_ptr);
 	kfree(MontMult1_params_ptr);
-	
+	kfree(ModExp_params_ptr);
+	kfree(ModRed_params_ptr);	
 	return 0;
 	
 }
@@ -1476,6 +1500,318 @@ static void MWMAC_MontMult1(MontMult1_params_t *MontMult1_params_ptr)
 	// Read Result c from B Register Memory 
  	for(i=0; i<rw_prec/32; i++){
 		MontMult1_params_ptr->c[rw_prec/32-1-i] = ioread32(MWMAC_RAM_ptr+0x3+i*0x4);
+	} 
+}
+
+static void MWMAC_MontExpFull(MontExp_params_t *MontExp_params_ptr)
+{
+	u32 i;
+	u32 mwmac_cmd = 0;
+	u32 mwmac_cmd_prec = 0;
+	u32 mwmac_f_sel = 1;
+	u32 mwmac_sec_calc = 0;
+	u32 rw_prec = 0;
+
+	if(MontExp_params_ptr->f_sel == 0) {
+		mwmac_f_sel = 0;
+		for(i=0; i<16; i++){
+			if(BINARY_PRECISIONS[i][0]==MontExp_params_ptr->prec){
+				mwmac_cmd_prec = BINARY_PRECISIONS[i][1];
+				if(MontExp_params_ptr->prec % 32) {
+					rw_prec = (MontExp_params_ptr->prec/32 + 1) * 32;
+				} else {
+					rw_prec = MontExp_params_ptr->prec;
+				}	
+			}
+		}
+	}
+	else {
+		mwmac_f_sel = 1;
+		for(i=0; i<13; i++){
+			if(PRIME_PRECISIONS[i][0]==MontExp_params_ptr->prec){
+				mwmac_cmd_prec = PRIME_PRECISIONS[i][1];
+				rw_prec = MontExp_params_ptr->prec;
+			}
+		}
+	}	
+	
+	if(MontExp_params_ptr->sec_calc == 0) {
+		mwmac_sec_calc = 0;
+	}
+	else {
+		mwmac_sec_calc = 1;
+	}
+	
+	Clear_MWMAC_RAM();
+
+	// Write Parameter n to P Register Memory
+	for(i=0; i<rw_prec/32; i++){
+		iowrite32(MontExp_params_ptr->n[rw_prec/32-1-i], (MWMAC_RAM_ptr+0x2+i*0x4));
+	}
+
+	// Write Parameter e to E Register Memory
+	for(i=0; i<rw_prec/32; i++){
+		iowrite32(MontExp_params_ptr->e[rw_prec/32-1-i], (MWMAC_RAM_ptr+0x280+i));
+	}	
+
+	// Write Parameter b to X Register Memory
+	for(i=0; i<rw_prec/32; i++){
+		iowrite32(MontExp_params_ptr->b[rw_prec/32-1-i], (MWMAC_RAM_ptr+0x300+i));
+	}
+	
+	// MontR(P1, B1)
+	//            Start     Abort       f_sel     sec_calc        precision         operation
+	mwmac_cmd = (1 << 0) | (0 << 1) | (mwmac_f_sel << 2) | (mwmac_sec_calc << 3) | (mwmac_cmd_prec << 4) | (MONTR << 8)
+	//			src_addr      			dest_addr    		src_addr_e   	src_addr_x
+			| (MWMAC_RAM_P1 << 12) | (MWMAC_RAM_B1 << 17) | (0x0 << 22) | 	(0x0 << 27);
+	iowrite32(mwmac_cmd, MWMAC_CMD_ptr);
+	while(!mwmac_irq_var);
+	mwmac_irq_var = 0;
+
+	// CopyH2V(B1, A1)
+	//            Start     Abort       f_sel     sec_calc        precision         operation
+	mwmac_cmd = (1 << 0) | (0 << 1) | (mwmac_f_sel << 2) | (mwmac_sec_calc << 3) | (mwmac_cmd_prec << 4) | (COPYH2V << 8) 
+	//			src_addr      				dest_addr   	 src_addr_e   src_addr_x
+			| (MWMAC_RAM_B1 << 12) | (MWMAC_RAM_A1 << 17) | (0x0 << 22) | (0x0 << 27);
+	iowrite32(mwmac_cmd, MWMAC_CMD_ptr);
+	while(!mwmac_irq_var);
+	mwmac_irq_var = 0;	
+	
+	// MontExp(A1, B1, E1, X1, P1)
+	//            Start     Abort       f_sel     sec_calc        precision         operation
+	mwmac_cmd = (1 << 0) | (0 << 1) | (mwmac_f_sel << 2) | (mwmac_sec_calc << 3) | (mwmac_cmd_prec << 4) | (MONTEXPFULL << 8) 
+	//			src_addr      			dest_addr    		src_addr_e   			src_addr_x
+			| (MWMAC_RAM_B1 << 12) | (MWMAC_RAM_A1 << 17) | (MWMAC_RAM_E1 << 22) | (MWMAC_RAM_X1 << 27);
+	iowrite32(mwmac_cmd, MWMAC_CMD_ptr);
+	while(!mwmac_irq_var);
+	mwmac_irq_var = 0;
+	
+	// Read Result c from B Register Memory 
+ 	for(i=0; i<rw_prec/32; i++){
+		MontExp_params_ptr->c[rw_prec/32-1-i] = ioread32(MWMAC_RAM_ptr+0x3+i*0x4);
+	} 
+}
+
+static void MWMAC_ModExp(ModExp_params_t *ModExp_params_ptr)
+{
+	u32 i;
+	u32 mwmac_cmd = 0;
+	u32 mwmac_cmd_prec = 0;
+	u32 mwmac_f_sel = 1;
+	u32 mwmac_sec_calc = 0;
+	u32 rw_prec = 0;
+	
+	if(ModExp_params_ptr->f_sel == 0) {
+		mwmac_f_sel = 0;
+		for(i=0; i<16; i++){
+			if(BINARY_PRECISIONS[i][0]==ModExp_params_ptr->prec){
+				mwmac_cmd_prec = BINARY_PRECISIONS[i][1];
+				if(ModExp_params_ptr->prec % 32) {
+					rw_prec = (ModExp_params_ptr->prec/32 + 1) * 32;
+				} else {
+					rw_prec = ModExp_params_ptr->prec;
+				}
+			}
+		}
+	}
+	else {
+		mwmac_f_sel = 1;
+		for(i=0; i<13; i++){
+			if(PRIME_PRECISIONS[i][0]==ModExp_params_ptr->prec){
+				mwmac_cmd_prec = PRIME_PRECISIONS[i][1];
+				rw_prec = ModExp_params_ptr->prec;
+			}
+		}
+	}	
+	
+	if(ModExp_params_ptr->sec_calc == 0) {
+		mwmac_sec_calc = 0;
+	}
+	else {
+		mwmac_sec_calc = 1;
+	}
+		
+	Clear_MWMAC_RAM();
+
+	// Write Parameter n to P Register Memory
+	for(i=0; i<rw_prec/32; i++){
+		iowrite32(ModExp_params_ptr->n[rw_prec/32-1-i], (MWMAC_RAM_ptr+0x2+i*0x4));
+	}
+
+	// MontR2(P1, A1)
+	//            Start     Abort       f_sel     sec_calc        precision         operation
+	mwmac_cmd = (1 << 0) | (0 << 1) | (mwmac_f_sel << 2) | (mwmac_sec_calc << 3) | (mwmac_cmd_prec << 4) | (MONTR2 << 8)
+	//			src_addr      			dest_addr    		src_addr_e   	src_addr_x
+			| (MWMAC_RAM_P1 << 12) | (MWMAC_RAM_A1 << 17) | (0x0 << 22) | 	(0x0 << 27);
+	iowrite32(mwmac_cmd, MWMAC_CMD_ptr);
+	while(!mwmac_irq_var);
+	mwmac_irq_var = 0;
+
+	// CopyH2V(B1, A1)
+	//            Start     Abort       f_sel     sec_calc        precision         operation
+	mwmac_cmd = (1 << 0) | (0 << 1) | (mwmac_f_sel << 2) | (mwmac_sec_calc << 3) | (mwmac_cmd_prec << 4) | (COPYH2V << 8) 
+	//			src_addr      				dest_addr   	 src_addr_e   src_addr_x
+			| (MWMAC_RAM_B1 << 12) | (MWMAC_RAM_A1 << 17) | (0x0 << 22) | (0x0 << 27);
+	iowrite32(mwmac_cmd, MWMAC_CMD_ptr);
+	while(!mwmac_irq_var);
+	mwmac_irq_var = 0;	
+	
+	// Write Parameter b to B Register Memory
+	for(i=0; i<rw_prec/32; i++){
+		iowrite32(ModExp_params_ptr->b[rw_prec/32-1-i], (MWMAC_RAM_ptr+0x3+i*0x4));
+	}
+	
+	// Write Parameter e to E Register Memory
+	for(i=0; i<rw_prec/32; i++){
+		iowrite32(ModExp_params_ptr->e[rw_prec/32-1-i], (MWMAC_RAM_ptr+0x280+i));
+	}	
+	
+	// MontMult(A1, B1, P1)
+	//            Start     Abort       f_sel     sec_calc        precision         operation
+	mwmac_cmd = (1 << 0) | (0 << 1) | (mwmac_f_sel << 2) | (mwmac_sec_calc << 3) | (mwmac_cmd_prec << 4) | (MONTMULT << 8) 
+	//			src_addr     			dest_addr    		src_addr_e   src_addr_x
+			| (MWMAC_RAM_B1 << 12) | (MWMAC_RAM_A1 << 17) | (0x0 << 22) | (0x0 << 27);
+	iowrite32(mwmac_cmd, MWMAC_CMD_ptr);
+	while(!mwmac_irq_var);
+	mwmac_irq_var = 0;	
+	
+	// CopyH2V(B1, X1)
+	//            Start     Abort       f_sel     sec_calc        precision         operation
+	mwmac_cmd = (1 << 0) | (0 << 1) | (mwmac_f_sel << 2) | (mwmac_sec_calc << 3) | (mwmac_cmd_prec << 4) | (COPYH2V << 8) 
+	//			src_addr      			dest_addr    		src_addr_e   	src_addr_x
+			| (MWMAC_RAM_B1 << 12) | (MWMAC_RAM_X1 << 17) | (0x0 << 22) | (0x0 << 27);
+	iowrite32(mwmac_cmd, MWMAC_CMD_ptr);
+	while(!mwmac_irq_var);
+	mwmac_irq_var = 0;	
+	
+	// MontR(P1, B1)
+	//            Start     Abort       f_sel     sec_calc        precision         operation
+	mwmac_cmd = (1 << 0) | (0 << 1) | (mwmac_f_sel << 2) | (mwmac_sec_calc << 3) | (mwmac_cmd_prec << 4) | (MONTR << 8)
+	//			src_addr      			dest_addr    		src_addr_e   	src_addr_x
+			| (MWMAC_RAM_P1 << 12) | (MWMAC_RAM_B1 << 17) | (0x0 << 22) | 	(0x0 << 27);
+	iowrite32(mwmac_cmd, MWMAC_CMD_ptr);
+	while(!mwmac_irq_var);
+	mwmac_irq_var = 0;
+
+	// CopyH2V(B1, A1)
+	//            Start     Abort       f_sel     sec_calc        precision         operation
+	mwmac_cmd = (1 << 0) | (0 << 1) | (mwmac_f_sel << 2) | (mwmac_sec_calc << 3) | (mwmac_cmd_prec << 4) | (COPYH2V << 8) 
+	//			src_addr      				dest_addr   	 src_addr_e   src_addr_x
+			| (MWMAC_RAM_B1 << 12) | (MWMAC_RAM_A1 << 17) | (0x0 << 22) | (0x0 << 27);
+	iowrite32(mwmac_cmd, MWMAC_CMD_ptr);
+	while(!mwmac_irq_var);
+	mwmac_irq_var = 0;	
+	
+	// MontExp(A1, B1, E1, X1, P1)
+	//            Start     Abort       f_sel     sec_calc        precision         operation
+	mwmac_cmd = (1 << 0) | (0 << 1) | (mwmac_f_sel << 2) | (mwmac_sec_calc << 3) | (mwmac_cmd_prec << 4) | (MONTEXP << 8) 
+	//			src_addr      			dest_addr    		src_addr_e   			src_addr_x
+			| (MWMAC_RAM_B1 << 12) | (MWMAC_RAM_A1 << 17) | (MWMAC_RAM_E1 << 22) | (MWMAC_RAM_X1 << 27);
+	iowrite32(mwmac_cmd, MWMAC_CMD_ptr);
+	while(!mwmac_irq_var);
+	mwmac_irq_var = 0;
+	
+	// MontMult1(B1, P1)
+	//            Start     Abort       f_sel     sec_calc        precision         operation
+	mwmac_cmd = (1 << 0) | (0 << 1) | (mwmac_f_sel << 2) | (mwmac_sec_calc << 3) | (mwmac_cmd_prec << 4) | (MONTMULT1 << 8) 
+	//			src_addr      dest_addr    src_addr_e   src_addr_x
+			| (MWMAC_RAM_B1 << 12) | (0x0 << 17) | (0x0 << 22) | (0x0 << 27);
+	iowrite32(mwmac_cmd, MWMAC_CMD_ptr);
+	while(!mwmac_irq_var);
+	mwmac_irq_var = 0;	
+	
+	// Read Result c from B Register Memory 
+ 	for(i=0; i<rw_prec/32; i++){
+		ModExp_params_ptr->c[rw_prec/32-1-i] = ioread32(MWMAC_RAM_ptr+0x3+i*0x4);
+	} 
+}
+
+static void MWMAC_ModRed(ModRed_params_t *ModRed_params_ptr)
+{
+	u32 i;
+	u32 mwmac_cmd = 0;
+	u32 mwmac_cmd_full_prec = 0;
+	u32 mwmac_cmd_half_prec = 0;
+	u32 mwmac_f_sel = 1;
+	u32 mwmac_sec_calc = 0;
+	u32 rw_full_prec = 0;
+	u32 rw_half_prec = 0;
+
+	if(ModRed_params_ptr->f_sel == 0) {
+		// Modular Reduction is not supported in GF(2^m)
+		mwmac_f_sel = 0;
+//		for(i=0; i<16; i++){
+//			if(BINARY_PRECISIONS[i][0]==ModRed_params_ptr->prec){
+//				mwmac_cmd_full_prec = BINARY_PRECISIONS[i][1];
+//			}
+//			if(BINARY_PRECISIONS[i][0]==ModRed_params_ptr->prec/2){
+//				mwmac_cmd_half_prec = BINARY_PRECISIONS[i][1];
+//			}
+//		}
+	}
+	else {
+		mwmac_f_sel = 1;
+		for(i=0; i<13; i++){
+			if(PRIME_PRECISIONS[i][0]==ModRed_params_ptr->prec){
+				mwmac_cmd_full_prec = PRIME_PRECISIONS[i][1];
+				rw_full_prec = ModRed_params_ptr->prec;
+			}
+			if(PRIME_PRECISIONS[i][0]==ModRed_params_ptr->prec/2){
+				mwmac_cmd_half_prec = PRIME_PRECISIONS[i][1];
+				rw_half_prec = ModRed_params_ptr->prec/2;
+			}
+		}
+	}		
+	
+	if(ModRed_params_ptr->sec_calc == 0) {
+		mwmac_sec_calc = 0;
+	}
+	else {
+		mwmac_sec_calc = 1;
+	}
+
+	Clear_MWMAC_RAM();
+
+	// Write Parameter n to P Register Memory
+	for(i=0; i<rw_half_prec/32; i++){
+		iowrite32(ModRed_params_ptr->n[rw_half_prec/32-1-i], (MWMAC_RAM_ptr+0x2+i*0x4));
+	}
+
+	// MontR2(P1, A1)
+	//            Start     Abort       f_sel     sec_calc        precision         operation
+	mwmac_cmd = (1 << 0) | (0 << 1) | (mwmac_f_sel << 2) | (mwmac_sec_calc << 3) | (mwmac_cmd_half_prec << 4) | (MONTR2 << 8)
+	//			src_addr      			dest_addr    		src_addr_e   	src_addr_x
+			| (MWMAC_RAM_P1 << 12) | (MWMAC_RAM_A1 << 17) | (0x0 << 22) | 	(0x0 << 27);
+	iowrite32(mwmac_cmd, MWMAC_CMD_ptr);
+	while(!mwmac_irq_var);
+	mwmac_irq_var = 0;
+
+	// CopyH2V(B1, A1)
+	//            Start     Abort       f_sel     sec_calc        precision         operation
+	mwmac_cmd = (1 << 0) | (0 << 1) | (mwmac_f_sel << 2) | (mwmac_sec_calc << 3) | (mwmac_cmd_half_prec << 4) | (COPYH2V << 8) 
+	//			src_addr      				dest_addr   	 src_addr_e   src_addr_x
+			| (MWMAC_RAM_B1 << 12) | (MWMAC_RAM_A1 << 17) | (0x0 << 22) | (0x0 << 27);
+	iowrite32(mwmac_cmd, MWMAC_CMD_ptr);
+	while(!mwmac_irq_var);
+	mwmac_irq_var = 0;	
+	
+	// Write Parameter a to B Register Memory
+	for(i=0; i<rw_full_prec/32; i++){
+		iowrite32(ModRed_params_ptr->a[rw_full_prec/32-1-i], (MWMAC_RAM_ptr+0x3+i*0x4));
+	}
+	
+	// MontMult(A1, B1, P1)
+	//            Start     Abort       f_sel     sec_calc        precision         operation
+	mwmac_cmd = (1 << 0) | (0 << 1) | (mwmac_f_sel << 2) | (mwmac_sec_calc << 3) | (mwmac_cmd_full_prec << 4) | (MONTMULT << 8) 
+	//			src_addr     			dest_addr    		src_addr_e   src_addr_x
+			| (MWMAC_RAM_B1 << 12) | (MWMAC_RAM_A1 << 17) | (0x0 << 22) | (0x0 << 27);
+	iowrite32(mwmac_cmd, MWMAC_CMD_ptr);
+	while(!mwmac_irq_var);
+	mwmac_irq_var = 0;
+	
+	// Read Result c from B Register Memory 
+ 	for(i=0; i<rw_full_prec/32; i++){
+		ModRed_params_ptr->c[rw_full_prec/32-1-i] = ioread32(MWMAC_RAM_ptr+0x3+i*0x4);
 	} 
 }
 

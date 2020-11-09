@@ -86,3 +86,17 @@ def Binary_MontMult1(b,n,prec):
 	cpoly = 1 * bpoly * rinvpoly; c = poly_to_str(cpoly)	
 
 	return (c,cpoly)
+
+def Binary_ModExp(b,e,n,prec):
+
+	bpoly = str_to_poly(b)
+	
+	xpoly = (1)
+	exp = e
+	for i in reversed(xrange(prec)):
+		xpoly = xpoly * xpoly
+		if(exp.digits(base=2,padto=prec)[i] == 1):
+			xpoly = bpoly * xpoly
+	cpoly = xpoly; c = poly_to_str(cpoly)
+
+	return(c,cpoly)
