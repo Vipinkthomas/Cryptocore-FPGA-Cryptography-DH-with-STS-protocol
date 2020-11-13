@@ -20,6 +20,7 @@ int main(void)
 	int dd = -1;
 	int ret_val;
 
+
 	__u32 trng_val = 0;
 	__u32 i = 0;
 	__u32 rw_prec = 0;
