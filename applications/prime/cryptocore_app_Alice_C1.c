@@ -3,7 +3,8 @@
 
 
 char b[128];
-char * get_b_value(void){
+
+char read_b_value(){
 
     // char b[128];
     FILE *fptr;
@@ -25,7 +26,9 @@ char * get_b_value(void){
 }
 
 int main()
-{   get_b_value();
+{   
+    read_b_value();
+    
     printf("%s",b);
     printf("\n");
   
