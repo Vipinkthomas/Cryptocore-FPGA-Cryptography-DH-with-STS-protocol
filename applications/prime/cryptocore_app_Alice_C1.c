@@ -13,9 +13,9 @@ int main()
        exit(1);
    }
 
-   fscanf(fptr,"%d", &num);
+   fscanf(fptr,"%s", &num);
 
-   printf("Value of n=%d", num);
+   printf("Value of n=%s", num);
    fclose(fptr); 
   
    return 0;
