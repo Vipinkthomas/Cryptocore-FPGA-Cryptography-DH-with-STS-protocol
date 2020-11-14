@@ -2,8 +2,8 @@
 #include <stdlib.h>
 
 
-char b1[128];
-char n1[128];
+char b1[];
+char n1[];
 
 char *read_b_value(){
 
