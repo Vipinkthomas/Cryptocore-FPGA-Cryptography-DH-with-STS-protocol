@@ -54,9 +54,9 @@ int main()
     
     // printf("%08x",b[2]);
     printf("\n");
-    printf("value n = %s",n);
+    printf("value n = %s",n1);
     printf("\n");
-	printf("value b = %s",b);
+	printf("value b = %s",b1);
   
    return 0;
 }
