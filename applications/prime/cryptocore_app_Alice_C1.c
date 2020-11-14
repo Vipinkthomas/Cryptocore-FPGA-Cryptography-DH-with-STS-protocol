@@ -3,7 +3,7 @@
 
 int main()
 {
-   int num;
+   char num;
    FILE *fptr;
 
    if ((fptr = fopen("/home/data_user/b.txt","r")) == NULL){
