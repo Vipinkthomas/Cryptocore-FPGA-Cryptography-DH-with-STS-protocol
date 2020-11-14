@@ -22,8 +22,8 @@
 int open_physical (int);
 void close_physical (int);
 
-char b[130];
-char n[130];
+char b1[130];
+char n1[130];
 
 char *read_b_value(){
 
@@ -37,7 +37,7 @@ char *read_b_value(){
         exit(1);
     }
 
-    fscanf(fptr,"%s", b);
+    fscanf(fptr,"%s", b1);
     // fscanf(fptr,"%08x", b);
 
     // printf("Value of b=%s", b);
@@ -58,7 +58,7 @@ char *read_n_value(){
         exit(1);
     }
 
-    fscanf(fptr,"%s", n);
+    fscanf(fptr,"%s", n1);
     // fscanf(fptr,"%08x", n);
 
     fclose(fptr);
@@ -143,26 +143,21 @@ int main(void)
 	ModExp_params_t ModExp_512_test = { 512,
 	1,
 	0,
-	{ n },
-	{ b },
+	{  },
+	{  },
 	{  },
 	{  },
 	};
 	
 	
-	// Read random b from TRNG FIRO
-	// i = 0;
-	// while (i < ModExp_512_test.prec/32) {
-	// 	ret_val = ioctl(dd, IOCTL_READ_TRNG_FIFO, &trng_val);
-	// 	if(ret_val == 0) {
-	// 		ModExp_512_test.b[i] = trng_val;
-	// 		i++;
-	// 	} else if (ret_val == -EAGAIN) {
-	// 		printf("TRNG FIFO empty\n");
-	// 	} else {
-	// 		printf("Error occured\n");
-	// 	}
-	// }	
+	Read random b from TRNG FIRO
+	i = 0;
+	while (i < 130) {
+		{
+			ModExp_512_test.b[i] = b1[i];
+			i++;
+		}
+	}	
 
 	printf("B: 0x",b);
 	// for(i=0; i<ModExp_512_test.prec/32; i++){
