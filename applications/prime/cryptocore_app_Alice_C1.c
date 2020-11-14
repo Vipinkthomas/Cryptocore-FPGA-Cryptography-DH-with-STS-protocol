@@ -4,7 +4,7 @@
 
 char b[128];
 
-char read_b_value(){
+char *read_b_value(){
 
     // char b[128];
     FILE *fptr;
