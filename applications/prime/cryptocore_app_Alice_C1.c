@@ -18,7 +18,7 @@ char get_b_value(){
     // printf("Value of b=%s", b);
     fclose(fptr);
 
-    return b;
+    return *b;
 
 }
 
