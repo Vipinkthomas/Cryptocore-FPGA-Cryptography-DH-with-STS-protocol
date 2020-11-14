@@ -16,6 +16,7 @@ char *read_b_value(){
         // Program exits if the file pointer returns NULL.
         exit(1);
     }
+    
 
     fscanf(fptr,"%X", b1);
     // fscanf(fptr,"%08x", b);
@@ -52,9 +53,10 @@ int main()
     
     // printf("%08x",b[2]);
     printf("\n");
-    printf(n1);
-    printf("\n");
-	printf(b1);
+    int num = (int)strtol(n1, NULL, 16); 
+    printf(num);
+    // printf("\n");
+	// printf(b1);
   
    return 0;
 }
