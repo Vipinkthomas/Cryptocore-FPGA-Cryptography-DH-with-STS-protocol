@@ -50,7 +50,7 @@ int main()
     read_b_value();
     read_n_value();
     
-    printf("value b = %s",b);
+    printf("%08x",b);
     printf("\n");
     printf("value n = %s",n);
     printf("\n");
