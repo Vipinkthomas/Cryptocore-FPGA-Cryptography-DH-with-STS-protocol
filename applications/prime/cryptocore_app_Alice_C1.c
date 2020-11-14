@@ -150,7 +150,7 @@ int main(void)
 	};
 	
 	
-	Read random b from TRNG FIRO
+	// Read random b from TRNG FIRO
 	i = 0;
 	while (i < 130) {
 		{
