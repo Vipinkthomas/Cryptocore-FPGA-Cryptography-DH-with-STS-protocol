@@ -13,7 +13,7 @@ int main()
        exit(1);
    }
 
-   fscanf(fptr,"%s", &num);
+   fscanf(fptr,"%s", num);
 
    printf("Value of n=%s", num);
    fclose(fptr); 
