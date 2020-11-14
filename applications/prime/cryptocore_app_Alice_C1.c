@@ -54,7 +54,7 @@ int main()
     // printf("%08x",b[2]);
     printf("\n");
     int num = (int)strtol(n1, NULL, 16); 
-    printf(num);
+    printf("%X",num);
     // printf("\n");
 	// printf(b1);
   
