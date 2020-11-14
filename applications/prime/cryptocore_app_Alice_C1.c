@@ -27,7 +27,7 @@ char * get_b_value(void){
 int main()
 {
     printf("%s",get_b_value());
-    printf("\n")
+    printf("\n"):
   
    return 0;
 }
