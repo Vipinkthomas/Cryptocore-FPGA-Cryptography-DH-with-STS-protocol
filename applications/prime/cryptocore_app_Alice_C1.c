@@ -17,7 +17,7 @@ char *read_b_value(){
         exit(1);
     }
 
-    fscanf(fptr,"%s", b1);
+    fscanf(fptr,"%x", b1);
     // fscanf(fptr,"%08x", b);
 
     // printf("Value of b=%s", b);
