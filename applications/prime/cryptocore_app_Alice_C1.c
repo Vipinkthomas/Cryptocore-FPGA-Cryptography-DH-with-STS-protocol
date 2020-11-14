@@ -5,6 +5,18 @@
 // char b[130];
 // char n[130];
 // __u32 n1[128];
+#include <asm-generic/fcntl.h>
+#include <stdio.h>
+#include <time.h>
+#include <errno.h>
+#include <sys/ioctl.h>
+#include <string.h>
+#include <stdlib.h>
+#include <getopt.h>
+#include <stdint.h>
+#include <inttypes.h>
+
+#include "../../include/cryptocore_ioctl_header.h"
 char *read_b_value(){
 
     
@@ -60,18 +72,7 @@ char *read_n_value(){
 //    return 0;
 // }
 
-#include <asm-generic/fcntl.h>
-#include <stdio.h>
-#include <time.h>
-#include <errno.h>
-#include <sys/ioctl.h>
-#include <string.h>
-#include <stdlib.h>
-#include <getopt.h>
-#include <stdint.h>
-#include <inttypes.h>
 
-#include "../../include/cryptocore_ioctl_header.h"
 
 /* Prototypes for functions used to access physical memory addresses */
 int open_physical (int);
