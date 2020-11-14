@@ -4,7 +4,7 @@
 
 char b[130];
 char n[130];
-__u32 n1[128];
+// __u32 n1[128];
 char *read_b_value(){
 
     
@@ -37,7 +37,7 @@ char *read_n_value(){
         exit(1);
     }
 
-    fscanf(fptr,"%s", n1);
+    fscanf(fptr,"%s", n);
 
     fclose(fptr);
 
@@ -52,7 +52,7 @@ int main()
     
     printf("value b = %s",b);
     printf("\n");
-    printf("value n = %s",n1);
+    printf("value n = %s",n);
     printf("\n");
   
    return 0;
