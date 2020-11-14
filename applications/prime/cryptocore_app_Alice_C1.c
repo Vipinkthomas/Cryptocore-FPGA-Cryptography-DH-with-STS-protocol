@@ -17,6 +17,14 @@
 #include <inttypes.h>
 
 #include "../../include/cryptocore_ioctl_header.h"
+
+/* Prototypes for functions used to access physical memory addresses */
+int open_physical (int);
+void close_physical (int);
+
+char b[130];
+char n[130];
+
 char *read_b_value(){
 
     
@@ -74,12 +82,7 @@ char *read_n_value(){
 
 
 
-/* Prototypes for functions used to access physical memory addresses */
-int open_physical (int);
-void close_physical (int);
 
-char b[130];
-char n[130];
 
 int main(void)
 {
