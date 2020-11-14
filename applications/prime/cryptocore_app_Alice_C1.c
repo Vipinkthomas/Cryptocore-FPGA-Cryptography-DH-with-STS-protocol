@@ -2,8 +2,8 @@
 #include <stdlib.h>
 
 
-__u32 b[130];
-__u32 n[130];
+char b[130];
+char n[130];
 // __u32 n1[128];
 char *read_b_value(){
 
@@ -17,8 +17,8 @@ char *read_b_value(){
         exit(1);
     }
 
-    // fscanf(fptr,"%s", b);
-    fscanf(fptr,"%08x", b);
+    fscanf(fptr,"%s", b);
+    // fscanf(fptr,"%08x", b);
 
     // printf("Value of b=%s", b);
     fclose(fptr);
@@ -38,8 +38,8 @@ char *read_n_value(){
         exit(1);
     }
 
-    // fscanf(fptr,"%s", n);
-    fscanf(fptr,"%08x", n);
+    fscanf(fptr,"%s", n);
+    // fscanf(fptr,"%08x", n);
 
     fclose(fptr);
 
@@ -52,7 +52,7 @@ int main()
     read_b_value();
     read_n_value();
     
-    printf("%08x",b);
+    printf("%08x",b[2]);
     printf("\n");
     // printf("value n = %s",n);
     printf("\n");
