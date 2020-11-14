@@ -164,10 +164,10 @@ int main(void)
 	// 	}
 	// }	
 
-	printf("B: 0x");
-	for(i=0; i<ModExp_512_test.prec/32; i++){
-		printf("%08x", ModExp_512_test.b[i]);
-	}
+	printf("B: 0x",b);
+	// for(i=0; i<ModExp_512_test.prec/32; i++){
+	// 	printf("%08x", ModExp_512_test.b[i]);
+	// }
 	printf("\n\n");
 	
 	// Read random e word from TRNG FIRO and clear msb
