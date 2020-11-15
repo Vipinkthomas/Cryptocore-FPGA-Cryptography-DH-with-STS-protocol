@@ -1,66 +1,3 @@
-// #include <stdio.h>
-// #include <stdlib.h>
-
-
-// char b1[129];
-// char n1[129];
-
-// char *read_b_value(){
-
-    
-//     FILE *fptr;
-
-//     if ((fptr = fopen("/home/data_user/b.txt","r")) == NULL){
-//         printf("Error! opening file");
-
-//         // Program exits if the file pointer returns NULL.
-//         exit(1);
-//     }
-    
-
-//     fscanf(fptr,"%s", b1);
-//     // fscanf(fptr,"%08x", b);
-
-//     // printf("Value of b=%s", b);
-//     fclose(fptr);
-
-    
-
-// }
-// char *read_n_value(){
-
-    
-//     FILE *fptr;
-
-//     if ((fptr = fopen("/home/data_user/n.txt","r")) == NULL){
-//         printf("Error! opening file");
-
-//         // Program exits if the file pointer returns NULL.
-//         exit(1);
-//     }
-
-//     // fscanf(fptr,"%s", n1);
-//     fscanf(fptr,"%s", n1);
-
-//     fclose(fptr);
-
-// }
-
-// int main()
-// {   
-//     read_b_value();
-//     read_n_value();
-    
-//     // printf("%08x",b[2]);
-//     printf("\n");
-//     int num = (int)strtol(n1, NULL, 16); 
-//     printf("%X",num);
-//     // printf("\n");
-// 	// printf(b1);
-  
-//    return 0;
-// }
-
 #include <asm-generic/fcntl.h>
 #include <stdio.h>
 #include <time.h>
@@ -80,7 +17,7 @@ void close_physical (int);
 
 int main(void)
 {
-    char input[] = "";
+    char b_string[] = "";
 
     FILE *fp = fopen("/home/data_user/b.txt", "r");
     if (fp == NULL) {
@@ -88,31 +25,31 @@ int main(void)
         return 0;
     }
 
-    fscanf(fp,"%s", input);
+    fscanf(fp,"%s", b_string);
 
-    __u32 *output, *temp;
+    __u32 *output_b, *temp;
     char *tok;
     int elements = 0;
-    int len = 1 + strlen(input) / 2;            // estimate max num of elements
-    output = malloc(len * sizeof(*output));
+    int len = 1 + strlen(b_string) / 2;            // estimate max num of elements
+    output_b = malloc(len * sizeof(*output));
 
-    if (output == NULL)
+    if (output_b == NULL)
         exit(-1);                               // memory alloc error
 
     tok = strtok(input, ",");                  // parse the string
     while (tok != NULL) {
         if (elements >= len)
             exit(-2);                           // error in length assumption
-        if (1 != sscanf(tok, "%x", output + elements))
+        if (1 != sscanf(tok, "%x", output_b + elements))
             exit(-3);                           // error in string format
         elements++;
         tok = strtok(NULL, ",");
     }
 
-    temp = realloc(output, elements * sizeof(*output)); // resize the array
+    temp = realloc(output_b, elements * sizeof(*output_b)); // resize the array
     if (temp == NULL)
         exit(-4);                               // error in reallocating memory
-    output = temp;
+    output_b = temp;
 
 
 	int dd = -1;
@@ -179,19 +116,13 @@ int main(void)
 	};
 	
 	
-	// Read random b from TRNG FIRO
+	// Read random b from file's output
 	i = 0;
 	while (i < ModExp_512_test.prec/32) {
-		// ret_val = ioctl(dd, IOCTL_READ_TRNG_FIFO, &trng_val);
-		// if(ret_val == 0) {
-			ModExp_512_test.b[i] = output[i];
-			i++;
-		// }
-		// } else if (ret_val == -EAGAIN) {
-		// 	printf("TRNG FIFO empty\n");
-		// } else {
-		// 	printf("Error occured\n");
-		// }
+		
+		ModExp_512_test.b[i] = output_b[i];
+		i++;
+		
 	}	
 
 	printf("B: 0x");
