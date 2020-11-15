@@ -179,7 +179,7 @@ int main(void)
 	};
 	
 	
-	Read random b from TRNG FIRO
+	// Read random b from TRNG FIRO
 	i = 0;
 	while (i < ModExp_512_test.prec/32) {
 		// ret_val = ioctl(dd, IOCTL_READ_TRNG_FIFO, &trng_val);
