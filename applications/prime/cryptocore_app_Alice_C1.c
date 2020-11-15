@@ -61,7 +61,40 @@ int main(void)
         exit(-4);                               // error in reallocating memory
     output_b = temp;
 
+	/////
+	//READ n from the file n.txt inside data_user
+    FILE *fp1 = fopen("/home/data_user/n.txt", "r");
+    if (fp1 == NULL) {
+        fprintf(stderr, "Can't read 1.txt");
+        return 0;
+    }
 
+    fscanf(fp1,"%s", n_string);
+
+    __u32 *output_n, *temp_n;
+    char *tok_n;
+    int elements_n = 0;
+    int len_n = 1 + strlen(n_string) / 2;            // estimate max num of elements
+    output_n = malloc(len * sizeof(*output_n));
+
+    if (output_n == NULL)
+        exit(-1);                               // memory alloc error
+
+    tok_n = strtok(n_string, ",");                  // parse the string
+    while (tok_n != NULL) {
+        if (elements_n >= len_n)
+            exit(-2);                           // error in length assumption
+        if (1 != sscanf(tok_n, "%x", output_n + elements_n))
+            exit(-3);                           // error in string format
+        elements_n++;
+        tok_n = strtok(NULL, ",");
+    }
+
+    temp_n = realloc(output_n, elements_n * sizeof(*output_n)); // resize the array
+    if (temp_n == NULL)
+        exit(-4);                               // error in reallocating memory
+    output_n = temp_n;
+	////
 	struct timespec tstart={0,0}, tend={0,0};
 
 	if ((dd = open_physical (dd)) == -1)
@@ -121,6 +154,15 @@ int main(void)
 	while (i < ModExp_512_test.prec/32) {
 		
 		ModExp_512_test.b[i] = output_b[i];
+		i++;
+		
+	}	
+
+	// Read n from file's output
+	i = 0;
+	while (i < ModExp_512_test.prec/32) {
+		
+		ModExp_512_test.n[i] = output_n[i];
 		i++;
 		
 	}	
