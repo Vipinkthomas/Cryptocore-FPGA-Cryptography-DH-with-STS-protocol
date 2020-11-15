@@ -46,7 +46,7 @@ int main(void)
     if (output_b == NULL)
         exit(-1);                               // memory alloc error
 
-    tok = strtok(input, ",");                  // parse the string
+    tok = strtok(b_string, ",");                  // parse the string
     while (tok != NULL) {
         if (elements >= len)
             exit(-2);                           // error in length assumption
@@ -131,48 +131,6 @@ int main(void)
 	}
 	printf("\n\n");
 	
-
-	// READ n from n.txt inside data_user
-	FILE *fp = fopen("/home/data_user/n.txt", "r");
-    if (fp == NULL) {
-        fprintf(stderr, "Can't read 1.txt");
-        return 0;
-    }
-
-    fscanf(fp,"%s", n_string);
-
-    __u32 *output_n, *temp;
-    char *tok;
-    int elements = 0;
-    int len = 1 + strlen(n_string) / 2;            // estimate max num of elements
-    output_n = malloc(len * sizeof(*output_n));
-
-    if (output_n == NULL)
-        exit(-1);                               // memory alloc error
-
-    tok = strtok(n_string, ",");                  // parse the string
-    while (tok != NULL) {
-        if (elements >= len)
-            exit(-2);                           // error in length assumption
-        if (1 != sscanf(tok, "%x", output_n + elements))
-            exit(-3);                           // error in string format
-        elements++;
-        tok = strtok(NULL, ",");
-    }
-
-    temp = realloc(output_n, elements * sizeof(*output_n)); // resize the array
-    if (temp == NULL)
-        exit(-4);                               // error in reallocating memory
-    output_n = temp;
-
-	// Read n from file's output
-	i = 0;
-	while (i < ModExp_512_test.prec/32) {
-		
-		ModExp_512_test.n[i] = output_n[i];
-		i++;
-		
-	}	
 
 	// Read random e word from TRNG FIRO and clear msb
 	i = 0;
