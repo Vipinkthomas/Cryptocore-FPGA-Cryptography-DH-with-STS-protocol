@@ -60,8 +60,8 @@ def Prime_ModExp(b,e,n,prec):
 	return(c)
 
 def generatorValid(b,n,prec,e):
-	q=(b-0x1)/0x2
-	if Prime_ModExp(b,2*q,n,prec)==1:
+	q=(b-1)/2
+	if Prime_ModExp(b,2 * q,n,prec)==1:
 		print("first step passed")
 	elif Prime_ModExp(b,q,n,prec)!=1:
 		print("second step passed")
