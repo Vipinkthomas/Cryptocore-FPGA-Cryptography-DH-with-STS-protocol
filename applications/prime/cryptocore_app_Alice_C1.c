@@ -195,7 +195,7 @@ int main(void)
 
 	printf("B: 0x");
 	for(i=0; i<ModExp_512_test.prec/32; i++){
-		printf("%08x", ModExp_512_test.b[i]);
+		printf("%08x", ModExp_512_test.output[i]);
 	}
 	printf("\n\n");
 	
