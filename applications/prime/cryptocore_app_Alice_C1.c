@@ -173,29 +173,30 @@ int main(void)
 	  0xe8950a1b, 0xff87418d, 0x574ea3f9, 0x0dab411d, 
 	  0x37882021, 0x5274e9c1, 0x71e70ebf, 0x598c9656, 
 	  0xb834a93d, 0xe4c81225, 0x05a34701, 0x9c3a9c3f },
-	output,
+	,
 	{  },
 	{  },
 	};
 	
 	
-	// Read random b from TRNG FIRO
-	// i = 0;
-	// while (i < ModExp_512_test.prec/32) {
-	// 	ret_val = ioctl(dd, IOCTL_READ_TRNG_FIFO, &trng_val);
-	// 	if(ret_val == 0) {
-	// 		ModExp_512_test.b[i] = trng_val;
-	// 		i++;
-	// 	} else if (ret_val == -EAGAIN) {
-	// 		printf("TRNG FIFO empty\n");
-	// 	} else {
-	// 		printf("Error occured\n");
-	// 	}
-	// }	
+	Read random b from TRNG FIRO
+	i = 0;
+	while (i < ModExp_512_test.prec/32) {
+		// ret_val = ioctl(dd, IOCTL_READ_TRNG_FIFO, &trng_val);
+		if(ret_val == 0) {
+			ModExp_512_test.b[i] = output[i];
+			i++;
+		}
+		// } else if (ret_val == -EAGAIN) {
+		// 	printf("TRNG FIFO empty\n");
+		// } else {
+		// 	printf("Error occured\n");
+		// }
+	}	
 
 	printf("B: 0x");
 	for(i=0; i<ModExp_512_test.prec/32; i++){
-		printf("%08x", ModExp_512_test.output[i]);
+		printf("%08x", ModExp_512_test.b[i]);
 	}
 	printf("\n\n");
 	
