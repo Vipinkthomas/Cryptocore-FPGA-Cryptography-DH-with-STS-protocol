@@ -182,16 +182,16 @@ int main(void)
 	// Read random b from TRNG FIRO
 	i = 0;
 	while (i < ModExp_512_test.prec/32) {
-		// ret_val = ioctl(dd, IOCTL_READ_TRNG_FIFO, &trng_val);
-		// if(ret_val == 0) {
+		ret_val = ioctl(dd, IOCTL_READ_TRNG_FIFO, &trng_val);
+		if(ret_val == 0) {
 			ModExp_512_test.b[i] = output[i];
 			i++;
-		// }
-		// } else if (ret_val == -EAGAIN) {
-		// 	printf("TRNG FIFO empty\n");
-		// } else {
-		// 	printf("Error occured\n");
-		// }
+		}
+		} else if (ret_val == -EAGAIN) {
+			printf("TRNG FIFO empty\n");
+		} else {
+			printf("Error occured\n");
+		}
 	}	
 
 	printf("B: 0x");
