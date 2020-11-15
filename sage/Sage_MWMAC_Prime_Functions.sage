@@ -59,6 +59,14 @@ def Prime_ModExp(b,e,n,prec):
 
 	return(c)
 
+def generatorValid(b,n,prec,e):
+	q=(b-0x1)/0x2
+	if Prime_ModExp(b,2q,n,prec)==1:
+		if Prime_ModExp(b,q,n,prec)!=1:
+			if Prime_ModExp(b,2,n,prec)!=1:
+				print(b+"is a generator")
+
+
 def Prime_ModRed(a,n,prec):
 
 	c = a % n
