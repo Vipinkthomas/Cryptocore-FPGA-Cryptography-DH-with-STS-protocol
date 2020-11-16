@@ -62,8 +62,8 @@ def Prime_ModExp(b,e,n,prec):
 def generatorValid(b,n,prec,e):
 	try:
 		q=(b-1)/2
-		if Prime_ModExp(b,q,n,prec)!=1:
-			if Prime_ModExp(b,2,n,prec)!=1:
+		if Prime_ModExp(b,q,n,prec)!=0x1:
+			if Prime_ModExp(b,2,n,prec)!=0x1:
 				return(b)
 	except TypeError:
 		print(TypeError)
