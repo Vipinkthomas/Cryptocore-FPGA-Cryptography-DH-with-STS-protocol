@@ -65,7 +65,7 @@ def generatorValid(b,n,prec,e):
 		if Prime_ModExp(b,2,n,prec)!=1:
 			return (b+"is a generator")
 	except TypeError:
-		print(arith_error_message(x,y,op))
+		print(TypeError)
 
 def Prime_ModRed(a,n,prec):
 
