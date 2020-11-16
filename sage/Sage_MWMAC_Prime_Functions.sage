@@ -60,10 +60,12 @@ def Prime_ModExp(b,e,n,prec):
 	return(c)
 
 def generatorValid(b,n,prec,e):
-	q=(b-1)/2
-	if Prime_ModExp(b,2,n,prec)!=1:
-		return (b+"is a generator")
-
+	try:
+		q=(b-1)/2
+		if Prime_ModExp(b,2,n,prec)!=1:
+			return (b+"is a generator")
+	except TypeError:
+		print(arith_error_message(x,y,op))
 
 def Prime_ModRed(a,n,prec):
 
