@@ -234,8 +234,8 @@ int main(void)
 
     // unsigned int hex = 0xABC123FF;
     char hexString[256];
-    for(int i=0 ; i< sizeof(c)/sizeof(c[0]); i++){
-        sprintf(hexString, "%08X,", c[i]);
+    for(int x=0 ; x< sizeof(c)/sizeof(c[0]); x++){
+        sprintf(hexString, "%08X,", c[x]);
         fprintf(f_write,"%s",hexString);
     }
     
