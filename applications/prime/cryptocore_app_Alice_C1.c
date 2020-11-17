@@ -226,7 +226,7 @@ int main(void)
 	}
 	// write c to c1.txt
 
-	FILE *f_write = fopen("/home/majd/Desktop/c1.txt", "w");
+	FILE *f_write = fopen("/home/data_user/c1.txt", "w");
     // fwrite(*arr, sizeof(char), sizeof(*arr), f);
     // fclose(f);
     // return 0;
