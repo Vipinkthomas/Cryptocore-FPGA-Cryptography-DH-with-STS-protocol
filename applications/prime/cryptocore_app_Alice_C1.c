@@ -224,6 +224,22 @@ int main(void)
 	if(ret_val != 0) {
 		printf("Error occured\n");
 	}
+	// write c to c1.txt
+
+	FILE *f_write = fopen("/home/majd/Desktop/c1.txt", "w");
+    // fwrite(*arr, sizeof(char), sizeof(*arr), f);
+    // fclose(f);
+    // return 0;
+    // int a[5]={5,21,456,1,3};
+
+    // unsigned int hex = 0xABC123FF;
+    char hexString[256];
+    for(int i=0 ; i< sizeof(c)/sizeof(c[0]); i++){
+        sprintf(hexString, "%08X,", c[i]);
+        fprintf(f_write,"%s",hexString);
+    }
+    
+    // printf("%s", hexString );
 	clock_gettime(CLOCK_MONOTONIC, &tend);
 
 	printf("C = ModExp(R,R,E,B,P): 0x");
