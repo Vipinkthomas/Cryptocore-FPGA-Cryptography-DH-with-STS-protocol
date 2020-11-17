@@ -228,7 +228,7 @@ int main(void)
 
 	FILE *f_write = fopen("/home/data_user/c1.txt", "w");
     
-    char hexString[140]="";
+    char hexString[]="";
 	int x;
     for(x=0 ; x< sizeof(ModExp_512_test.c)/sizeof(ModExp_512_test.c[0]); x++){
         sprintf(hexString, "%08x,", ModExp_512_test.c[x]);
