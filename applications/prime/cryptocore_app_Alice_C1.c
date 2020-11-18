@@ -231,6 +231,7 @@ int main(void)
     char hexString [128]= "";
 	int x;
       for(x=0 ; x< ModExp_512_test.prec/32; x++){
+		hexString [128]= "";
         sprintf(hexString, "%08x,", ModExp_512_test.c[x]);
         fprintf(f_write,"%s",hexString);
     }
