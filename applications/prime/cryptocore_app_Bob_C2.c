@@ -197,7 +197,7 @@ int main(void)
 	if(ret_val != 0) {
 		printf("Error occured\n");
 	}
-	// write c to c1.txt
+	// write c to c2.txt
 
 	FILE *f_write = fopen("/home/data_user/c2.txt", "w");
     
