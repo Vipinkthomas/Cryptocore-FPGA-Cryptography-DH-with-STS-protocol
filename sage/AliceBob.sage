@@ -3,20 +3,20 @@ def Alice1(b,n,prec):
 	ca911ec8b249caad3094f2f51
 	if generatorValid(b,e1,n,prec):
 		c1=Prime_ModExp(b,e1,n,prec)
-			return(c1)
+		return(c1)
 def Bob1(b,n,prec):
 	e2=0x0ff8ee958b0897a44a4a38f34da713c368f7b7c880e2fbcdd0f50460e1e7471d5fd20690ea38c7a012a4075248bfae37690d523
 	ca911ec8b249caad3094f2f51
 	if generatorValid(b,e2,n,prec):
 		c2=Prime_ModExp(b,e2,n,prec)
-			return(c2)
+		return(c2)
 def Alice2(b,c2,n,prec):
 	shared_key=Prime_ModExp(b,c2,n,prec)
-		return(shared_key)
+	return(shared_key)
 
 def Bob2(b,c1,n,prec):
 	shared_key=Prime_ModExp(b,c1,n,prec)
-		return(shared_key)
+	return(shared_key)
 
 
 def Prime_ModExp(b,e,n,prec):
