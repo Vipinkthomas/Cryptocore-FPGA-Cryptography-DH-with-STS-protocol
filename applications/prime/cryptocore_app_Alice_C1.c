@@ -8,7 +8,7 @@
 #include <getopt.h>
 #include <stdint.h>
 #include <inttypes.h>
-#include <conio.h>
+
 
 #include "../../include/cryptocore_ioctl_header.h"
 
