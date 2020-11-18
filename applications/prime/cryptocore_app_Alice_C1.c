@@ -1,3 +1,4 @@
+
 #include <asm-generic/fcntl.h>
 #include <stdio.h>
 #include <time.h>
@@ -15,7 +16,7 @@
 /* Prototypes for functions used to access physical memory addresses */
 int open_physical (int);
 void close_physical (int);
-__u32 * Fileread(FILE *fp);
+void Fileread(FILE *,__u32 *);
 
 int main(void)
 {	
@@ -36,7 +37,7 @@ int main(void)
         return 0;
     }
 
-    output_b=Fileread(fp);
+    Fileread(fp,output_b);
 
 	/////
 	//READ n from the file n.txt inside data_user
@@ -46,7 +47,7 @@ int main(void)
         return 0;
     }
 
-    output_n=Fileread(fp1);
+    Fileread(fp1,output_n);
 	////
 	struct timespec tstart={0,0}, tend={0,0};
 
@@ -205,7 +206,7 @@ int main(void)
       fin = fopen("/home/data_user/c2.txt", "r");
 	}
 
-	output_c2=Fileread(fp1);
+	Fileread(fp1,output_c2);
 	i = 0;
 	while (i < ModExp_512_test.prec/32) {
 		
@@ -264,12 +265,12 @@ void close_physical (int dd)
 {
    close (dd);
 }
-__u32 * Fileread(FILE *fp)
+void Fileread(FILE *fp,__u32 *output)
 {	
 	char n_string[] = "";
 	fscanf(fp,"%s", n_string);
 
-    __u32 *output_n1, *temp_n;
+    __u32 *output_n, *temp_n;
     char *tok_n;
     int elements_n = 0;
     int len_n = 1 + strlen(n_string) / 2;            // estimate max num of elements
@@ -291,6 +292,6 @@ __u32 * Fileread(FILE *fp)
     temp_n = realloc(output_n1, elements_n * sizeof(*output_n1)); // resize the array
     if (temp_n == NULL)
         exit(-4);                               // error in reallocating memory
-    output_n1 = temp_n;
-	return output_n1;
+    output_n1= temp_n;
+	output=output_n;
 }
