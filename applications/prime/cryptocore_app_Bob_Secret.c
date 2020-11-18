@@ -36,7 +36,7 @@ int main(void)
         return 0;
     }
 
-    fscanf(fp,"%s", b_string);
+    fscanf(fp,"%s", c_string);
 
     __u32 *output_c, *temp;
     char *tok;
