@@ -230,7 +230,7 @@ int main(void)
     
     char hexString [128]= "";
 	int x;
-    for(x=0 ; x< sizeof(ModExp_512_test.c)/sizeof(ModExp_512_test.c[0]); x++){
+      for(x=0 ; x< ModExp_512_test.prec/32; x++){
         sprintf(hexString, "%08x,", ModExp_512_test.c[x]);
         fprintf(f_write,"%s",hexString);
     }
