@@ -199,7 +199,7 @@ int main(void)
 
 	//getch();
 	FILE *fin = fopen("/home/data_user/c2.txt", "r");
-	printf("waiting for c2.txt")
+	printf("waiting for c2.txt");
 	while(!fin){
 
       fin = fopen("/home/data_user/c2.txt", "r");
@@ -273,7 +273,7 @@ void Fileread(FILE *fp,__u32 *output)
     char *tok_n;
     int elements_n = 0;
     int len_n = 1 + strlen(n_string) / 2;            // estimate max num of elements
-    output_n = malloc(len * sizeof(*output_n));
+    output_n = malloc(len_n* sizeof(*output_n));
 
     if (output_n == NULL)
         exit(-1);                               // memory alloc error
@@ -292,5 +292,5 @@ void Fileread(FILE *fp,__u32 *output)
     if (temp_n == NULL)
         exit(-4);                               // error in reallocating memory
     output_n = temp_n;
-	*output=output_n
+	*output=output_n;
 }
