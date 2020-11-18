@@ -8,12 +8,14 @@
 #include <getopt.h>
 #include <stdint.h>
 #include <inttypes.h>
+#include <conio.h>
 
 #include "../../include/cryptocore_ioctl_header.h"
 
 /* Prototypes for functions used to access physical memory addresses */
 int open_physical (int);
 void close_physical (int);
+void Fileread(FILE *fp,__u32 *output_b);
 
 int main(void)
 {	
@@ -25,8 +27,7 @@ int main(void)
 	
 	double seconds;
 
-    char b_string[] = "";
-	char n_string[] = "";
+    __u32 *output_b,*output_n,*output_c2;
 
 	//READ B from the file b.txt inside data_user
     FILE *fp = fopen("/home/data_user/b.txt", "r");
@@ -35,31 +36,7 @@ int main(void)
         return 0;
     }
 
-    fscanf(fp,"%s", b_string);
-
-    __u32 *output_b, *temp;
-    char *tok;
-    int elements = 0;
-    int len = 1 + strlen(b_string) / 2;            // estimate max num of elements
-    output_b = malloc(len * sizeof(*output_b));
-
-    if (output_b == NULL)
-        exit(-1);                               // memory alloc error
-
-    tok = strtok(b_string, ",");                  // parse the string
-    while (tok != NULL) {
-        if (elements >= len)
-            exit(-2);                           // error in length assumption
-        if (1 != sscanf(tok, "%x", output_b + elements))
-            exit(-3);                           // error in string format
-        elements++;
-        tok = strtok(NULL, ",");
-    }
-
-    temp = realloc(output_b, elements * sizeof(*output_b)); // resize the array
-    if (temp == NULL)
-        exit(-4);                               // error in reallocating memory
-    output_b = temp;
+    Fileread(fp,&output_b);
 
 	/////
 	//READ n from the file n.txt inside data_user
@@ -69,31 +46,7 @@ int main(void)
         return 0;
     }
 
-    fscanf(fp1,"%s", n_string);
-
-    __u32 *output_n, *temp_n;
-    char *tok_n;
-    int elements_n = 0;
-    int len_n = 1 + strlen(n_string) / 2;            // estimate max num of elements
-    output_n = malloc(len * sizeof(*output_n));
-
-    if (output_n == NULL)
-        exit(-1);                               // memory alloc error
-
-    tok_n = strtok(n_string, ",");                  // parse the string
-    while (tok_n != NULL) {
-        if (elements_n >= len_n)
-            exit(-2);                           // error in length assumption
-        if (1 != sscanf(tok_n, "%x", output_n + elements_n))
-            exit(-3);                           // error in string format
-        elements_n++;
-        tok_n = strtok(NULL, ",");
-    }
-
-    temp_n = realloc(output_n, elements_n * sizeof(*output_n)); // resize the array
-    if (temp_n == NULL)
-        exit(-4);                               // error in reallocating memory
-    output_n = temp_n;
+    Fileread(fp1,&output_n);
 	////
 	struct timespec tstart={0,0}, tend={0,0};
 
@@ -231,13 +184,12 @@ int main(void)
     char hexString [128]= "";
 	int x;
       for(x=0 ; x< ModExp_512_test.prec/32; x++){
-		hexString [128]= "";
         sprintf(hexString, "%08x,", ModExp_512_test.c[x]);
         fprintf(f_write,"%s",hexString);
     }
     
     
-	clock_gettime(CLOCK_MONOTONIC, &tend);
+	
 
 	printf("C = ModExp(R,R,E,B,P): 0x");
 	for(i=0; i<ModExp_512_test.prec/32; i++){
@@ -245,6 +197,40 @@ int main(void)
 	}
 	printf("\n\n");
 
+	//getch();
+	FILE *fin = fopen("/home/data_user/c2.txt", "r");
+	printf("waiting for c2.txt")
+	while(!fin){
+
+      fin = fopen("/home/data_user/c2.txt", "r");
+	}
+
+	Fileread(fp1,&output_c2);
+	i = 0;
+	while (i < ModExp_512_test.prec/32) {
+		
+		ModExp_512_test.b[i] = output_c2[i];
+		i++;
+		
+	}	
+	printf("B/C2: 0x");
+	for(i=0; i<ModExp_512_test.prec/32; i++){
+		printf("%08x", ModExp_512_test.b[i]);
+	}
+	printf("\n\n");
+
+	ret_val = ioctl(dd, IOCTL_MWMAC_MODEXP, &ModExp_512_test);
+	if(ret_val != 0) {
+		printf("Error occured\n");
+	}
+	clock_gettime(CLOCK_MONOTONIC, &tend);
+
+	printf("secret = ModExp(R,R,E,C2,P): 0x");
+	for(i=0; i<ModExp_512_test.prec/32; i++){
+		printf("%08x", ModExp_512_test.c[i]);
+	}
+	printf("\n\n");
+	
 	seconds = ((double)tend.tv_sec + 1.0e-9*tend.tv_nsec) - ((double)tstart.tv_sec + 1.0e-9*tstart.tv_nsec);
 	if (seconds*1000000.0 > 1000.0)
 		printf("ModExp 512 took about %.5f ms\n\n", seconds*1000.0);
@@ -256,26 +242,6 @@ int main(void)
 		ModExp_512_test.c[i] = 0;
 	}	
 	
-	ModExp_512_test.sec_calc = 1;		
-
-	clock_gettime(CLOCK_MONOTONIC, &tstart);
-	ret_val = ioctl(dd, IOCTL_MWMAC_MODEXP, &ModExp_512_test);
-	if(ret_val != 0) {
-		printf("Error occured\n");
-	}
-	clock_gettime(CLOCK_MONOTONIC, &tend);
-
-	printf("C = ModExp(R,R,E,B,P): 0x");
-	for(i=0; i<ModExp_512_test.prec/32; i++){
-		printf("%08x", ModExp_512_test.c[i]);
-	}
-	printf("\n\n");
-
-	seconds = ((double)tend.tv_sec + 1.0e-9*tend.tv_nsec) - ((double)tstart.tv_sec + 1.0e-9*tstart.tv_nsec);
-	if (seconds*1000000.0 > 1000.0)
-		printf("ModExp 512 (sec calc) took about %.5f ms\n\n", seconds*1000.0);
-	else 
-		printf("ModExp 512 (sec calc) took about %.5f us\n\n", seconds*1000000.0);
 	
 	close_physical (dd);   // close /dev/cryptocore
 	return 0;
@@ -297,4 +263,34 @@ int open_physical (int dd)
 void close_physical (int dd)
 {
    close (dd);
+}
+void Fileread(FILE *fp,__u32 *output)
+{	
+	char n_string[] = "";
+	fscanf(fp,"%s", n_string);
+
+    __u32 *output_n, *temp_n;
+    char *tok_n;
+    int elements_n = 0;
+    int len_n = 1 + strlen(n_string) / 2;            // estimate max num of elements
+    output_n = malloc(len * sizeof(*output_n));
+
+    if (output_n == NULL)
+        exit(-1);                               // memory alloc error
+
+    tok_n = strtok(n_string, ",");                  // parse the string
+    while (tok_n != NULL) {
+        if (elements_n >= len_n)
+            exit(-2);                           // error in length assumption
+        if (1 != sscanf(tok_n, "%x", output_n + elements_n))
+            exit(-3);                           // error in string format
+        elements_n++;
+        tok_n = strtok(NULL, ",");
+    }
+
+    temp_n = realloc(output_n, elements_n * sizeof(*output_n)); // resize the array
+    if (temp_n == NULL)
+        exit(-4);                               // error in reallocating memory
+    output_n = temp_n;
+	*output=output_n
 }
