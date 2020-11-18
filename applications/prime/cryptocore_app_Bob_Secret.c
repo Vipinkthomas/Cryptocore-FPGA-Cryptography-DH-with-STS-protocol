@@ -25,10 +25,11 @@ int main(void)
 	
 	double seconds;
 
-    char b_string[] = "";
+    char c_string[] = "";
 	char n_string[] = "";
+	
 
-	//READ B from the file b.txt inside data_user
+	//READ C1 for alice from the file c1.txt inside data_user
     FILE *fp = fopen("/home/data_user/c1.txt", "r");
     if (fp == NULL) {
         fprintf(stderr, "Can't read 1.txt");
@@ -37,29 +38,29 @@ int main(void)
 
     fscanf(fp,"%s", b_string);
 
-    __u32 *output_b, *temp;
+    __u32 *output_c, *temp;
     char *tok;
     int elements = 0;
-    int len = 1 + strlen(b_string) / 2;            // estimate max num of elements
-    output_b = malloc(len * sizeof(*output_b));
+    int len = 1 + strlen(c_string) / 2;            // estimate max num of elements
+    output_c = malloc(len * sizeof(*output_c));
 
-    if (output_b == NULL)
+    if (output_c == NULL)
         exit(-1);                               // memory alloc error
 
-    tok = strtok(b_string, ",");                  // parse the string
+    tok = strtok(c_string, ",");                  // parse the string
     while (tok != NULL) {
         if (elements >= len)
             exit(-2);                           // error in length assumption
-        if (1 != sscanf(tok, "%x", output_b + elements))
+        if (1 != sscanf(tok, "%x", output_c + elements))
             exit(-3);                           // error in string format
         elements++;
         tok = strtok(NULL, ",");
     }
 
-    temp = realloc(output_b, elements * sizeof(*output_b)); // resize the array
+    temp = realloc(output_c, elements * sizeof(*output_c)); // resize the array
     if (temp == NULL)
         exit(-4);                               // error in reallocating memory
-    output_b = temp;
+    output_c = temp;
 
 	/////
 	//READ n from the file n.txt inside data_user
@@ -95,6 +96,7 @@ int main(void)
         exit(-4);                               // error in reallocating memory
     output_n = temp_n;
 	////
+
 	struct timespec tstart={0,0}, tend={0,0};
 
 	if ((dd = open_physical (dd)) == -1)
@@ -144,22 +146,17 @@ int main(void)
 	0,
 	{  },
 	{  },
-	{ 0x0ff8ee95,0x8b0897a4,0x4a4a38f3,0x4da713c3,
-	0x68f7b7c8,0x80e2fbcd,0xd0f50460,0xe1e7471d,
-	0x5fd20690,0xea38c7a0,0x12a40752,0x48bfae37,
-	0x690d523c,0xa911ec8b,0x249caad3,0x094f2f51 },
+	{0x55fc033d,0x2a509818,0x9cc76324,
+	  0xca0e2454,0x88c558f5,0x5ab17e3a,
+	  0x8d924c53,0x0e74dbb9,0xf1c0ca6e,
+	  0x084efe98,0x325098ac,0x638fc524,
+	  0x15e78976,0xb76ea731,0x6cd81723,
+	  0x29eef62a},
 	{  },
 	};
 	
 	
-	// Read  b from file's output
-	i = 0;
-	while (i < ModExp_512_test.prec/32) {
-		
-		ModExp_512_test.b[i] = output_b[i];
-		i++;
-		
-	}	
+	
 
 	// Read n from file's output
 	i = 0;
@@ -170,41 +167,21 @@ int main(void)
 		
 	}	
 
+	i = 0;
+	while (i < ModExp_512_test.prec/32) {
+		
+		ModExp_512_test.b[i] = output_c[i];
+		i++;
+		
+	}
+
 	printf("B: 0x");
 	for(i=0; i<ModExp_512_test.prec/32; i++){
 		printf("%08x", ModExp_512_test.b[i]);
 	}
 	printf("\n\n");
 	
-
-	// Read random e word from TRNG FIRO and clear msb
-	// i = 0;
-	// while (i < 1) {
-	// 	ret_val = ioctl(dd, IOCTL_READ_TRNG_FIFO, &trng_val);
-	// 	if(ret_val == 0) {
-	// 		trng_val &= 0x7FFFFFFF;
-	// 		ModExp_512_test.e[0] = trng_val;
-	// 		i++;
-	// 	} else if (ret_val == -EAGAIN) {
-	// 		printf("TRNG FIFO empty\n");
-	// 	} else {
-	// 		printf("Error occured\n");
-	// 	}
-	// }	
-
-	// // Read remaining random e words from TRNG FIRO
-	// i = 1;
-	// while (i < ModExp_512_test.prec/32) {
-	// 	ret_val = ioctl(dd, IOCTL_READ_TRNG_FIFO, &trng_val);
-	// 	if(ret_val == 0) {
-	// 		ModExp_512_test.e[i] = trng_val;
-	// 		i++;
-	// 	} else if (ret_val == -EAGAIN) {
-	// 		printf("TRNG FIFO empty\n");
-	// 	} else {
-	// 		printf("Error occured\n");
-	// 	}
-	// }	
+	
 	
 	printf("E: 0x");
 	for(i=0; i<ModExp_512_test.prec/32; i++){
@@ -224,16 +201,16 @@ int main(void)
 	if(ret_val != 0) {
 		printf("Error occured\n");
 	}
-	// write c to c1.txt
+	// // write c to c1.txt
 
-	FILE *f_write = fopen("/home/data_user/bobsecret.txt", "w");
+	// FILE *f_write = fopen("/home/data_user/bobsecret.txt", "w");
     
-    char hexString [128]= "";
-	int x;
-    for(x=0 ; x< sizeof(ModExp_512_test.c)/sizeof(ModExp_512_test.c[0]); x++){
-        sprintf(hexString, "%08x,", ModExp_512_test.c[x]);
-        fprintf(f_write,"%s",hexString);
-    }
+    // char hexString [128]= "";
+	// int x;
+    // for(x=0 ; x< sizeof(ModExp_512_test.c)/sizeof(ModExp_512_test.c[0]); x++){
+    //     sprintf(hexString, "%08x,", ModExp_512_test.c[x]);
+    //     fprintf(f_write,"%s",hexString);
+    // }
     
     
 	clock_gettime(CLOCK_MONOTONIC, &tend);
