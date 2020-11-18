@@ -226,14 +226,14 @@ int main(void)
 	}
 	// write c to c1.txt
 
-	//FILE *f_write = fopen("/home/data_user/c1.txt", "w");
+	FILE *f_write = fopen("/home/data_user/bobsecret.txt", "w");
     
-   // char hexString [128]= "";
-	//int x;
-   // for(x=0 ; x< sizeof(ModExp_512_test.c)/sizeof(ModExp_512_test.c[0]); x++){
-  //      sprintf(hexString, "%08x,", ModExp_512_test.c[x]);
-   //     fprintf(f_write,"%s",hexString);
-  //  }
+    char hexString [128]= "";
+	int x;
+    for(x=0 ; x< sizeof(ModExp_512_test.c)/sizeof(ModExp_512_test.c[0]); x++){
+        sprintf(hexString, "%08x,", ModExp_512_test.c[x]);
+        fprintf(f_write,"%s",hexString);
+    }
     
     
 	clock_gettime(CLOCK_MONOTONIC, &tend);
