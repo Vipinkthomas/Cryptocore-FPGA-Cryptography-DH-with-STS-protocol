@@ -15,7 +15,7 @@
 /* Prototypes for functions used to access physical memory addresses */
 int open_physical (int);
 void close_physical (int);
-void Fileread(FILE *fp);
+__u32 * Fileread(FILE *fp);
 
 int main(void)
 {	
@@ -264,7 +264,7 @@ void close_physical (int dd)
 {
    close (dd);
 }
-void Fileread(FILE *fp)
+__u32 * Fileread(FILE *fp)
 {	
 	char n_string[] = "";
 	fscanf(fp,"%s", n_string);
