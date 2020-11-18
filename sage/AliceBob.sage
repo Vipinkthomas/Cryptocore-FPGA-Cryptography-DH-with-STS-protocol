@@ -1,11 +1,9 @@
 def Alice1(b,e1,n,prec):
-	if generatorValid(b,e1,n,prec):
-		c1=Prime_ModExp(b,e1,n,prec)
-		return(c1)
+	c1=Prime_ModExp(b,e1,n,prec)
+	return(c1)
 def Bob1(b,e2,n,prec):
-	if generatorValid(b,e2,n,prec):
-		c2=Prime_ModExp(b,e2,n,prec)
-		return(c2)
+	c2=Prime_ModExp(b,e2,n,prec)
+	return(c2)
 def Alice2(b,c2,n,prec):
 	shared_key=Prime_ModExp(b,c2,n,prec)
 	return(shared_key)
@@ -27,7 +25,7 @@ def Prime_ModExp(b,e,n,prec):
 
 	return(c)
 
-def generatorValid(b,e,n,prec):
+def generatorValid(b,n,prec):
 	try:
 		q=(n-1)/2
 		if Prime_ModExp(b,2*q,n,prec)==1:
