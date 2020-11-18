@@ -1,4 +1,3 @@
-
 #include <asm-generic/fcntl.h>
 #include <stdio.h>
 #include <time.h>
@@ -270,7 +269,7 @@ void Fileread(FILE *fp,__u32 *output)
 	char n_string[] = "";
 	fscanf(fp,"%s", n_string);
 
-    __u32 *output_n, *temp_n;
+    __u32 *output_n1, *temp_n;
     char *tok_n;
     int elements_n = 0;
     int len_n = 1 + strlen(n_string) / 2;            // estimate max num of elements
