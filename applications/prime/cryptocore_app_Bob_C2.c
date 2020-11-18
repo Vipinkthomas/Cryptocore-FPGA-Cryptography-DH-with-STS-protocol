@@ -144,10 +144,12 @@ int main(void)
 	0,
 	{  },
 	{  },
-	{ 0x0ff8ee95,0x8b0897a4,0x4a4a38f3,0x4da713c3,
-	0x68f7b7c8,0x80e2fbcd,0xd0f50460,0xe1e7471d,
-	0x5fd20690,0xea38c7a0,0x12a40752,0x48bfae37,
-	0x690d523c,0xa911ec8b,0x249caad3,0x094f2f51 },
+	{ 0x55fc033d,0x2a509818,0x9cc76324,
+	  0xca0e2454,0x88c558f5,0x5ab17e3a,
+	  0x8d924c53,0x0e74dbb9,0xf1c0ca6e,
+	  0x084efe98,0x325098ac,0x638fc524,
+	  0x15e78976,0xb76ea731,0x6cd81723,
+	  0x29eef62a},
 	{  },
 	};
 	
@@ -176,35 +178,6 @@ int main(void)
 	}
 	printf("\n\n");
 	
-
-	// Read random e word from TRNG FIRO and clear msb
-	// i = 0;
-	// while (i < 1) {
-	// 	ret_val = ioctl(dd, IOCTL_READ_TRNG_FIFO, &trng_val);
-	// 	if(ret_val == 0) {
-	// 		trng_val &= 0x7FFFFFFF;
-	// 		ModExp_512_test.e[0] = trng_val;
-	// 		i++;
-	// 	} else if (ret_val == -EAGAIN) {
-	// 		printf("TRNG FIFO empty\n");
-	// 	} else {
-	// 		printf("Error occured\n");
-	// 	}
-	// }	
-
-	// // Read remaining random e words from TRNG FIRO
-	// i = 1;
-	// while (i < ModExp_512_test.prec/32) {
-	// 	ret_val = ioctl(dd, IOCTL_READ_TRNG_FIFO, &trng_val);
-	// 	if(ret_val == 0) {
-	// 		ModExp_512_test.e[i] = trng_val;
-	// 		i++;
-	// 	} else if (ret_val == -EAGAIN) {
-	// 		printf("TRNG FIFO empty\n");
-	// 	} else {
-	// 		printf("Error occured\n");
-	// 	}
-	// }	
 	
 	printf("E: 0x");
 	for(i=0; i<ModExp_512_test.prec/32; i++){
