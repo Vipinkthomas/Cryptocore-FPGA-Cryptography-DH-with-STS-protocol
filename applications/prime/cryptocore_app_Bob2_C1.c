@@ -226,7 +226,7 @@ int main(void)
 	}
 	// write c to c1.txt
 
-	FILE *f_write = fopen("/home/data_user/bobsecret.txt", "w");
+	FILE *f_write = fopen("/home/data_user/c2.txt", "w");
     
     char hexString [128]= "";
 	int x;
