@@ -15,7 +15,7 @@
 /* Prototypes for functions used to access physical memory addresses */
 int open_physical (int);
 void close_physical (int);
-void Fileread(FILE *fp,__u32 *output);
+void Fileread(FILE *fp);
 
 int main(void)
 {	
@@ -36,7 +36,7 @@ int main(void)
         return 0;
     }
 
-    Fileread(fp,output_b);
+    output_b=Fileread(fp);
 
 	/////
 	//READ n from the file n.txt inside data_user
@@ -46,7 +46,7 @@ int main(void)
         return 0;
     }
 
-    Fileread(fp1,output_n);
+    output_n=Fileread(fp1);
 	////
 	struct timespec tstart={0,0}, tend={0,0};
 
@@ -205,7 +205,7 @@ int main(void)
       fin = fopen("/home/data_user/c2.txt", "r");
 	}
 
-	Fileread(fp1,output_c2);
+	output_c2=Fileread(fp1);
 	i = 0;
 	while (i < ModExp_512_test.prec/32) {
 		
@@ -264,7 +264,7 @@ void close_physical (int dd)
 {
    close (dd);
 }
-void Fileread(FILE *fp,__u32 *output)
+void Fileread(FILE *fp)
 {	
 	char n_string[] = "";
 	fscanf(fp,"%s", n_string);
@@ -292,5 +292,5 @@ void Fileread(FILE *fp,__u32 *output)
     if (temp_n == NULL)
         exit(-4);                               // error in reallocating memory
     output_n1 = temp_n;
-	output=output_n1;
+	return output_n1
 }
