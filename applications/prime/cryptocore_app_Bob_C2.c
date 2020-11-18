@@ -29,7 +29,7 @@ int main(void)
 	char n_string[] = "";
 
 	//READ B from the file b.txt inside data_user
-    FILE *fp = fopen("/home/data_user/c1.txt", "r");
+    FILE *fp = fopen("/home/data_user/b.txt", "r");
     if (fp == NULL) {
         fprintf(stderr, "Can't read 1.txt");
         return 0;
