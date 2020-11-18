@@ -26,7 +26,7 @@ def Prime_ModExp(b,e,n,prec):
 	return(c)
 
 def generatorValid(b,n,prec):
-
+	zp=n-1
 	try:
 		while zp>=0:
 			q=(n-1)/2
