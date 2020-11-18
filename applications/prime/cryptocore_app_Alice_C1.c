@@ -292,5 +292,5 @@ __u32 * Fileread(FILE *fp)
     if (temp_n == NULL)
         exit(-4);                               // error in reallocating memory
     output_n1 = temp_n;
-	return output_n1
+	return output_n1;
 }
