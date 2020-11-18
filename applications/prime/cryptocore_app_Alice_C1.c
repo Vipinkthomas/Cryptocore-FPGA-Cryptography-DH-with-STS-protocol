@@ -15,7 +15,7 @@
 /* Prototypes for functions used to access physical memory addresses */
 int open_physical (int);
 void close_physical (int);
-void Fileread(FILE *fp,__u32 *output_b);
+void Fileread(FILE *fp,__u32 *output);
 
 int main(void)
 {	
