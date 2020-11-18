@@ -27,17 +27,14 @@ def Prime_ModExp(b,e,n,prec):
 
 def generatorValid(b,n,prec):
 	zp=n-1
+	q=(n-1)/2
 	try:
-		while zp>=0:
-			q=(n-1)/2
-			if Prime_ModExp(b,2*q,n,prec)==1:
+		while n>=0:
+			if Prime_ModExp(b,q,n,prec)==1:
 				print("firststep")
-				if Prime_ModExp(b,q,n,prec)!=1:
-					print("secondstep")
-					if Prime_ModExp(b,2,n,prec)!=1:
-						return("\n generator"+ b)
-			zp=n-1
-			print(zp)
+				if Prime_ModExp(b,2,n,prec)!=1:
+					return("\n generator"+ b)
+			n=n-1
 	except TypeError:
 		print(TypeError)
 
