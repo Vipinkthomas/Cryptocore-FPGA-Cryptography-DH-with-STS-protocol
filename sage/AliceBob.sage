@@ -31,7 +31,7 @@ def generatorValid(b,n,prec):
 		if Prime_ModExp(b,2*q,n,prec)==1:
 			if Prime_ModExp(b,q,n,prec)!=1:
 				if Prime_ModExp(b,2,n,prec)!=1:
-					return(1)
+					return(b)
 	except TypeError:
 		print(TypeError)
 
