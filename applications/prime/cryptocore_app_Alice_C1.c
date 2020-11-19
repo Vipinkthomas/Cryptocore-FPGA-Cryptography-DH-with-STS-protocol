@@ -32,17 +32,12 @@ int main(void)
 	//READ B from the file b.txt inside data_user
     
 
-    Fileread(fp,output_b);
+    Fileread(subPath,output_b);
 
 	/////
-	//READ n from the file n.txt inside data_user
-    FILE *fp1 = fopen("/home/data_user/n.txt", "r");
-    if (fp1 == NULL) {
-        fprintf(stderr, "Can't read 1.txt");
-        return 0;
-    }
+	subPath="/home/data_user/n.txt";
 
-    Fileread(fp1,output_n);
+    Fileread(subPath,output_n);
 	////
 	struct timespec tstart={0,0}, tend={0,0};
 
