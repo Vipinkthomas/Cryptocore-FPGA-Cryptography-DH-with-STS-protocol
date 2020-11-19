@@ -15,7 +15,7 @@ int Fileread(char *,__u32 *);
 
 int main(void)
 {	
-    char * subPath = "/home/data_user/b.txt";
+    //char * subPath = "/home/data_user/b.txt";
     __u32 *output_b;
 
     Fileread(subPath,output_b);
@@ -23,16 +23,16 @@ int main(void)
 	return 0;
 }
 
-int Fileread(char *Path,__u32 *output)
+int Fileread(__u32 *output)
 {
-    printf("%s",Path);
-    FILE *fp = fopen(Path, "r");
+    //printf("%s",Path);
+    FILE *fp = fopen("/home/data_user/b.txt", "r");
     if (fp == NULL) {
         fprintf(stderr, "Can't read 1.txt");
         return 0;
     }
 char n_string[] = "";
-fscanf(fp,"%[^\n]", n_string);
+fscanf(fp,"%s", c_string);
 fclose(fp);
     
 }
