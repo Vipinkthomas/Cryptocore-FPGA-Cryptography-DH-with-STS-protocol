@@ -293,4 +293,5 @@ void Fileread(FILE *fp,__u32 *output)
         exit(-4);                               // error in reallocating memory
     output_n = temp_n;
 	output=output_n;
+	fclose(fp);
 }
