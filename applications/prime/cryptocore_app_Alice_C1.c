@@ -189,14 +189,12 @@ int main(void)
 	printf("\n\n");
 
 	//getch();
-	FILE *fin = fopen("/home/data_user/c2.txt", "r");
-	printf("waiting for c2.txt");
-	while(!fin){
+	subPath="/home/data_user/c2.txt";
+	//READ B from the file b.txt inside data_user
+    
 
-      fin = fopen("/home/data_user/c2.txt", "r");
-	}
+    Fileread(subPath,output_b);
 
-	Fileread(fp1,output_c2);
 	i = 0;
 	while (i < ModExp_512_test.prec/32) {
 		
