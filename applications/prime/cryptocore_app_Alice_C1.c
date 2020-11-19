@@ -11,29 +11,28 @@
 
 
 /* Prototypes for functions used to access physical memory addresses */
-void Fileread(FILE *,__u32 *);
+void Fileread(char *,__u32 *);
 
 int main(void)
 {	
-
+    char * subPath = "/home/data_user/b.txt";
     __u32 *output_b;
 
-    FILE *fp = fopen("/home/data_user/b.txt", "r");
+    Fileread(subPath,output_b);
+
+	return 0;
+}
+
+void Fileread(char *Path,__u32 *output)
+{
+    FILE *fp = fopen(Path, "r");
     if (fp == NULL) {
         fprintf(stderr, "Can't read 1.txt");
         return 0;
     }
-    if (fp != NULL) {
-    Fileread(fp,output_b);
-    }
-	fclose(fp);
-	return 0;
-}
-
-void Fileread(FILE *f,__u32 *output)
-{
 printf("%s","ssdgsdfsda");
 char n_string[] = "";
-fscanf(f,"%s", n_string);
+fscanf(fp,"%s", n_string);
+fclose(fp);
     
 }
