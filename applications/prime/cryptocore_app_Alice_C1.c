@@ -38,5 +38,5 @@ char n_string[] = "";
     char *tok_n;
     int elements_n = 0;
     int len_n = 1 + strlen(n_string) / 2;            // estimate max num of elements
-    output1 = malloc(len_n* sizeof(*output1));
+    //output1 = malloc(len_n* sizeof(*output1));
 }
