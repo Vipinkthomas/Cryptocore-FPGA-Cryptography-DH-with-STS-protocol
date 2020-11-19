@@ -23,8 +23,9 @@ int main(void)
         fprintf(stderr, "Can't read 1.txt");
         return 0;
     }
+    if (fp == NULL) {
     Fileread(fp,output_b);
-
+    }
 	fclose(fp);
 	return 0;
 }
