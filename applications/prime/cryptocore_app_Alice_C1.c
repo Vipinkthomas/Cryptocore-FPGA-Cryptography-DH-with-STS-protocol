@@ -11,7 +11,7 @@
 
 
 /* Prototypes for functions used to access physical memory addresses */
-void Fileread(char *,__u32 *);
+int Fileread(char *,__u32 *);
 
 int main(void)
 {	
@@ -23,12 +23,11 @@ int main(void)
 	return 0;
 }
 
-void Fileread(char *Path,__u32 *output)
+int Fileread(char *Path,__u32 *output)
 {
     FILE *fp = fopen(Path, "r");
     if (fp == NULL) {
         fprintf(stderr, "Can't read 1.txt");
-        return 0;
     }
 printf("%s","ssdgsdfsda");
 char n_string[] = "";
