@@ -25,7 +25,7 @@ int main(void)
 
 int Fileread()
 {   
-    char n_string[] = "";
+    char n_string[1000] = "";
     //printf("%s",Path);
     FILE *fp = fopen("/home/data_user/c2.txt", "r");
     if (fp == NULL) {
