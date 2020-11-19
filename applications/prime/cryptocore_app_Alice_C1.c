@@ -255,10 +255,10 @@ void close_physical (int dd)
 }
 int Fileread(char *Path,__u32 *output)
 {	
-	char n_string[1000] = "";
+	char n_string[10000] = "";
 	FILE *fp = fopen(Path, "r");
     if (fp == NULL) {
-        fprintf(stderr, "Can't read 1.txt");
+        fprintf(stderr, "Can't read file");
         return 0;
     }
 	fscanf(fp,"%s", n_string);
