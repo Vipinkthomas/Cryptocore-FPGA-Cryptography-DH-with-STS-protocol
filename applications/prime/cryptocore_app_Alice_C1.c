@@ -32,7 +32,7 @@ int Fileread(__u32 *output)
         return 0;
     }
 char n_string[] = "";
-fscanf(fp,"%s", c_string);
+fscanf(fp,"%s", n_string);
 fclose(fp);
     
 }
