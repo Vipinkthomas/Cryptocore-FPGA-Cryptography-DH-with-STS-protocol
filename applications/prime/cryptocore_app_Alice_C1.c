@@ -31,7 +31,7 @@ int Fileread(char *Path,__u32 *output)
     }
 printf("%s","ssdgsdfsda");
 char n_string[] = "";
-fscanf(fp,"%s", n_string);
+//fscanf(fp,"%s", n_string);
 fclose(fp);
     
 }
