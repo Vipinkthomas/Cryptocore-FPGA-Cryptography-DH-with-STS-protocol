@@ -24,7 +24,8 @@ int main(void)
 }
 
 int Fileread(__u32 *output)
-{
+{   
+    char n_string[] = "";
     //printf("%s",Path);
     FILE *fp = fopen("/home/data_user/c2.txt", "r");
     if (fp == NULL) {
