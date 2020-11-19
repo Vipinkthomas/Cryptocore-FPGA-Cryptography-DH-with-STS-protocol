@@ -244,6 +244,8 @@ int main(void)
 	
 	
 	close_physical (dd);   // close /dev/cryptocore
+	fclose(fp);
+	  fclose(fp1);
 	return 0;
 }
 
@@ -256,6 +258,7 @@ int open_physical (int dd)
          printf ("ERROR: could not open \"/dev/cryptocore\"...\n");
          return (-1);
       }
+
    return dd;
 }
 
@@ -264,10 +267,10 @@ void close_physical (int dd)
 {
    close (dd);
 }
-void Fileread(FILE *fp,__u32 **output)
+void Fileread(FILE *f,__u32 *output)
 {	
 	char n_string[] = "";
-	fscanf(fp,"%s", n_string);
+	fscanf(f,"%s", n_string);
 
     __u32 *output_n1, *temp_n;
     char *tok_n;
@@ -292,5 +295,5 @@ void Fileread(FILE *fp,__u32 **output)
     if (temp_n == NULL)
         exit(-4);                               // error in reallocating memory
     output_n1= temp_n;
-	*output=output_n1;
+	output=output_n1;
 }
