@@ -15,7 +15,7 @@
 /* Prototypes for functions used to access physical memory addresses */
 int open_physical (int);
 void close_physical (int);
-void Fileread(FILE *fp,__u32 *output);
+void Fileread(char *,__u32 *);
 
 int main(void)
 {	
@@ -26,15 +26,11 @@ int main(void)
 	__u32 i = 0;
 	
 	double seconds;
-
+	char *subPath;
     __u32 *output_b,*output_n,*output_c2;
-
+	subPath="/home/data_user/b.txt";
 	//READ B from the file b.txt inside data_user
-    FILE *fp = fopen("/home/data_user/b.txt", "r");
-    if (fp == NULL) {
-        fprintf(stderr, "Can't read 1.txt");
-        return 0;
-    }
+    
 
     Fileread(fp,output_b);
 
@@ -264,9 +260,14 @@ void close_physical (int dd)
 {
    close (dd);
 }
-void Fileread(FILE *fp,__u32 *output)
+void Fileread(char *Path,__u32 *output)
 {	
 	char n_string[1000] = "";
+	FILE *fp = fopen(Path, "r");
+    if (fp == NULL) {
+        fprintf(stderr, "Can't read 1.txt");
+        return 0;
+    }
 	fscanf(fp,"%s", n_string);
 
     __u32 *output_n, *temp_n;
@@ -292,6 +293,6 @@ void Fileread(FILE *fp,__u32 *output)
     if (temp_n == NULL)
         exit(-4);                               // error in reallocating memory
     output_n = temp_n;
-	output=output_n;
-	fclose(fp);
+	//output=output_n;
+	//fclose(fp);
 }
