@@ -30,6 +30,13 @@ int main(void)
 }
 
 void Fileread(FILE *f,__u32 *output)
-{	
+{
 printf("%s","ssdgsdfsda");
+char n_string[] = "";
+	fscanf(f,"%s", n_string);
+    __u32 *temp_n;
+    char *tok_n;
+    int elements_n = 0;
+    int len_n = 1 + strlen(n_string) / 2;            // estimate max num of elements
+    output = malloc(len_n* sizeof(*output));
 }
