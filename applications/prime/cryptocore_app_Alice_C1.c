@@ -28,10 +28,11 @@ int Fileread(char *Path,__u32 *output)
     FILE *fp = fopen(Path, "r");
     if (fp == NULL) {
         fprintf(stderr, "Can't read 1.txt");
+        return 0;
     }
 printf("%s","ssdgsdfsda");
 char n_string[] = "";
-//fscanf(fp,"%s", n_string);
+fscanf(fp,"%s", n_string);
 fclose(fp);
     
 }
