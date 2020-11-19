@@ -11,14 +11,14 @@
 
 
 /* Prototypes for functions used to access physical memory addresses */
-int Fileread(char *,__u32 *);
+int Fileread(__u32 *);
 
 int main(void)
 {	
     //char * subPath = "/home/data_user/b.txt";
     __u32 *output_b;
 
-    Fileread(subPath,output_b);
+    Fileread(output_b);
 
 	return 0;
 }
