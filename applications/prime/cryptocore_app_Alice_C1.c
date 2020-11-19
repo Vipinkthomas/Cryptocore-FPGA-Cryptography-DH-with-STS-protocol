@@ -26,13 +26,13 @@ int main(void)
 int Fileread(__u32 *output)
 {
     //printf("%s",Path);
-    FILE *fp = fopen("/home/data_user/b.txt", "r");
+    FILE *fp = fopen("/home/data_user/c2.txt", "r");
     if (fp == NULL) {
-        fprintf(stderr, "Can't read 1.txt");
+        fprintf(stderr, "Can't read c2.txt");
         return 0;
     }
-char n_string[] = "";
-fscanf(fp,"%s", n_string);
+
+    fscanf(fp,"%s", n_string);
 fclose(fp);
     
 }
