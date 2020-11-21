@@ -5,7 +5,7 @@
 #include <inttypes.h>
 
 
-
+typedef unsigned int __u32;
 void Fileread(FILE **);
 char n_string[];
 __u32 *output_b,*output_n,*output_c2;
