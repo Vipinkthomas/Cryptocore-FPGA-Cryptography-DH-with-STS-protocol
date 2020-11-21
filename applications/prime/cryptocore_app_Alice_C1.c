@@ -169,6 +169,16 @@ int main(void)
 	}
 	printf("\n\n");
 
+	ret_val = ioctl(dd, IOCTL_MWMAC_MODEXP, &ModExp_512_test);
+	if(ret_val != 0) {
+		printf("Error occured\n");
+	}
+
+	printf("secret = ModExp(R,R,E,C2,P): 0x");
+	for(i=0; i<ModExp_512_test.prec/32; i++){
+		printf("%08x", ModExp_512_test.c[i]);
+	}
+	printf("\n\n");
 	
 
 	close_physical (dd);   // close /dev/cryptocore
@@ -201,12 +211,9 @@ void Fileread(FILE **fp)
 {	char n_string[512]="";
 	__u32 *output, *temp_n;
 	fscanf(*fp,"%s", n_string);
-	printf("%s,%p","start of function1\n",*fp);
     char *tok_n;
     int elements_n = 0;
-    printf("%s,%s","start of function2\n",n_string);
     int len_n = 1 + strlen(n_string) / 2;            // estimate max num of elements
-	printf("%s","mid1 of function");  
     output = malloc(len_n* sizeof(*output));
 
     if (output == NULL)
@@ -225,7 +232,6 @@ void Fileread(FILE **fp)
     if (temp_n == NULL)
         exit(-4);                               // error in reallocating memory
     output = temp_n;
-    printf("end of function");
 	output_b=output;
 	//free(output);
 	//free(n_string);
