@@ -269,7 +269,7 @@ void Fileread(FILE **fp)
 {	
 	char *n_string;
 	__u32 *output, *temp_n;
-	n_string = malloc(256* sizeof(*char));
+	n_string = malloc(256* sizeof(char));
 	fscanf(*fp,"%s", n_string);
     char *tok_n;
     int elements_n = 0;
