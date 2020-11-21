@@ -36,6 +36,13 @@ int main(void)
     }
 
     Fileread(&fp1);
+    FILE *fp2 = fopen("/home/data_user/n.txt", "r");
+    if (fp2 == NULL) {
+        fprintf(stderr, "Can't read file");
+        return 0;
+    }
+
+    Fileread(&fp2);
 
 	////
 	struct timespec tstart={0,0}, tend={0,0};
@@ -48,6 +55,9 @@ int main(void)
 	close_physical (dd);   // close /dev/cryptocore
     if(fp1!=NULL){
     fclose(fp1);
+    }
+     if(fp2!=NULL){
+    fclose(fp2);
     }
 	return 0;
 }
@@ -71,7 +81,7 @@ void close_physical (int dd)
 }
 void Fileread(FILE **fp)
 {	
-	char *n_string;
+	char n_string[4000]="";
 	fscanf(*fp,"%s", n_string);
     __u32 *output, *temp_n;
     char *tok_n;
