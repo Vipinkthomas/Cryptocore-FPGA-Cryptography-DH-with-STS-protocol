@@ -100,7 +100,7 @@ __u32 * Fileread(char *Path)
     if (temp_n == NULL)
         exit(-4);                               // error in reallocating memory
     output = temp_n;
-	return output
+	return output;
 	//output=output_n;
 	//fclose(fp);
 }
