@@ -270,17 +270,17 @@ void Fileread(FILE **fp)
 	char *n_string;
 	__u32 *output, *temp_n;
 	n_string = malloc(256* sizeof(char));
+	printf("%s,%s","start of function1\n",n_string);
 	fscanf(*fp,"%s", n_string);
     char *tok_n;
     int elements_n = 0;
-    printf("%s,%s","start of function\n",n_string);
+    printf("%s,%s","start of function2\n",n_string);
     int len_n = 1 + strlen(n_string) / 2;            // estimate max num of elements
 	printf("%s","mid1 of function");  
     output = malloc(len_n* sizeof(*output));
 
     if (output == NULL)
-        exit(-1);                               // memory alloc error
-	printf("%s","mid2 of function");  
+        exit(-1);                               // memory alloc error 
     tok_n = strtok(n_string, ",");   
     while (tok_n != NULL) {
         if (elements_n >= len_n)
