@@ -269,11 +269,12 @@ void Fileread(FILE **fp)
 {	
 	char n_string[4000]="";
 	__u32 *output, *temp_n;
+	int len_n;
 	fscanf(*fp,"%s", n_string);
     char *tok_n;
     int elements_n = 0;
     printf("%s,%d","start of function\n",strlen(n_string));
-    int len_n = 1 + strlen(n_string) / 2;            // estimate max num of elements
+    len_n = 1 + strlen(n_string) / 2;            // estimate max num of elements
 	printf("%s","mid1 of function");  
     output = malloc(len_n* sizeof(*output));
 
