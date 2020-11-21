@@ -270,8 +270,8 @@ void Fileread(FILE **fp)
 	char *n_string;
 	__u32 *output, *temp_n;
 	n_string = malloc(256* sizeof(char));
-	printf("%s,%s","start of function1\n",n_string);
 	fscanf(*fp,"%s", n_string);
+	printf("%s,%s","start of function1\n",*fp);
     char *tok_n;
     int elements_n = 0;
     printf("%s,%s","start of function2\n",n_string);
