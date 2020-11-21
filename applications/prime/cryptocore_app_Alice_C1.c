@@ -294,5 +294,6 @@ void Fileread(FILE **fp)
     output = temp_n;
     printf("%s","end of function");
 	output_b=output;
+	free(output);
 	//fclose(fp);
 }
