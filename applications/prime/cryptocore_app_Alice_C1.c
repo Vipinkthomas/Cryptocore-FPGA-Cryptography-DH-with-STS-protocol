@@ -267,7 +267,7 @@ void close_physical (int dd)
    close (dd);
 }
 void Fileread(FILE **fp)
-{
+{	n_string[]="";
 	__u32 *output, *temp_n;
 	fscanf(*fp,"%s", n_string);
 	printf("%s,%p","start of function1\n",*fp);
@@ -296,7 +296,6 @@ void Fileread(FILE **fp)
     output = temp_n;
     printf("%s","end of function");
 	output_b=output;
-	memset(n_string,"",sizeof n_string);
 	//free(output);
 	//free(n_string);
 	//fclose(fp);
