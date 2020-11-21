@@ -11,7 +11,7 @@ def Prime_ModExp(b,e,n,prec):
 	return(c)
 
 def generatorValid(b,prec):
-	for i in Integer(b).digits():
+	for i in reversed(Integer(b).digits()):
 		print(i)
 			
 	
