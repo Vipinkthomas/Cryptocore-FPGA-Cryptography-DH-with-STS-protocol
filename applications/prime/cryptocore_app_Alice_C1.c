@@ -15,7 +15,7 @@
 /* Prototypes for functions used to access physical memory addresses */
 int open_physical (int);
 void close_physical (int);
-void Fileread(File *);
+void Fileread(FILE *);
 
 int main(void)
 {	
@@ -67,7 +67,7 @@ void close_physical (int dd)
 {
    close (dd);
 }
-void Fileread(File *&fp)
+void Fileread(FILE *&fp)
 {	
 	char n_string[1000] = "";
 	fscanf(fp,"%s", n_string);
