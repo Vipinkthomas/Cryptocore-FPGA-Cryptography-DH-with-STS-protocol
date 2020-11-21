@@ -16,7 +16,7 @@ int open_physical (int);
 void close_physical (int);
 void Fileread(FILE **);
 char n_string[];
-__u32 *output_b,*output_n,*output_c2;
+__u32 *output_b;
 
 int main(void)
 {	
@@ -28,6 +28,17 @@ int main(void)
 	__u32 trng_val = 0;
 	__u32 i = 0;
 
+	ModExp_params_t ModExp_512_test = { 512,
+	1,
+	0,
+	{  },
+	{  },
+	{ 0x0ff8ee95,0x8b0897a4,0x4a4a38f3,0x4da713c3,
+	0x68f7b7c8,0x80e2fbcd,0xd0f50460,0xe1e7471d,
+	0x5fd20690,0xea38c7a0,0x12a40752,0x48bfae37,
+	0x690d523c,0xa911ec8b,0x249caad3,0x094f2f51 },
+	{  },
+	};
     
 	//READ B from the file b.txt inside data_user
     FILE *fp1 = fopen("/home/data_user/b.txt", "r");
@@ -37,6 +48,15 @@ int main(void)
     }
 
     Fileread(&fp1);
+
+	
+    i = 0;
+	while (i < ModExp_512_test.prec/32) {
+		
+		ModExp_512_test.b[i] = output_b[i];
+		i++;
+		
+	}
     FILE *fp2 = fopen("/home/data_user/n.txt", "r");
     if (fp2 == NULL) {
         fprintf(stderr, "Can't read file");
@@ -44,6 +64,14 @@ int main(void)
     }
 
     Fileread(&fp2);
+	
+	i = 0;
+	while (i < ModExp_512_test.prec/32) {
+		
+		ModExp_512_test.n[i] = output_b[i];
+		i++;
+		
+	}	
 
 	////
     if ((dd = open_physical (dd)) == -1)
@@ -87,25 +115,9 @@ int main(void)
 
 	usleep(10);
 
-	ModExp_params_t ModExp_512_test = { 512,
-	1,
-	0,
-	{  },
-	{  },
-	{ 0x0ff8ee95,0x8b0897a4,0x4a4a38f3,0x4da713c3,
-	0x68f7b7c8,0x80e2fbcd,0xd0f50460,0xe1e7471d,
-	0x5fd20690,0xea38c7a0,0x12a40752,0x48bfae37,
-	0x690d523c,0xa911ec8b,0x249caad3,0x094f2f51 },
-	{  },
-	};
 	
-    i = 0;
-	while (i < ModExp_512_test.prec/32) {
-		
-		ModExp_512_test.b[i] = output_b[i];
-		i++;
-		
-	}
+	
+
 	close_physical (dd);   // close /dev/cryptocore
     //file close and free
     fclose(fp1);
