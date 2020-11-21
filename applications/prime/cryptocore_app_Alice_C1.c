@@ -278,7 +278,8 @@ void Fileread(FILE **fp)
     if (output == NULL)
         exit(-1);                               // memory alloc error
 
-    tok_n = strtok(n_string, ",");                  // parse the string
+    tok_n = strtok(n_string, ",");   
+	printf("%s","mid of function");               // parse the string
     while (tok_n != NULL) {
         if (elements_n >= len_n)
             exit(-2);                           // error in length assumption
@@ -295,5 +296,6 @@ void Fileread(FILE **fp)
     printf("%s","end of function");
 	output_b=output;
 	free(output);
+	free(temp_n);
 	//fclose(fp);
 }
