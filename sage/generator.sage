@@ -1,7 +1,4 @@
-
-
 def Prime_ModExp(b,e,n,prec):
- 
 	x = (1) % n
 	exp = e
 	for i in reversed(xrange(prec)):
@@ -9,7 +6,6 @@ def Prime_ModExp(b,e,n,prec):
 		if(Integer(exp).digits(base=2,padto=prec)[i] == 1):
 			x = (b * x) % n
 	c = x
-
 	return(c)
 
 def generatorValid(b,n,prec):
