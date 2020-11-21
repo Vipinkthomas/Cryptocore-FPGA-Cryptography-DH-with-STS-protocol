@@ -267,8 +267,8 @@ void close_physical (int dd)
    close (dd);
 }
 void Fileread(FILE **fp)
-{	
-	for(int k=0; k<sizeof(n_string); k++){
+{	int k;
+	for(k=0; k<sizeof(n_string); k++){
 		n_string[k]="";
 	}
 	__u32 *output, *temp_n;
