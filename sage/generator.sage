@@ -12,6 +12,7 @@ def generatorValid(b,n,prec):
 	for i in reversed(xrange(prec)):
 		if i<=15:
 			Integer(b).hex().digits()[i]=0
+			print(Integer(b).hex().digits()[i])
 		else:
 			break
 	print(b)
