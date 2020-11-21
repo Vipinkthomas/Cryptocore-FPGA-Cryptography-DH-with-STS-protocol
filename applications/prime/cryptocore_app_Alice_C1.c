@@ -233,7 +233,5 @@ void Fileread(FILE **fp)
         exit(-4);                               // error in reallocating memory
     output = temp_n;
 	output_b=output;
-	//free(output);
-	//free(n_string);
-	//fclose(fp);
+	free(output);
 }
