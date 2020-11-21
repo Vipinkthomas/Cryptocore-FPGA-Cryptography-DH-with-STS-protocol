@@ -16,6 +16,7 @@
 int open_physical (int);
 void close_physical (int);
 void Fileread(FILE **);
+__u32 *output_b,*output_n,*output_c2;
 
 int main(void)
 {	
@@ -26,7 +27,7 @@ int main(void)
 	__u32 i = 0;
 	
 	double seconds;
-    __u32 *output_b,*output_n,*output_c2;
+    
 	//READ B from the file b.txt inside data_user
     FILE *fp1 = fopen("/home/data_user/b.txt", "r");
     if (fp1 == NULL) {
@@ -75,6 +76,7 @@ void Fileread(FILE **fp)
     __u32 *output, *temp_n;
     char *tok_n;
     int elements_n = 0;
+    printf("%s","start of function\n");
     int len_n = 1 + strlen(n_string) / 2;            // estimate max num of elements
     output = malloc(len_n* sizeof(*output));
 
@@ -95,7 +97,7 @@ void Fileread(FILE **fp)
     if (temp_n == NULL)
         exit(-4);                               // error in reallocating memory
     output = temp_n;
-	//return output;
-	//output=output_n;
+    printf("%s","end of function");
+	output_b=output;
 	//fclose(fp);
 }
