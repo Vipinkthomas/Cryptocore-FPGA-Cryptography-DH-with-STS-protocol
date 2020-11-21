@@ -99,7 +99,13 @@ int main(void)
 	{  },
 	};
 	
-    
+    i = 0;
+	while (i < ModExp_512_test.prec/32) {
+		
+		ModExp_512_test.b[i] = output_b[i];
+		i++;
+		
+	}
 	close_physical (dd);   // close /dev/cryptocore
     //file close and free
     fclose(fp1);
@@ -154,7 +160,7 @@ void Fileread(FILE **fp)
     if (temp_n == NULL)
         exit(-4);                               // error in reallocating memory
     output = temp_n;
-    printf("%s","end of function");
+    printf("end of function");
 	output_b=output;
 	//free(output);
 	//free(n_string);
