@@ -14,7 +14,7 @@ __u32 *output_b;
 /* Prototypes for functions used to access physical memory addresses */
 int open_physical (int);
 void close_physical (int);
-void Fileread(FILE **);
+void Fileread(FILE *);
 
 int main(void)
 {	
