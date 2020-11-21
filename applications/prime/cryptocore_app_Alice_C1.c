@@ -15,7 +15,7 @@
 /* Prototypes for functions used to access physical memory addresses */
 int open_physical (int);
 void close_physical (int);
-void Fileread(FILE *);
+void Fileread(FILE **);
 
 int main(void)
 {	
@@ -28,15 +28,13 @@ int main(void)
 	double seconds;
     __u32 *output_b,*output_n,*output_c2;
 	//READ B from the file b.txt inside data_user
-    FILE *fp = fopen("/home/data_user/b.txt", "r");
-    if (fp == NULL) {
+    FILE *fp1 = fopen("/home/data_user/b.txt", "r");
+    if (fp1 == NULL) {
         fprintf(stderr, "Can't read file");
         return 0;
     }
 
-    Fileread(fp);
-    if(fp!=NULL)
-    fclose(fp);
+    Fileread(&fp1);
 
 	////
 	struct timespec tstart={0,0}, tend={0,0};
@@ -47,6 +45,9 @@ int main(void)
 
 	
 	close_physical (dd);   // close /dev/cryptocore
+    if(fp1!=NULL){
+    fclose(fp1);
+    }
 	return 0;
 }
 
@@ -67,11 +68,10 @@ void close_physical (int dd)
 {
    close (dd);
 }
-void Fileread(FILE *&fp)
+void Fileread(FILE **fp)
 {	
 	char n_string[1000] = "";
-	fscanf(fp,"%s", n_string);
-	fclose(fp);
+	fscanf(*fp,"%s", n_string);
     __u32 *output, *temp_n;
     char *tok_n;
     int elements_n = 0;
