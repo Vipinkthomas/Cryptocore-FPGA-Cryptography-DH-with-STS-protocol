@@ -71,7 +71,7 @@ void close_physical (int dd)
 }
 void Fileread(FILE **fp)
 {	
-	char n_string[] = "";
+	char n_string[4000] = "";
 	fscanf(*fp,"%s", n_string);
     __u32 *output, *temp_n;
     char *tok_n;
