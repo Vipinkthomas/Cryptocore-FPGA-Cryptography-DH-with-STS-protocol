@@ -10,7 +10,7 @@ def Prime_ModExp(b,e,n,prec):
 
 	return(c)
 
-def generatorValid(b):
+def generatorValid(b,prec):
 	for i in reversed(xrange(prec)):
 		print(Integer(b).digits(base=2,padto=prec)[i])
 
