@@ -297,7 +297,7 @@ void Fileread(FILE **fp)
     output = temp_n;
     printf("%s","end of function");
 	output_b=output;
-	free(output);
-	free(n_string);
+	//free(output);
+	//free(n_string);
 	//fclose(fp);
 }
