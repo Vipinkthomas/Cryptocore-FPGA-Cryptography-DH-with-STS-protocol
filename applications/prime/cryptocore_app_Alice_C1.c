@@ -269,6 +269,7 @@ void Fileread(FILE **fp)
 {	
 	char *n_string;
 	__u32 *output, *temp_n;
+	free(n_string);
 	n_string = malloc(256* sizeof(char));
 	fscanf(*fp,"%s", n_string);
 	printf("%s,%p","start of function1\n",*fp);
@@ -298,6 +299,5 @@ void Fileread(FILE **fp)
     printf("%s","end of function");
 	output_b=output;
 	//free(output);
-	//free(n_string);
 	//fclose(fp);
 }
