@@ -10,12 +10,11 @@
 #include <inttypes.h>
 
 #include "../../include/cryptocore_ioctl_header.h"
-
+__u32 *output_b;
 /* Prototypes for functions used to access physical memory addresses */
 int open_physical (int);
 void close_physical (int);
 void Fileread(FILE **);
-__u32 *output_b;
 
 int main(void)
 {	
@@ -26,6 +25,7 @@ int main(void)
 
 	__u32 trng_val = 0;
 	__u32 i = 0;
+
 
 	ModExp_params_t ModExp_512_test = { 512,
 	1,
@@ -46,7 +46,7 @@ int main(void)
         return 0;
     }
 
-    Fileread(&fp1);
+    Fileread(fp1);
 
 	
     i = 0;
@@ -62,7 +62,7 @@ int main(void)
         return 0;
     }
 
-    Fileread(&fp2);
+    Fileread(fp2);
 	
 	i = 0;
 	while (i < ModExp_512_test.prec/32) {
@@ -153,7 +153,7 @@ int main(void)
         return 0;
     }
 
-    Fileread(&fp3);
+    Fileread(fp3);
 
 	i = 0;
 	while (i < ModExp_512_test.prec/32) {
@@ -207,10 +207,10 @@ void close_physical (int dd)
 }
 // Open /dev/cryptocore, if not already done, to give access to physical addresses
 
-void Fileread(FILE **fp)
+void Fileread(FILE *fp)
 {	char n_string[512]="";
 	__u32 *output, *temp_n;
-	fscanf(*fp,"%s", n_string);
+	fscanf(fp,"%s", n_string);
     char *tok_n;
     int elements_n = 0;
     int len_n = 1 + strlen(n_string) / 2;            // estimate max num of elements
