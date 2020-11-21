@@ -1,11 +1,6 @@
-#include <asm-generic/fcntl.h>
 #include <stdio.h>
-#include <time.h>
-#include <errno.h>
-#include <sys/ioctl.h>
 #include <string.h>
 #include <stdlib.h>
-#include <getopt.h>
 #include <stdint.h>
 #include <inttypes.h>
 
