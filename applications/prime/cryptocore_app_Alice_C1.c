@@ -15,7 +15,7 @@
 /* Prototypes for functions used to access physical memory addresses */
 int open_physical (int);
 void close_physical (int);
-__u32 * Fileread(char *);
+void Fileread(File *);
 
 int main(void)
 {	
@@ -26,18 +26,18 @@ int main(void)
 	__u32 i = 0;
 	
 	double seconds;
-	char *subPath;
     __u32 *output_b,*output_n,*output_c2;
-	subPath="/home/data_user/b.txt";
 	//READ B from the file b.txt inside data_user
-    
+    FILE *fp1 = fopen("/home/data_user/b.txt", "r");
+    if (fp == NULL) {
+        fprintf(stderr, "Can't read file");
+        return 0;
+    }
 
-    output_b=Fileread(subPath);
+    Fileread(fp1);
+    if(fp1!=NULL)
+    fclose(fp1);
 
-	/////
-	subPath="/home/data_user/n.txt";
-
-    output_n=Fileread(subPath);
 	////
 	struct timespec tstart={0,0}, tend={0,0};
 
@@ -67,14 +67,9 @@ void close_physical (int dd)
 {
    close (dd);
 }
-__u32 * Fileread(char *Path)
+void Fileread(File *&fp)
 {	
-	char n_string[] = "";
-	FILE *fp = fopen(Path, "r");
-    if (fp == NULL) {
-        fprintf(stderr, "Can't read file");
-        return 0;
-    }
+	char n_string[1000] = "";
 	fscanf(fp,"%s", n_string);
 	fclose(fp);
     __u32 *output, *temp_n;
@@ -100,7 +95,7 @@ __u32 * Fileread(char *Path)
     if (temp_n == NULL)
         exit(-4);                               // error in reallocating memory
     output = temp_n;
-	return output;
+	//return output;
 	//output=output_n;
 	//fclose(fp);
 }
