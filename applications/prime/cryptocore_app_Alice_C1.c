@@ -29,7 +29,7 @@ int main(void)
     __u32 *output_b,*output_n,*output_c2;
 	//READ B from the file b.txt inside data_user
     FILE *fp1 = fopen("/home/data_user/b.txt", "r");
-    if (fp == NULL) {
+    if (fp1 == NULL) {
         fprintf(stderr, "Can't read file");
         return 0;
     }
