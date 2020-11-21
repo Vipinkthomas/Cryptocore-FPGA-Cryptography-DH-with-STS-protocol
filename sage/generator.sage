@@ -9,18 +9,16 @@ def Prime_ModExp(b,e,n,prec):
 	return(c)
 
 def generatorValid(b,n,prec):
+	for i in reversed(xrange(prec)):
+		if i<=15:
+			Integer(b).digits()[i]=0
+		else:
+			break
 	try:
-		for i in reversed(xrange(prec)):
-			if i<16:
-				Integer(b).digits()[i]=0
-			else:
-				break
 		q=(n-1)/2
 		if Prime_ModExp(b,q,n,prec)!=1:
 			print("secondstep")
 			if Prime_ModExp(b,2,n,prec)!=1:
 				return("\n generator"+ b)
 	except TypeError:
-		print(TypeError
-			
-	
+		print(TypeError)
