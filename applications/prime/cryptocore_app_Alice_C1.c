@@ -272,7 +272,7 @@ void Fileread(FILE **fp)
 	fscanf(*fp,"%s", n_string);
     char *tok_n;
     int elements_n = 0;
-    printf("%s","start of function\n");
+    printf("%s,%d","start of function\n",strlen(n_string));
     int len_n = 1 + strlen(n_string) / 2;            // estimate max num of elements
 	printf("%s","mid1 of function");  
     output = malloc(len_n* sizeof(*output));
@@ -281,7 +281,6 @@ void Fileread(FILE **fp)
         exit(-1);                               // memory alloc error
 	printf("%s","mid2 of function");  
     tok_n = strtok(n_string, ",");   
-	printf("%s","mid3 of function");               // parse the string
     while (tok_n != NULL) {
         if (elements_n >= len_n)
             exit(-2);                           // error in length assumption
