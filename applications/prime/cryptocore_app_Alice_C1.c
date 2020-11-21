@@ -186,7 +186,7 @@ int main(void)
 	fclose(fp3);
 	return 0;
 }
-// Open /dev/cryptocore, if not already done, to give access to physical addresses
+
 int open_physical (int dd)
 {
    if (dd == -1)
@@ -198,12 +198,13 @@ int open_physical (int dd)
    return dd;
 }
 
-// Close /dev/cryptocore to give access to physical addresses
+
 void close_physical (int dd)
 {
    close (dd);
 }
-// Open /dev/cryptocore, if not already done, to give access to physical addresses
+
+// function
 
 void Fileread(FILE *fp)
 {	char n_string[512]="";
