@@ -148,6 +148,29 @@ int main(void)
 	}
 	printf("\n\n");
 
+	FILE *fp3 = fopen("/home/data_user/c2.txt", "r");
+    if (fp2 == NULL) {
+        fprintf(stderr, "Can't read file");
+        return 0;
+    }
+
+    Fileread(&fp3);
+
+	i = 0;
+	while (i < ModExp_512_test.prec/32) {
+		
+		ModExp_512_test.b[i] = output_b[i];
+		i++;
+		
+	}
+		printf("B/C2: 0x");
+	for(i=0; i<ModExp_512_test.prec/32; i++){
+		printf("%08x", ModExp_512_test.b[i]);
+	}
+	printf("\n\n");
+
+	
+
 	close_physical (dd);   // close /dev/cryptocore
     //file close and free
     fclose(fp1);
