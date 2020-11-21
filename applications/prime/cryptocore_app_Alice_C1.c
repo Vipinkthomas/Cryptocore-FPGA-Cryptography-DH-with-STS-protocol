@@ -126,6 +126,27 @@ int main(void)
 	}
 	printf("\n\n");
 	
+	printf("E: 0x");
+	for(i=0; i<ModExp_512_test.prec/32; i++){
+		printf("%08x", ModExp_512_test.e[i]);
+	}
+	printf("\n\n");	
+	ret_val = ioctl(dd, IOCTL_MWMAC_MODEXP, &ModExp_512_test);
+	if(ret_val != 0) {
+		printf("Error occured\n");
+	}
+	FILE *f_write = fopen("/home/data_user/c1.txt", "w");
+    
+    char hexString [128]= "";
+      for(i=0 ; i< ModExp_512_test.prec/32; i++){
+        sprintf(hexString, "%08x,", ModExp_512_test.c[i]);
+        fprintf(f_write,"%s",hexString);
+    }
+	printf("C = ModExp(R,R,E,B,P): 0x");
+	for(i=0; i<ModExp_512_test.prec/32; i++){
+		printf("%08x", ModExp_512_test.c[i]);
+	}
+	printf("\n\n");
 
 	close_physical (dd);   // close /dev/cryptocore
     //file close and free
