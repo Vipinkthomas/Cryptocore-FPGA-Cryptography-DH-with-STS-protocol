@@ -268,8 +268,8 @@ void close_physical (int dd)
 }
 void Fileread(FILE **fp)
 {	
-	for(i=0; i<sizeof(n_string); i++){
-		n_string[i]="";
+	for(int k=0; k<sizeof(n_string); k++){
+		n_string[k]="";
 	}
 	__u32 *output, *temp_n;
 	fscanf(*fp,"%s", n_string);
