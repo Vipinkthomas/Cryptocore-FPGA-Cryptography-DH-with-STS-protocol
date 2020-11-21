@@ -9,13 +9,6 @@ def Prime_ModExp(b,e,n,prec):
 	return(c)
 
 def generatorValid(b,n,prec):
-	for i in reversed(xrange(prec)):
-		if i>497:
-			hex(Integer(b)).digits()[i]=0
-			print(Integer(b).hex().digits()[i])
-		else:
-			break
-	print(b)
 	try:
 		q=(n-1)/2
 		if Prime_ModExp(b,q,n,prec)!=1:
