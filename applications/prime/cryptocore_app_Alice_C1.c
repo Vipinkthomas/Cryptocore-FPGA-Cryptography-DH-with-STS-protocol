@@ -99,44 +99,6 @@ int main(void)
 	{  },
 	};
 	
-	
-	// Read  b from file's output
-	i = 0;
-	while (i < ModExp_512_test.prec/32) {
-		
-		ModExp_512_test.b[i] = output_b[i];
-		i++;
-		
-	}	
-
-	// Read n from file's output
-	i = 0;
-	while (i < ModExp_512_test.prec/32) {
-		
-		ModExp_512_test.n[i] = output_n[i];
-		i++;
-		
-	}	
-
-	printf("B: 0x");
-	for(i=0; i<ModExp_512_test.prec/32; i++){
-		printf("%08x", ModExp_512_test.b[i]);
-	}
-	printf("\n\n");
-	
-    printf("E: 0x");
-	for(i=0; i<ModExp_512_test.prec/32; i++){
-		printf("%08x", ModExp_512_test.e[i]);
-	}
-	printf("\n\n");	
-
-	printf("N: 0x");
-	for(i=0; i<ModExp_512_test.prec/32; i++){
-		printf("%08x", ModExp_512_test.n[i]);
-		
-	}
-	printf("\n\n");	
-
     
 	close_physical (dd);   // close /dev/cryptocore
     //file close and free
