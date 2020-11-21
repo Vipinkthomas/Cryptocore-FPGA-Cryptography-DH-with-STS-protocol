@@ -14,6 +14,7 @@ def generatorValid(b,n,prec):
 			Integer(b).digits()[i]=0
 		else:
 			break
+	print(b)
 	try:
 		q=(n-1)/2
 		if Prime_ModExp(b,q,n,prec)!=1:
