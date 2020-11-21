@@ -267,8 +267,9 @@ void close_physical (int dd)
 }
 void Fileread(FILE **fp)
 {	
-	char n_string[512]="";
+	char *n_string;
 	__u32 *output, *temp_n;
+	n_string = malloc(256* sizeof(*char));
 	fscanf(*fp,"%s", n_string);
     char *tok_n;
     int elements_n = 0;
@@ -297,5 +298,6 @@ void Fileread(FILE **fp)
     printf("%s","end of function");
 	output_b=output;
 	free(output);
+	free(n_string);
 	//fclose(fp);
 }
