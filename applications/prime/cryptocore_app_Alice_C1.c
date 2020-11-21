@@ -28,15 +28,15 @@ int main(void)
 	double seconds;
     __u32 *output_b,*output_n,*output_c2;
 	//READ B from the file b.txt inside data_user
-    FILE *fp1 = fopen("/home/data_user/b.txt", "r");
-    if (fp1 == NULL) {
+    FILE *fp = fopen("/home/data_user/b.txt", "r");
+    if (fp == NULL) {
         fprintf(stderr, "Can't read file");
         return 0;
     }
 
-    Fileread(fp1);
-    if(fp1!=NULL)
-    fclose(fp1);
+    Fileread(fp);
+    if(fp!=NULL)
+    fclose(fp);
 
 	////
 	struct timespec tstart={0,0}, tend={0,0};
