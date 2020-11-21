@@ -14,6 +14,6 @@ def generatorValid(b,n,prec):
 		if Prime_ModExp(b,q,n,prec)!=1:
 			print("secondstep")
 			if Prime_ModExp(b,2,n,prec)!=1:
-				return("\n generator"+ b)
+				return(b)
 	except TypeError:
 		print(TypeError)
