@@ -16,7 +16,7 @@
 int open_physical (int);
 void close_physical (int);
 void Fileread(FILE **);
-char n_string[512]="";
+char n_string[]="";
 __u32 *output_b,*output_n,*output_c2;
 
 int main(void)
@@ -267,10 +267,7 @@ void close_physical (int dd)
    close (dd);
 }
 void Fileread(FILE **fp)
-{	int k;
-	for(k=0; k<=512; k++){
-		n_string[k]="";
-	}
+{
 	__u32 *output, *temp_n;
 	fscanf(*fp,"%s", n_string);
 	printf("%s,%p","start of function1\n",*fp);
