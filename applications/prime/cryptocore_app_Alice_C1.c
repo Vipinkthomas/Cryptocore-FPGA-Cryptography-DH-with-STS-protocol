@@ -22,7 +22,7 @@ int main(void)
 
 	int dd = -1;
 	int ret_val;
-	__u32 *output_b;
+	__u32 *output;
 	__u32 trng_val = 0;
 	__u32 i = 0;
 
@@ -46,13 +46,13 @@ int main(void)
         return 0;
     }
 
-    Fileread(fp1,output_b);
+    Fileread(fp1,output);
 
 	
     i = 0;
 	while (i < ModExp_512_test.prec/32) {
 		
-		ModExp_512_test.b[i] = output_b[i];
+		ModExp_512_test.b[i] = output[i];
 		i++;
 		
 	}
@@ -62,12 +62,12 @@ int main(void)
         return 0;
     }
 
-    Fileread(fp2,output_b);
+    Fileread(fp2,output);
 	
 	i = 0;
 	while (i < ModExp_512_test.prec/32) {
 		
-		ModExp_512_test.n[i] = output_b[i];
+		ModExp_512_test.n[i] = output[i];
 		i++;
 		
 	}	
@@ -153,12 +153,12 @@ int main(void)
         return 0;
     }
 
-    Fileread(fp3,output_b);
+    Fileread(fp3,output);
 
 	i = 0;
 	while (i < ModExp_512_test.prec/32) {
 		
-		ModExp_512_test.b[i] = output_b[i];
+		ModExp_512_test.b[i] = output[i];
 		i++;
 		
 	}
@@ -185,7 +185,7 @@ int main(void)
     fclose(fp1);
     fclose(fp2);
 	fclose(fp3);
-	
+	free(output);
 	return 0;
 }
 // Open /dev/cryptocore, if not already done, to give access to physical addresses
@@ -207,9 +207,9 @@ void close_physical (int dd)
 }
 // Open /dev/cryptocore, if not already done, to give access to physical addresses
 
-void Fileread(FILE *fp,__u32 *output_b)
+void Fileread(FILE *fp,__u32 *output)
 {	char n_string[512]="";
-	__u32 *output, *temp_n;
+	__u32 *temp_n;
 	fscanf(fp,"%s", n_string);
     char *tok_n;
     int elements_n = 0;
@@ -232,6 +232,4 @@ void Fileread(FILE *fp,__u32 *output_b)
     if (temp_n == NULL)
         exit(-4);                               // error in reallocating memory
     output = temp_n;
-	output_b=output;
-	free(output);
 }
