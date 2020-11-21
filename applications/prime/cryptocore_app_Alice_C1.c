@@ -240,10 +240,12 @@ int main(void)
 	}	
 	
 	close_physical (dd);   // close /dev/cryptocore
-    //file close
+    //file close and free
     fclose(fp1);
     fclose(fp2);
     fclose(fp3);
+	free(output);
+	free(temp_n);
 	return 0;
 }
 
@@ -295,7 +297,5 @@ void Fileread(FILE **fp)
     output = temp_n;
     printf("%s","end of function");
 	output_b=output;
-	free(output);
-	free(temp_n);
 	//fclose(fp);
 }
