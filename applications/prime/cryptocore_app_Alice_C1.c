@@ -15,7 +15,6 @@
 int open_physical (int);
 void close_physical (int);
 void Fileread(FILE **);
-char n_string[];
 __u32 *output_b;
 
 int main(void)
@@ -185,6 +184,7 @@ int main(void)
     //file close and free
     fclose(fp1);
     fclose(fp2);
+	fclose(fp3);
 	
 	return 0;
 }
