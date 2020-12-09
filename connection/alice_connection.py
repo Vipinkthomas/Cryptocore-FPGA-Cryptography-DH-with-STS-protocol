@@ -1,6 +1,63 @@
 import socket
 import threading
 
+def connect(conn):
+    '''receive messages from other party, and decode them'''
+    
+    while True:
+        #encoded received message
+        received = conn.recv(4096)
+
+        if received ==' ':
+            pass
+
+        elif received.decode() == 'pubk':
+            ## if string message pubk received, alice will create a new file and write the pubk to pubkey.pem file
+            ## which will later use it to decrypt the signature
+            file = open("pubkey.pem", "wb")
+            RecvData = conn.recv(4096)
+            file.write(RecvData)
+            file.close()
+
+        elif received.decode() == 'cert':
+            ## if string message cert received, alice will create a new file and write the certificate to Certificate.crt file
+            ## which will use it to verify the sender
+            file = open("Certificate.crt", "wb")
+            RecvData = conn.recv(4096)
+            file.write(RecvData)
+            file.close()
+
+        elif received.decode() == 'encMsg':
+            ## if string message encMsg received, alice will create a new file and write the signature to 
+            # sign.sha256.base64 file
+            ## this file will be decrypted and check if it matches with the hashing value of the original message
+            file = open("sign.sha256.base64", "wb")
+            RecvData = conn.recv(4096)
+            file.write(RecvData)
+            file.close()
+
+        elif received.decode() == 'msg':
+            ## if string message msg received, alice will create a new file and write the message to msg.txt file
+            ## This is the original message
+            file = open("msg.txt", "wb")
+            RecvData = conn.recv(4096)
+            file.write(RecvData)
+            file.close()
+
+        else:
+            print(received.decode())
+
+
+def send_msg(conn):
+    ## This function will encode the message from user input and send it
+    while True:
+        msg = input().encode()
+        if msg == ' ':
+            pass
+        else:
+            conn.sendall(msg)
+
+
 if __name__ == '__main__':
 
     HOST = '127.0.0.1'  # address (localhost)
