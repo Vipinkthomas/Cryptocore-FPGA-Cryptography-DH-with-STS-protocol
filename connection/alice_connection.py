@@ -71,7 +71,7 @@ if __name__ == '__main__':
     alice_socket.bind((HOST, PORT))
 
     #sets up and start TCP listener
-    alice_socket.listen()
+    alice_socket.listen(5)
 
     #Establish connection with other party( BOB ).
     (conn, addr) = alice_socket.accept() 
