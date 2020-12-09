@@ -74,7 +74,7 @@ if __name__ == '__main__':
     alice_socket.listen()
 
     #Establish connection with other party( BOB ).
-    (conn, addr) = s.accept() 
+    (conn, addr) = alice_socket.accept() 
 
     #creating two threads (one for connection and one for sending messages)
     thread1 = threading.Thread(target = connect, args = ([conn]))
