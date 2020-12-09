@@ -97,7 +97,7 @@ if __name__ == '__main__':
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
     #listening to the port
-    s.connect(('', port))
+    s.connect(('127.0.0.1', port))
 
     #thread for peer connection and receiving encoded messages
     thread1 = threading.Thread(target = connect, args = ([s]))
