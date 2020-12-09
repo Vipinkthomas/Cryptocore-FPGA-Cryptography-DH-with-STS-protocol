@@ -92,7 +92,7 @@ if __name__ == '__main__':
     port = 12345 # Port to listen on
 
     #listening to the port
-    s.connect(('127.0.0.1', port))
+    s.connect(('', port))
 
     #creating new socket
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
