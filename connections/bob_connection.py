@@ -91,12 +91,13 @@ if __name__ == '__main__':
 
     port = 12345 # Port to listen on
 
-    #listening to the port
-    s.connect(('', port))
 
     #creating new socket
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
+    #listening to the port
+    s.connect(('', port))
 
     #thread for peer connection and receiving encoded messages
     thread1 = threading.Thread(target = connect, args = ([s]))
