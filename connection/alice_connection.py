@@ -12,6 +12,7 @@ def connect(conn):
             pass
 
         elif received.decode() == 'exit':
+            ## alice exits when bob exits
             print("exit")
             break
 
