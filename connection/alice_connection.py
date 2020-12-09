@@ -11,6 +11,10 @@ def connect(conn):
         if received ==' ':
             pass
 
+        elif received.decode() == 'exit':
+            print("exit")
+            break
+
         elif received.decode() == 'pubk':
             ## if string message pubk received, alice will create a new file and write the pubk to pubkey.pem file
             ## which will later use it to decrypt the signature
