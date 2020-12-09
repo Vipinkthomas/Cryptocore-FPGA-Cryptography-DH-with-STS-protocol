@@ -78,7 +78,7 @@ if __name__ == '__main__':
 
     #creating two threads (one for connection and one for sending messages)
     thread1 = threading.Thread(target = connect, args = ([conn]))
-    thread2 = threading.Thread(target = sendMsg, args = ([conn]))
+    thread2 = threading.Thread(target = send_msg, args = ([conn]))
 
     #starting the two threads
     thread1.start()
