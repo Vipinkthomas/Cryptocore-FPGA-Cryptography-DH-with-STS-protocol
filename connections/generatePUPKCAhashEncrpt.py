@@ -1,2 +1,2 @@
 import subprocess
-subprocess.call([r'generatePUPKCAhashEncrpt.bat'])
+subprocess.call([r'generatePUPKCAhashEncrpt.sh'])
