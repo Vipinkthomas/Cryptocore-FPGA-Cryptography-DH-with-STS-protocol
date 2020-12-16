@@ -79,7 +79,7 @@ def sendMsg(s):
         ## This is the prime modulus
         elif s_msg.decode() == 'msg':
             s.send(b'msg')
-            file = open("b.txt", "rb")
+            file = open("c2.txt", "rb")
             SendData = file.read(4096)
             s.send(SendData)
             file.close()
