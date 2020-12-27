@@ -91,15 +91,6 @@ int main(void)
 			printf("Error occured\n");
 		}
 	}
-	
-
-	printf("e: ");
-	for(i=0; i<ModExp_512_test.prec/32; i++){
-		printf("%08x", ModExp_512_test.e[i]);
-	}
-	printf("\n\n");
-
-
 
     
 	//READ B from the file b.txt inside data_user
@@ -163,7 +154,7 @@ int main(void)
         sprintf(hexString, "%08x,", ModExp_512_test.c[i]);
         fprintf(f_write,"%s",hexString);
     }
-	printf("C = ModExp(R,R,E,B,P): 0x");
+	printf("C2 = ModExp(R,R,E,B,P): 0x");
 	for(i=0; i<ModExp_512_test.prec/32; i++){
 		printf("%08x", ModExp_512_test.c[i]);
 	}
