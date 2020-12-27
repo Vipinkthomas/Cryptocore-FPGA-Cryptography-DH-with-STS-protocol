@@ -153,3 +153,4 @@ typedef struct ModRed_params{
 #define		IOCTL_MWMAC_MODRED			_IOWR(IOCTL_BASE, 19, ModRed_params_t)
 
 // Define further IOCTL commands here...
+
