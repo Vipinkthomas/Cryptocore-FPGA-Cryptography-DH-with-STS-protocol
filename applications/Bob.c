@@ -84,7 +84,7 @@ int main(void)
 
 	// Read TRNG FIRO
 	ModExp_512_test.e[0]=0x0;
-	ModExp_512_test.e[1]=0xf;
+	ModExp_512_test.e[1]=0xffffffff;
 	for(i=2; i<ModExp_512_test.prec/32; i++){
 		ret_val = ioctl(dd, IOCTL_READ_TRNG_FIFO, &trng_val);
 		if(ret_val == 0) {
