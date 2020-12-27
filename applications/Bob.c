@@ -133,7 +133,7 @@ int main(void)
 	if(ret_val != 0) {
 		printf("Error occured\n");
 	}
-	FILE *f_write = fopen("/home/data_user/c1.txt", "w");
+	FILE *f_write = fopen("/home/data_user/c2.txt", "w");
     
     char hexString [128]= "";
       for(i=0 ; i< ModExp_512_test.prec/32; i++){
@@ -146,7 +146,7 @@ int main(void)
 	}
 	printf("\n\n");
 
-	FILE *fp3 = fopen("/home/data_user/c2.txt", "r");
+	FILE *fp3 = fopen("/home/data_user/c1.txt", "r");
     if (fp2 == NULL) {
         fprintf(stderr, "Can't read file");
         return 0;
