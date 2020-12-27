@@ -25,56 +25,14 @@ int main(void)
 	__u32 trng_val = 0;
 	__u32 i = 0;
 
+	double seconds;
+	struct timespec tstart={0,0}, tend={0,0};
 
-	ModExp_params_t ModExp_512_test = { 512,
-	1,
-	0,
-	{  },
-	{  },
-	{ 0x0ff8ee95,0x8b0897a4,0x4a4a38f3,0x4da713c3,
-	0x68f7b7c8,0x80e2fbcd,0xd0f50460,0xe1e7471d,
-	0x5fd20690,0xea38c7a0,0x12a40752,0x48bfae37,
-	0x690d523c,0xa911ec8b,0x249caad3,0x094f2f51 },
-	{  },
-	};
-    
-	//READ B from the file b.txt inside data_user
-    FILE *fp1 = fopen("/home/data_user/b.txt", "r");
-    if (fp1 == NULL) {
-        fprintf(stderr, "Can't read file");
-        return 0;
-    }
+	// Random number creator for Ephermeral DH - exponent component
+	if ((dd = open_physical (dd)) == -1)
+      return (-1);
 
-    Fileread(fp1);
-
-	
-    i = 0;
-	while (i < ModExp_512_test.prec/32) {
-		
-		ModExp_512_test.b[i] = output[i];
-		i++;
-		
-	}
-    FILE *fp2 = fopen("/home/data_user/n.txt", "r");
-    if (fp2 == NULL) {
-        fprintf(stderr, "Can't read file");
-        return 0;
-    }
-
-    Fileread(fp2);
-	
-	i = 0;
-	while (i < ModExp_512_test.prec/32) {
-		
-		ModExp_512_test.n[i] = output[i];
-		i++;
-		
-	}	
-
-	////
-    if ((dd = open_physical (dd)) == -1)
-    return (-1);
-    // Stop TRNG and clear FIFO
+	// Stop TRNG and clear FIFO
 	trng_val = 0x00000010;
 	ret_val = ioctl(dd, IOCTL_SET_TRNG_CMD, &trng_val);
 	if(ret_val != 0) {
@@ -112,6 +70,71 @@ int main(void)
 	}
 
 	usleep(10);
+
+		ModExp_params_t ModExp_512_test = { 512,
+	1,
+	0,
+	{  },
+	{  },
+	{  },
+	{  },
+	};
+
+	clock_gettime(CLOCK_MONOTONIC, &tstart);
+
+	// Read TRNG FIRO
+	for(i=0; i<ModExp_512_test.prec/32; i++){
+		ret_val = ioctl(dd, IOCTL_READ_TRNG_FIFO, &trng_val);
+		if(ret_val == 0) {
+			ModExp_512_test.e[i] = trng_val;
+		} else{
+			printf("Error occured\n");
+		}
+	}
+	
+
+	printf("e: ");
+	for(i=0; i<TRNG_512_test.prec/32; i++){
+		printf("%08x", ModExp_512_test.e[i]);
+	}
+	printf("\n\n");
+
+
+
+    
+	//READ B from the file b.txt inside data_user
+    FILE *fp1 = fopen("/home/data_user/b.txt", "r");
+    if (fp1 == NULL) {
+        fprintf(stderr, "Can't read file");
+        return 0;
+    }
+
+    Fileread(fp1);
+
+	
+    i = 0;
+	while (i < ModExp_512_test.prec/32) {
+		
+		ModExp_512_test.b[i] = output[i];
+		i++;
+		
+	}
+    FILE *fp2 = fopen("/home/data_user/n.txt", "r");
+    if (fp2 == NULL) {
+        fprintf(stderr, "Can't read file");
+        return 0;
+    }
+
+    Fileread(fp2);
+	
+	i = 0;
+	while (i < ModExp_512_test.prec/32) {
+		
+		ModExp_512_test.n[i] = output[i];
+		i++;
+		
+	}	
+
 
 	printf("B: 0x");
 	for(i=0; i<ModExp_512_test.prec/32; i++){
@@ -161,7 +184,7 @@ int main(void)
 		i++;
 		
 	}
-		printf("B/C2: 0x");
+		printf("B/C1: 0x");
 	for(i=0; i<ModExp_512_test.prec/32; i++){
 		printf("%08x", ModExp_512_test.b[i]);
 	}
@@ -177,7 +200,13 @@ int main(void)
 		printf("%08x", ModExp_512_test.c[i]);
 	}
 	printf("\n\n");
-	
+	clock_gettime(CLOCK_MONOTONIC, &tend);
+
+	seconds = ((double)tend.tv_sec + 1.0e-9*tend.tv_nsec) - ((double)tstart.tv_sec + 1.0e-9*tstart.tv_nsec);
+	if (seconds*1000000.0 > 1000.0)
+		printf("Reading 512 random bits took about %.5f ms\n", seconds*1000.0);
+	else 
+		printf("Reading 512 random bits took about %.5f us\n", seconds*1000000.0);
 
 	close_physical (dd);   // close /dev/cryptocore
     //file close and free
@@ -232,4 +261,3 @@ void Fileread(FILE *fp)
         exit(-4);                               // error in reallocating memory
     output = temp_n;
 }
-
