@@ -83,8 +83,8 @@ int main(void)
 	clock_gettime(CLOCK_MONOTONIC, &tstart);
 
 	// Read TRNG FIRO
-	ModExp_512_test.e[0]=00000000;
-	ModExp_512_test.e[1]=11111111;
+	ModExp_512_test.e[0]=0x0;
+	ModExp_512_test.e[1]=0xf;
 	for(i=2; i<ModExp_512_test.prec/32; i++){
 		ret_val = ioctl(dd, IOCTL_READ_TRNG_FIFO, &trng_val);
 		if(ret_val == 0) {
