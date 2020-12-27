@@ -94,7 +94,7 @@ int main(void)
 	
 
 	printf("e: ");
-	for(i=0; i<TRNG_512_test.prec/32; i++){
+	for(i=0; i<ModExp_512_test.prec/32; i++){
 		printf("%08x", ModExp_512_test.e[i]);
 	}
 	printf("\n\n");
