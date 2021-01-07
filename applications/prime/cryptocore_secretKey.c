@@ -37,18 +37,34 @@ int main(void)
     
 	
 	//----------------------------------------------------->>
-	FILE *fp4 = fopen("/home/alice/e.txt", "r");
-    if (fp4 == NULL) {
+	FILE *fp1 = fopen("/home/alice/e.txt", "r");
+    if (fp1 == NULL) {
         fprintf(stderr, "Can't read file");
         return 0;
     }
 
-    Fileread(fp4);
+    Fileread(fp1);
 	
 	i = 0;
 	while (i < ModExp_512_test.prec/32) {
 		
 		ModExp_512_test.e[i] = output[i];
+		i++;
+		
+	}	
+
+	FILE *fp2 = fopen("/home/data_user/n.txt", "r");
+    if (fp2 == NULL) {
+        fprintf(stderr, "Can't read file");
+        return 0;
+    }
+
+    Fileread(fp2);
+	
+	i = 0;
+	while (i < ModExp_512_test.prec/32) {
+		
+		ModExp_512_test.n[i] = output[i];
 		i++;
 		
 	}	
@@ -69,13 +85,6 @@ int main(void)
 		printf("%08x", ModExp_512_test.e[i]);
 	}
 	printf("\n\n");	
-	ret_val = ioctl(dd, IOCTL_MWMAC_MODEXP, &ModExp_512_test);
-	if(ret_val != 0) {
-		printf("Error occured\n");
-	}
-	
-    
-	printf("\n\n");
 
 	FILE *fp3 = fopen("/home/alice/cBob.txt", "r");
     if (fp3 == NULL) {
@@ -108,14 +117,24 @@ int main(void)
 		printf("%08x", ModExp_512_test.c[i]);
 	}
 	printf("\n\n");
+
+	FILE *f_write = fopen("/home/alice/secret.txt", "w");
+    
+    char hexString [128]= "";
+      for(i=0 ; i< ModExp_512_test.prec/32; i++){
+        sprintf(hexString, "%08x,", ModExp_512_test.c[i]);
+        fprintf(f_write,"%s",hexString);
+    }
+
 	
 
 	close_physical (dd);   // close /dev/cryptocore
     //file close and free
     
-    
+    fclose(fp1);
 	fclose(fp3);
-	fclose(fp4);
+	fclose(fp2);
+	fclose(f_write);
 	return 0;
 }
 
