@@ -56,13 +56,7 @@ int main(void)
 
     if ((dd = open_physical (dd)) == -1)
     return (-1);
-    // Stop TRNG and clear FIFO
-	trng_val = 0x00000010;
-	ret_val = ioctl(dd, IOCTL_SET_TRNG_CMD, &trng_val);
-	if(ret_val != 0) {
-		printf("Error occured\n");
-	}
-
+ 
 	printf("\n\n");
 	printf("N: 0x");
 	for(i=0; i<ModExp_512_test.prec/32; i++){
