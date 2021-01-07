@@ -103,3 +103,19 @@ int main(void)
         fprintf(f_write,"%s",hexString);
     }
 }
+int open_physical (int dd)
+{
+   if (dd == -1)
+      if ((dd = open( "/dev/cryptocore", (O_RDWR | O_SYNC))) == -1)
+      {
+         printf ("ERROR: could not open \"/dev/cryptocore\"...\n");
+         return (-1);
+      }
+   return dd;
+}
+
+
+void close_physical (int dd)
+{
+   close (dd);
+}
