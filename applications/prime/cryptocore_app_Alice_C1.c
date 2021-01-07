@@ -148,7 +148,7 @@ int main(void)
 	if(ret_val != 0) {
 		printf("Error occured\n");
 	}
-	FILE *f_write = fopen("/home/data_user/c1.txt", "w");
+	FILE *f_write = fopen("/home/alice/cAlice.txt", "w");
     
     char hexString [128]= "";
       for(i=0 ; i< ModExp_512_test.prec/32; i++){
@@ -161,7 +161,7 @@ int main(void)
 	}
 	printf("\n\n");
 
-	FILE *fp3 = fopen("/home/data_user/c2.txt", "r");
+	FILE *fp3 = fopen("/home/alice/cBob.txt", "r");
     if (fp2 == NULL) {
         fprintf(stderr, "Can't read file");
         return 0;
@@ -176,7 +176,7 @@ int main(void)
 		i++;
 		
 	}
-		printf("B/C2: 0x");
+		printf("B/cBob: 0x");
 	for(i=0; i<ModExp_512_test.prec/32; i++){
 		printf("%08x", ModExp_512_test.b[i]);
 	}
