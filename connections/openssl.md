@@ -13,10 +13,12 @@ openssl enc -salt -aes-256-cbc -in sign.sha256.base64 -kfile test.txt -out secre
 openssl enc -d -salt -aes-256-cbc -in secret.enc -kfile test.txt -out secret.txt
 ```
 
-Reference:
+**Reference:**
 
-test.txt : K value (k.txt)
-sign.sha256.base64 : signed value of (CBob,CAlice)
+```
+*test.txt : K value (k.txt)*
+*sign.sha256.base64 : signed value of (CBob,CAlice)*
+```
 
 > openssl rsautl -encrypt -inkey "publickey" -pubin -in sign.sha256.base64 -out sign.sha256.base64.enc
 
