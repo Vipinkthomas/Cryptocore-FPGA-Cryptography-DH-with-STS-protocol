@@ -1,4 +1,3 @@
-
 #include <asm-generic/fcntl.h>
 #include <stdio.h>
 #include <time.h>
@@ -64,39 +63,6 @@ int main(void)
 		printf("Error occured\n");
 	}
 
-	usleep(10);
-
-    // Configure Feedback Control Polynomial
-	trng_val = 0x0003ffff;
-	ret_val = ioctl(dd, IOCTL_SET_TRNG_CTR, &trng_val);
-	if(ret_val != 0) {
-		printf("Error occured\n");
-	}
-
-    // Configure Stabilisation Time
-	trng_val = 0x00000050;
-	ret_val = ioctl(dd, IOCTL_SET_TRNG_TSTAB, &trng_val);
-	if(ret_val != 0) {
-		printf("Error occured\n");
-	}
-
-    // Configure Sample Time
-	trng_val = 0x00000006;
-	ret_val = ioctl(dd, IOCTL_SET_TRNG_TSAMPLE, &trng_val);
-	if(ret_val != 0) {
-		printf("Error occured\n");
-	}
-
-    // Start TRNG
-	trng_val = 0x00000001;
-	ret_val = ioctl(dd, IOCTL_SET_TRNG_CMD, &trng_val);
-	if(ret_val != 0) {
-		printf("Error occured\n");
-	}
-
-	usleep(10);
-
-	
 	printf("\n\n");
 	printf("N: 0x");
 	for(i=0; i<ModExp_512_test.prec/32; i++){
