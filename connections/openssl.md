@@ -1,3 +1,4 @@
+```
 openssl genrsa -aes256 -out ca.key 2048
 openssl req -new -x509 -days 7300 -key ca.key -sha256 -extensions v3_ca -out ca.crt
 openssl genrsa -out alice.key 2048
@@ -10,7 +11,7 @@ openssl rsa -in alice.key -outform PEM -pubout -out alice_pub.key
 
 openssl enc -salt -aes-256-cbc -in sign.sha256.base64 -kfile test.txt -out secret.enc
 openssl enc -d -salt -aes-256-cbc -in secret.enc -kfile test.txt -out secret.txt
-
+```
 
 Reference:
 
