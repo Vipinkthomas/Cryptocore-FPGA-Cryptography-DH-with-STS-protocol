@@ -119,7 +119,7 @@ int main(void)
     
     char hexString [128]= "";
       for(i=0 ; i< ModExp_512_test.prec/32; i++){
-        sprintf(hexString, "%08x,", ModExp_512_test.c[i]);
+        sprintf(hexString, "%08x", ModExp_512_test.c[i]);
         fprintf(f_write,"%s",hexString);
     }
 	
