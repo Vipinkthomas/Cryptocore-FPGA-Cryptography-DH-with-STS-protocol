@@ -31,10 +31,7 @@ int main(void)
 	0,
 	{  },
 	{  },
-	{ 0x0ff8ee95,0x8b0897a4,0x4a4a38f3,0x4da713c3,
-	0x68f7b7c8,0x80e2fbcd,0xd0f50460,0xe1e7471d,
-	0x5fd20690,0xea38c7a0,0x12a40752,0x48bfae37,
-	0x690d523c,0xa911ec8b,0x249caad3,0x094f2f51 },
+	{  },
 	{  },
 	};
     
@@ -55,6 +52,8 @@ int main(void)
 		i++;
 		
 	}
+
+	//----------------------------------------------------->>
     FILE *fp2 = fopen("/home/data_user/n.txt", "r");
     if (fp2 == NULL) {
         fprintf(stderr, "Can't read file");
@@ -70,8 +69,24 @@ int main(void)
 		i++;
 		
 	}	
+	//----------------------------------------------------->>
+	FILE *fp2 = fopen("/home/alice/e.txt", "r");
+    if (fp2 == NULL) {
+        fprintf(stderr, "Can't read file");
+        return 0;
+    }
 
-	////
+    Fileread(fp2);
+	
+	i = 0;
+	while (i < ModExp_512_test.prec/32) {
+		
+		ModExp_512_test.e[i] = output[i];
+		i++;
+		
+	}	
+	////-------------------------------------------------------->>
+
     if ((dd = open_physical (dd)) == -1)
     return (-1);
     // Stop TRNG and clear FIFO
