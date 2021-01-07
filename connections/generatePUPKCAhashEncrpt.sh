@@ -13,6 +13,6 @@ openssl enc -base64 -in sign.sha256 -out sign.sha256.base64
 
 # cAliceBob.txt: file contain cAlice,cBob
 
-openssl enc -salt -aes-256-cbc -in sign.sha256.base64 -kfile secret.txt -out signedValue.enc
+openssl enc -salt -aes-256-cbc -in sign.sha256.base64 -kfile secret.txt -out signedValueBob.enc
 
-# send signedValue.enc across the channel and verify it on Alice
+# send signedValueBob.enc across the channel and verify it on Alice
