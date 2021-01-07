@@ -78,7 +78,7 @@ int main(void)
 	printf("\n\n");
 
 	FILE *fp3 = fopen("/home/alice/cBob.txt", "r");
-    if (fp2 == NULL) {
+    if (fp3 == NULL) {
         fprintf(stderr, "Can't read file");
         return 0;
     }
@@ -113,7 +113,7 @@ int main(void)
 	close_physical (dd);   // close /dev/cryptocore
     //file close and free
     
-    fclose(fp2);
+    
 	fclose(fp3);
 	fclose(fp4);
 	return 0;
