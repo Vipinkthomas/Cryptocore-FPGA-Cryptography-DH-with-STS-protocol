@@ -90,7 +90,7 @@ int main(void)
 	}
 	printf("\n\n");	
 
-    FILE *fp3 = fopen("/home/data_user/c1.txt", "r");
+    FILE *fp3 = fopen("/home/vipin/cAlice.txt", "r");
     if (fp2 == NULL) {
         fprintf(stderr, "Can't read file");
         return 0;
