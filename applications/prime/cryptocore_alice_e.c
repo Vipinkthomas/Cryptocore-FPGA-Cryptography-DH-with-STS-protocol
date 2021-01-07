@@ -41,28 +41,28 @@ int main(void)
 
 	usleep(10);
 
-// Configure Feedback Control Polynomial
+	// Configure Feedback Control Polynomial
 	trng_val = 0x0003ffff;
 	ret_val = ioctl(dd, IOCTL_SET_TRNG_CTR, &trng_val);
 	if(ret_val != 0) {
 		printf("Error occured\n");
 	}
 
-// Configure Stabilisation Time
+	// Configure Stabilisation Time
 	trng_val = 0x00000050;
 	ret_val = ioctl(dd, IOCTL_SET_TRNG_TSTAB, &trng_val);
 	if(ret_val != 0) {
 		printf("Error occured\n");
 	}
 
-// Configure Sample Time
+	// Configure Sample Time
 	trng_val = 0x00000006;
 	ret_val = ioctl(dd, IOCTL_SET_TRNG_TSAMPLE, &trng_val);
 	if(ret_val != 0) {
 		printf("Error occured\n");
 	}
 
-// Start TRNG
+	// Start TRNG
 	trng_val = 0x00000001;
 	ret_val = ioctl(dd, IOCTL_SET_TRNG_CMD, &trng_val);
 	if(ret_val != 0) {
@@ -93,3 +93,13 @@ int main(void)
 			printf("Error occured\n");
 		}
 	}
+
+	//Writing e to e.txt
+	FILE *f_write = fopen("/home/alice/e.txt", "w");
+    
+    char hexString [128]= "";
+      for(i=0 ; i< ModExp_512_test.prec/32; i++){
+        sprintf(hexString, "%08x,", ModExp_512_test.e[i]);
+        fprintf(f_write,"%s",hexString);
+    }
+}
