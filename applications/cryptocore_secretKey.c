@@ -32,6 +32,8 @@ int main(void)
 	if ((dd = open_physical (dd)) == -1)
       return (-1);
 
+	usleep(10);
+
 		ModExp_params_t ModExp_512_test = { 512,
 	1,
 	0,
@@ -42,41 +44,24 @@ int main(void)
 	};
 
 	clock_gettime(CLOCK_MONOTONIC, &tstart);
-
-	FILE *fp0 = fopen("/home/vipin/e.txt", "r");
-    if (fp0 == NULL) {
-        fprintf(stderr, "Can't read file");
-        return 0;
-    }
-
-    Fileread(fp0);
-	 i = 0;
-	while (i < ModExp_512_test.prec/32) {
-		
-		ModExp_512_test.e[i] = output[i];
-		i++;
-		
-	}
-
-
-	//READ B from the file b.txt inside data_user
-    FILE *fp1 = fopen("/home/data_user/b.txt", "r");
+	
+    FILE *fp1 = fopen("/home/data_user/n.txt", "r");
     if (fp1 == NULL) {
         fprintf(stderr, "Can't read file");
         return 0;
     }
 
     Fileread(fp1);
-
 	
-    i = 0;
+	i = 0;
 	while (i < ModExp_512_test.prec/32) {
 		
-		ModExp_512_test.b[i] = output[i];
+		ModExp_512_test.n[i] = output[i];
 		i++;
 		
-	}
-    FILE *fp2 = fopen("/home/data_user/n.txt", "r");
+	}	
+
+    FILE *fp2 = fopen("/home/vipin/e.txt", "r");
     if (fp2 == NULL) {
         fprintf(stderr, "Can't read file");
         return 0;
@@ -87,16 +72,11 @@ int main(void)
 	i = 0;
 	while (i < ModExp_512_test.prec/32) {
 		
-		ModExp_512_test.n[i] = output[i];
+		ModExp_512_test.e[i] = output[i];
 		i++;
 		
 	}	
 
-
-	printf("B: 0x");
-	for(i=0; i<ModExp_512_test.prec/32; i++){
-		printf("%08x", ModExp_512_test.b[i]);
-	}
 	printf("\n\n");
 	printf("N: 0x");
 	for(i=0; i<ModExp_512_test.prec/32; i++){
@@ -110,24 +90,44 @@ int main(void)
 	}
 	printf("\n\n");	
 
+    FILE *fp3 = fopen("/home/vipin/cAlice.txt", "r");
+    if (fp2 == NULL) {
+        fprintf(stderr, "Can't read file");
+        return 0;
+    }
+
+    Fileread(fp3);
+    	i = 0;
+	while (i < ModExp_512_test.prec/32) {
+		
+		ModExp_512_test.b[i] = output[i];
+		i++;
+		
+	}
+		printf("B/C1: 0x");
+	for(i=0; i<ModExp_512_test.prec/32; i++){
+		printf("%08x", ModExp_512_test.b[i]);
+	}
+	printf("\n\n");
+
 	ret_val = ioctl(dd, IOCTL_MWMAC_MODEXP, &ModExp_512_test);
 	if(ret_val != 0) {
 		printf("Error occured\n");
 	}
-	FILE *f_write = fopen("/home/vipin/cBob.txt", "w");
+
+	FILE *f_write = fopen("/home/vipin/secret.txt", "w");
     
     char hexString [128]= "";
       for(i=0 ; i< ModExp_512_test.prec/32; i++){
         sprintf(hexString, "%08x,", ModExp_512_test.c[i]);
         fprintf(f_write,"%s",hexString);
     }
-	printf("CBob = ModExp(R,R,E,B,P): 0x");
+	
+	printf("secret = ModExp(R,R,E,C2,P): 0x");
 	for(i=0; i<ModExp_512_test.prec/32; i++){
 		printf("%08x", ModExp_512_test.c[i]);
 	}
 	printf("\n\n");
-
-
 	clock_gettime(CLOCK_MONOTONIC, &tend);
 
 	seconds = ((double)tend.tv_sec + 1.0e-9*tend.tv_nsec) - ((double)tstart.tv_sec + 1.0e-9*tstart.tv_nsec);
@@ -140,7 +140,7 @@ int main(void)
     //file close and free
     fclose(fp1);
     fclose(fp2);
-	fclose(fp0);
+	fclose(fp3);
 	fclose(f_write);
 	return 0;
 }
