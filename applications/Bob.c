@@ -109,54 +109,25 @@ int main(void)
 		printf("%08x", ModExp_512_test.e[i]);
 	}
 	printf("\n\n");	
+
 	ret_val = ioctl(dd, IOCTL_MWMAC_MODEXP, &ModExp_512_test);
 	if(ret_val != 0) {
 		printf("Error occured\n");
 	}
-	FILE *f_write = fopen("/home/data_user/c2.txt", "w");
+	FILE *f_write = fopen("/home/vipin/cBob.txt", "w");
     
     char hexString [128]= "";
       for(i=0 ; i< ModExp_512_test.prec/32; i++){
         sprintf(hexString, "%08x,", ModExp_512_test.c[i]);
         fprintf(f_write,"%s",hexString);
     }
-	printf("C2 = ModExp(R,R,E,B,P): 0x");
+	printf("CBob = ModExp(R,R,E,B,P): 0x");
 	for(i=0; i<ModExp_512_test.prec/32; i++){
 		printf("%08x", ModExp_512_test.c[i]);
 	}
 	printf("\n\n");
 
-	FILE *fp3 = fopen("/home/data_user/c1.txt", "r");
-    if (fp2 == NULL) {
-        fprintf(stderr, "Can't read file");
-        return 0;
-    }
 
-    Fileread(fp3);
-
-	i = 0;
-	while (i < ModExp_512_test.prec/32) {
-		
-		ModExp_512_test.b[i] = output[i];
-		i++;
-		
-	}
-		printf("B/C1: 0x");
-	for(i=0; i<ModExp_512_test.prec/32; i++){
-		printf("%08x", ModExp_512_test.b[i]);
-	}
-	printf("\n\n");
-
-	ret_val = ioctl(dd, IOCTL_MWMAC_MODEXP, &ModExp_512_test);
-	if(ret_val != 0) {
-		printf("Error occured\n");
-	}
-
-	printf("secret = ModExp(R,R,E,C2,P): 0x");
-	for(i=0; i<ModExp_512_test.prec/32; i++){
-		printf("%08x", ModExp_512_test.c[i]);
-	}
-	printf("\n\n");
 	clock_gettime(CLOCK_MONOTONIC, &tend);
 
 	seconds = ((double)tend.tv_sec + 1.0e-9*tend.tv_nsec) - ((double)tstart.tv_sec + 1.0e-9*tstart.tv_nsec);
