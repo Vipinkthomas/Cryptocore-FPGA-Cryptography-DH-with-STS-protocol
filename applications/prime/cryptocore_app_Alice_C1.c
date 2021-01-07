@@ -70,13 +70,13 @@ int main(void)
 		
 	}	
 	//----------------------------------------------------->>
-	FILE *fp4 = fopen("/home/alice/e.txt", "r");
-    if (fp4 == NULL) {
+	FILE *fp3 = fopen("/home/alice/e.txt", "r");
+    if (fp3 == NULL) {
         fprintf(stderr, "Can't read file");
         return 0;
     }
 
-    Fileread(fp4);
+    Fileread(fp3);
 	
 	i = 0;
 	while (i < ModExp_512_test.prec/32) {
@@ -89,44 +89,6 @@ int main(void)
 
     if ((dd = open_physical (dd)) == -1)
     return (-1);
-    // Stop TRNG and clear FIFO
-	trng_val = 0x00000010;
-	ret_val = ioctl(dd, IOCTL_SET_TRNG_CMD, &trng_val);
-	if(ret_val != 0) {
-		printf("Error occured\n");
-	}
-
-	usleep(10);
-
-// Configure Feedback Control Polynomial
-	trng_val = 0x0003ffff;
-	ret_val = ioctl(dd, IOCTL_SET_TRNG_CTR, &trng_val);
-	if(ret_val != 0) {
-		printf("Error occured\n");
-	}
-
-// Configure Stabilisation Time
-	trng_val = 0x00000050;
-	ret_val = ioctl(dd, IOCTL_SET_TRNG_TSTAB, &trng_val);
-	if(ret_val != 0) {
-		printf("Error occured\n");
-	}
-
-// Configure Sample Time
-	trng_val = 0x00000006;
-	ret_val = ioctl(dd, IOCTL_SET_TRNG_TSAMPLE, &trng_val);
-	if(ret_val != 0) {
-		printf("Error occured\n");
-	}
-
-// Start TRNG
-	trng_val = 0x00000001;
-	ret_val = ioctl(dd, IOCTL_SET_TRNG_CMD, &trng_val);
-	if(ret_val != 0) {
-		printf("Error occured\n");
-	}
-
-	usleep(10);
 
 	printf("B: 0x");
 	for(i=0; i<ModExp_512_test.prec/32; i++){
@@ -155,51 +117,18 @@ int main(void)
         sprintf(hexString, "%08x,", ModExp_512_test.c[i]);
         fprintf(f_write,"%s",hexString);
     }
-	printf("C = ModExp(R,R,E,B,P): 0x");
+	printf("CAlice = ModExp(R,R,E,B,P): 0x");
 	for(i=0; i<ModExp_512_test.prec/32; i++){
 		printf("%08x", ModExp_512_test.c[i]);
 	}
 	printf("\n\n");
-
-	FILE *fp3 = fopen("/home/alice/cBob.txt", "r");
-    if (fp2 == NULL) {
-        fprintf(stderr, "Can't read file");
-        return 0;
-    }
-
-    Fileread(fp3);
-
-	i = 0;
-	while (i < ModExp_512_test.prec/32) {
-		
-		ModExp_512_test.b[i] = output[i];
-		i++;
-		
-	}
-		printf("B/cBob: 0x");
-	for(i=0; i<ModExp_512_test.prec/32; i++){
-		printf("%08x", ModExp_512_test.b[i]);
-	}
-	printf("\n\n");
-
-	ret_val = ioctl(dd, IOCTL_MWMAC_MODEXP, &ModExp_512_test);
-	if(ret_val != 0) {
-		printf("Error occured\n");
-	}
-
-	printf("secret = ModExp(R,R,E,C2,P): 0x");
-	for(i=0; i<ModExp_512_test.prec/32; i++){
-		printf("%08x", ModExp_512_test.c[i]);
-	}
-	printf("\n\n");
-	
 
 	close_physical (dd);   // close /dev/cryptocore
     //file close and free
     fclose(fp1);
     fclose(fp2);
 	fclose(fp3);
-	fclose(fp4);
+	fclose(f_write);
 	return 0;
 }
 
