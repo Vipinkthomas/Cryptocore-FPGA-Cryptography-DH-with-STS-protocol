@@ -41,35 +41,7 @@ int main(void)
 
 	usleep(10);
 
-// Configure Feedback Control Polynomial
-	trng_val = 0x0003ffff;
-	ret_val = ioctl(dd, IOCTL_SET_TRNG_CTR, &trng_val);
-	if(ret_val != 0) {
-		printf("Error occured\n");
-	}
 
-// Configure Stabilisation Time
-	trng_val = 0x00000050;
-	ret_val = ioctl(dd, IOCTL_SET_TRNG_TSTAB, &trng_val);
-	if(ret_val != 0) {
-		printf("Error occured\n");
-	}
-
-// Configure Sample Time
-	trng_val = 0x00000006;
-	ret_val = ioctl(dd, IOCTL_SET_TRNG_TSAMPLE, &trng_val);
-	if(ret_val != 0) {
-		printf("Error occured\n");
-	}
-
-// Start TRNG
-	trng_val = 0x00000001;
-	ret_val = ioctl(dd, IOCTL_SET_TRNG_CMD, &trng_val);
-	if(ret_val != 0) {
-		printf("Error occured\n");
-	}
-
-	usleep(10);
 
 		ModExp_params_t ModExp_512_test = { 512,
 	1,
@@ -82,19 +54,22 @@ int main(void)
 
 	clock_gettime(CLOCK_MONOTONIC, &tstart);
 
-	// Read TRNG FIRO
-	ModExp_512_test.e[0]=0x0;
-	ModExp_512_test.e[1]=0xffffffff;
-	for(i=2; i<ModExp_512_test.prec/32; i++){
-		ret_val = ioctl(dd, IOCTL_READ_TRNG_FIFO, &trng_val);
-		if(ret_val == 0) {
-			ModExp_512_test.e[i] = trng_val;
-		} else{
-			printf("Error occured\n");
-		}
+	FILE *fp0 = fopen("/home/vipin/e.txt", "r");
+    if (fp0 == NULL) {
+        fprintf(stderr, "Can't read file");
+        return 0;
+    }
+
+    Fileread(fp0);
+	 i = 0;
+	while (i < ModExp_512_test.prec/32) {
+		
+		ModExp_512_test.e[i] = output[i];
+		i++;
+		
 	}
 
-    
+
 	//READ B from the file b.txt inside data_user
     FILE *fp1 = fopen("/home/data_user/b.txt", "r");
     if (fp1 == NULL) {
