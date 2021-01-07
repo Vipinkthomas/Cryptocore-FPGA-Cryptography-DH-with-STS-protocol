@@ -9,7 +9,7 @@
 #include <stdint.h>
 #include <inttypes.h>
 
-#include "../include/cryptocore_ioctl_header.h"
+#include "../../include/cryptocore_ioctl_header.h"
 __u32 *output;
 /* Prototypes for functions used to access physical memory addresses */
 int open_physical (int);
