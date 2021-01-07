@@ -108,7 +108,7 @@ int main(void)
 
 	close_physical (dd);   // close /dev/cryptocore
     //file close and free
-    fclose(fp1);
+    fclose(f_write);
 	return 0;
 }
 
