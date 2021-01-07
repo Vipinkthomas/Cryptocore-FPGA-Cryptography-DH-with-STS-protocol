@@ -70,13 +70,13 @@ int main(void)
 		
 	}	
 	//----------------------------------------------------->>
-	FILE *fp3 = fopen("/home/alice/e.txt", "r");
-    if (fp3 == NULL) {
+	FILE *fp4 = fopen("/home/alice/e.txt", "r");
+    if (fp4 == NULL) {
         fprintf(stderr, "Can't read file");
         return 0;
     }
 
-    Fileread(fp3);
+    Fileread(fp4);
 	
 	i = 0;
 	while (i < ModExp_512_test.prec/32) {
@@ -199,6 +199,7 @@ int main(void)
     fclose(fp1);
     fclose(fp2);
 	fclose(fp3);
+	fclose(fp4);
 	return 0;
 }
 
