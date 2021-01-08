@@ -110,6 +110,26 @@ int main(void)
 	}
 	printf("\n\n");
 
+	FILE *fp4 = fopen("/home/vipin/cBob.txt", "r");
+    if (fp4 == NULL) {
+        fprintf(stderr, "Can't read file");
+        return 0;
+    }
+
+    Fileread(fp4);
+
+	FILE *fwrite = fopen("/home/vipin/cBobAlice.txt", "w");
+    
+    char hexString [256]= "";
+      for(i=0 ; i< ModExp_512_test.prec/32; i++){
+        sprintf(hexString, "%08x", ModExp_512_test.b[i]);
+        fprintf(fwrite,"%s",hexString);
+    }
+	for(i=0 ; i< ModExp_512_test.prec/32; i++){
+        sprintf(hexString, "%08x", output[i]);
+        fprintf(fwrite,"%s",hexString);
+    }
+
 	ret_val = ioctl(dd, IOCTL_MWMAC_MODEXP, &ModExp_512_test);
 	if(ret_val != 0) {
 		printf("Error occured\n");
@@ -141,7 +161,9 @@ int main(void)
     fclose(fp1);
     fclose(fp2);
 	fclose(fp3);
+	fclose(fp4);
 	fclose(f_write);
+	fclose(fwrite);
 	return 0;
 }
 
