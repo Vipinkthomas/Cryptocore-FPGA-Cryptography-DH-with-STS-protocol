@@ -52,15 +52,84 @@ def connect(conn):
         else:
             print(received.decode())
 
-
+    
 def send_msg(conn):
-    ## This function will encode the message from user input and send it
+
     while True:
-        msg = input().encode()
-        if msg == ' ':
+
+        s_msg = input().encode('utf-8')
+        if s_msg == '':
             pass
+
+        ## bob exits and send exit command to server
+        if s_msg.decode() == 'exit':
+            print("exit")
+            s.send(b'exit')
+            break
+
+        ## if string message pubk received, bob will send a message "pubk" along with the pubk.pem file to alice
+        ## which will later use it to decrypt the signature
+        elif s_msg.decode() == 'pubk':
+            s.send(b'pubk')
+            file = open("pubkey.pem", "rb")
+            SendData = file.read(4096)
+            s.send(SendData)
+            file.close()
+
+        ## if string message cert received, bob will send a message "cert" along with the Certificate.crt file to alice
+        ## which will use it to verify the sender
+        elif s_msg.decode() == 'cert':
+            s.send(b'cert')
+            file = open("Certificate.crt", "rb")
+            SendData = file.read(4096)
+            s.send(SendData)
+            file.close()
+
+        ## if string message encMsg received, bob will send a message "encMsg" along with the sign.sha256.base64 file to alice 
+        ## this file will be decrypted and check if it matches with the hashing value of the original message
+        elif s_msg.decode() == 'encMsg':
+            s.send(b'encMsg')
+            file = open("sign.sha256.base64", "rb")
+            SendData = file.read(4096)
+            s.send(SendData)
+            file.close()
+
+        ## if string message gen received, bob will send a message "gen" along with the b.txt file to alice
+        ## This is the generator
+        elif s_msg.decode() == 'gen':
+            s.send(b'gen')
+            file = open("b.txt", "rb")
+            SendData = file.read(4096)
+            s.send(SendData)
+            file.close()
+
+        ## if string message mod received, bob will send a message "mod" along with the b.txt file to alice
+        ## This is the prime modulus
+        elif s_msg.decode() == 'mod':
+            s.send(b'mod')
+            file = open("n.txt", "rb")
+            SendData = file.read(4096)
+            s.send(SendData)
+            file.close()
+
+        ## if string message msg received, bob will send a message "msg" along with the b.txt file to alice
+        ## This is the prime modulus
+        elif s_msg.decode() == 'msg':
+            s.send(b'msg')
+            file = open("c2.txt", "rb")
+            SendData = file.read(4096)
+            s.send(SendData)
+            file.close()
+
+        elif s_msg.decode() == 'cAlice':
+            s.send(b'msg')
+            file = open("/home/alice/cAlice.txt", "rb")
+            SendData = file.read(4096)
+            s.send(SendData)
+            file.close()
+
         else:
-            conn.sendall(msg)
+            s.sendall(s_msg)
 
 
 if __name__ == '__main__':
