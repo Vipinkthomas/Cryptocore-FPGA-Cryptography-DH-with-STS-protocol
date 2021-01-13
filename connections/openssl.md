@@ -22,7 +22,7 @@ openssl enc -base64 -d -in sign.sha256.base64 -out sign.sha256
 openssl dgst -sha256 -verify pubkey.pem -signature sign.sha256 test.txt
 
 openssl verify -CAfile ca.crt bobcertificate.crt
-openssl x509 -noout -modulus -in alice.crt | openssl md5
+openssl x509 -noout -modulus -in bobcertificate.crt 
 ```
 
 **Reference:**
