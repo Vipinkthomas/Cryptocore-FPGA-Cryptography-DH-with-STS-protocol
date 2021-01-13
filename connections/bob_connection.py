@@ -72,7 +72,7 @@ def sendMsg(s):
         ## if string message pubk received, bob will send a message "pubk" along with the pubk.pem file to alice
         ## which will later use it to decrypt the signature
         elif s_msg.decode() == 'cBob':
-            s.send(b'pubk')
+            s.send(b'cBob')
             file = open("/home/vipin/cBob.txt", "rb")
             SendData = file.read(4096)
             s.send(SendData)
