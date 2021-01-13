@@ -5,7 +5,7 @@ openssl genrsa -out alice.key 2048
 openssl req -sha256 -new -key alice.key -out alice.csr
 openssl x509 -sha256 -req -in alice.csr -CA  /home/alice/rootCA/ca.crt -CAkey  /home/alice/rootCA/ca.key -CAcreateserial -out alice.crt -days 7300
 
-openssl dgst -sha256 -sign alice.key -out sign.sha256 cR1R2.txt
+openssl dgst -sha256 -sign bob.key -out sign.sha256 cR1R2.txt
 openssl enc -base64 -in sign.sha256 -out sign.sha256.base64
 
 openssl rsa -noout -modulus -in alice.key | openssl md5
