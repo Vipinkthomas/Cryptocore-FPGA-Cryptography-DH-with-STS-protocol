@@ -7,13 +7,52 @@ def connect(s):
     '''receive messages from other party, and decode them'''
 
     while True:
-        r_msg = s.recv(4096)
-        if not r_msg:
+        received = s.recv(4096)
+        if not received:
             break
-        if r_msg == '':
+        if received == '':
             pass
+
+        elif received.decode() == 'exit':
+            ## alice exits when bob exits
+            print("exit")
+            break
+
+        elif received.decode() == 'pubk':
+            ## if string message pubk received, alice will create a new file and write the pubk to pubkey.pem file
+            ## which will later use it to decrypt the signature
+            file = open("pubkey.pem", "wb")
+            RecvData = conn.recv(4096)
+            file.write(RecvData)
+            file.close()
+
+        elif received.decode() == 'cert':
+            ## if string message cert received, alice will create a new file and write the certificate to Certificate.crt file
+            ## which will use it to verify the sender
+            file = open("Certificate.crt", "wb")
+            RecvData = conn.recv(4096)
+            file.write(RecvData)
+            file.close()
+
+        elif received.decode() == 'encMsg':
+            ## if string message encMsg received, alice will create a new file and write the signature to 
+            # sign.sha256.base64 file
+            ## this file will be decrypted and check if it matches with the hashing value of the original message
+            file = open("sign.sha256.base64", "wb")
+            RecvData = conn.recv(4096)
+            file.write(RecvData)
+            file.close()
+
+        elif received.decode() == 'msg':
+            ## if string message msg received, alice will create a new file and write the message to msg.txt file
+            ## This is the original message
+            file = open("msg.txt", "wb")
+            RecvData = conn.recv(4096)
+            file.write(RecvData)
+            file.close()
+
         else:
-            print(r_msg.decode())
+            print(received.decode())
 
 ## This function will encode the message from user input and send it and also transfer files across
 ## chanel
