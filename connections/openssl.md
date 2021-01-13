@@ -19,7 +19,7 @@ openssl enc -d -salt -aes-256-cbc -in secret.enc -kfile secret.txt -out signatur
 **Other side**
 
 openssl enc -base64 -d -in sign.sha256.base64 -out sign.sha256
-openssl dgst -sha256 -verify pubkey.pem -signature sign.sha256 test.txt
+openssl dgst -sha256 -verify pubkey.pem -signature sign.sha256 r1r2.txt
 
 openssl verify -CAfile ca.crt bobcertificate.crt
 openssl x509 -noout -modulus -in bobcertificate.crt 
