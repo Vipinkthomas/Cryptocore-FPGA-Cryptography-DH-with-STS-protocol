@@ -53,7 +53,7 @@ def connect(conn):
             print(received.decode())
 
     
-def send_msg(conn):
+def send_msg(s):
 
     while True:
 
