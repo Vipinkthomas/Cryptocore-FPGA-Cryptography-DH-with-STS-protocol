@@ -30,7 +30,7 @@ def connect(s):
             ## if string message cert received, alice will create a new file and write the certificate to Certificate.crt file
             ## which will use it to verify the sender
             file = open("Certificate.crt", "wb")
-            RecvData = conn.recv(4096)
+            RecvData = s.recv(4096)
             file.write(RecvData)
             file.close()
 
