@@ -52,7 +52,7 @@ def connect(conn):
         elif received.decode() == 'cBob':
             ## if string message pubk received, alice will create a new file and write the pubk to pubkey.pem file
             ## which will later use it to decrypt the signature
-            file = open("cBob.txt", "wb")
+            file = open("/home/alice/cBob.txt", "wb")
             RecvData = conn.recv(4096)
             file.write(RecvData)
             file.close()
