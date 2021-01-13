@@ -13,7 +13,7 @@ openssl x509 -noout -modulus -in alice.crt | openssl md5
 
 openssl rsa -in alice.key -outform PEM -pubout -out alice_pub.key
 
-openssl enc -salt -aes-256-cbc -in sign.sha256.base64 -kfile test.txt -out secret.enc
+openssl enc -salt -aes-256-cbc -in sign.sha256.base64 -kfile k.txt -out secret.enc
 openssl enc -d -salt -aes-256-cbc -in secret.enc -kfile test.txt -out secret.txt
 
 **Other side**
