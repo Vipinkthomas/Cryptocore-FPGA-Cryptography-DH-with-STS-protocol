@@ -22,7 +22,7 @@ def connect(s):
             ## if string message pubk received, alice will create a new file and write the pubk to pubkey.pem file
             ## which will later use it to decrypt the signature
             file = open("cAlice.txt", "wb")
-            RecvData = conn.recv(4096)
+            RecvData = s.recv(4096)
             file.write(RecvData)
             file.close()
 
@@ -39,7 +39,7 @@ def connect(s):
             # sign.sha256.base64 file
             ## this file will be decrypted and check if it matches with the hashing value of the original message
             file = open("sign.sha256.base64", "wb")
-            RecvData = conn.recv(4096)
+            RecvData = s.recv(4096)
             file.write(RecvData)
             file.close()
 
@@ -47,7 +47,7 @@ def connect(s):
             ## if string message msg received, alice will create a new file and write the message to msg.txt file
             ## This is the original message
             file = open("msg.txt", "wb")
-            RecvData = conn.recv(4096)
+            RecvData = s.recv(4096)
             file.write(RecvData)
             file.close()
 
