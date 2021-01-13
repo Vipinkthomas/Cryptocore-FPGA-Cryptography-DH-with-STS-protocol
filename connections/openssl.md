@@ -11,7 +11,7 @@ openssl enc -base64 -in sign.sha256 -out sign.sha256.base64
 openssl rsa -noout -modulus -in alice.key | openssl md5
 openssl x509 -noout -modulus -in alice.crt | openssl md5
 
-openssl rsa -in alice.key -outform PEM -pubout -out alice_pub.key
+//openssl rsa -in alice.key -outform PEM -pubout -out alice_pub.key
 
 openssl enc -salt -aes-256-cbc -in sign.sha256.base64 -kfile secret.txt -out secret.enc
 openssl enc -d -salt -aes-256-cbc -in secret.enc -kfile secret.txt -out signature.base64
