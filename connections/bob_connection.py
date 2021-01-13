@@ -18,10 +18,10 @@ def connect(s):
             print("exit")
             break
 
-        elif received.decode() == 'pubk':
+        elif received.decode() == 'cAlice':
             ## if string message pubk received, alice will create a new file and write the pubk to pubkey.pem file
             ## which will later use it to decrypt the signature
-            file = open("pubkey.pem", "wb")
+            file = open("cAlice.txt", "wb")
             RecvData = conn.recv(4096)
             file.write(RecvData)
             file.close()
