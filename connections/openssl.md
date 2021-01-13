@@ -21,7 +21,7 @@ openssl enc -d -salt -aes-256-cbc -in secret.enc -kfile test.txt -out secret.txt
 openssl enc -base64 -d -in sign.sha256.base64 -out sign.sha256
 openssl dgst -sha256 -verify pubkey.pem -signature sign.sha256 test.txt
 
-openssl verify -CAfile ca.crt yoursite.org.crt
+openssl verify -CAfile ca.crt bobcertificate.crt
 ```
 
 **Reference:**
