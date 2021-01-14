@@ -8,6 +8,8 @@ openssl x509 -sha256 -req -in alice.csr -CA  /home/alice/rootCA/ca.crt -CAkey  /
 openssl dgst -sha256 -sign bob.key -out sign.sha256 cR1R2.txt
 openssl enc -base64 -in sign.sha256 -out sign.sha256.base64
 
+openssl x509 -pubkey -noout -in alice.crt  > pubkey.pem // get the public key from the crt file
+
 
 //openssl rsa -in alice.key -outform PEM -pubout -out alice_pub.key
 
