@@ -8,8 +8,6 @@ openssl x509 -sha256 -req -in alice.csr -CA  /home/alice/rootCA/ca.crt -CAkey  /
 openssl dgst -sha256 -sign bob.key -out sign.sha256 cR1R2.txt
 openssl enc -base64 -in sign.sha256 -out sign.sha256.base64
 
-openssl rsa -noout -modulus -in alice.key | openssl md5
-openssl x509 -noout -modulus -in alice.crt | openssl md5
 
 //openssl rsa -in alice.key -outform PEM -pubout -out alice_pub.key
 
@@ -44,3 +42,5 @@ openssl x509 -noout -modulus -in bobcertificate.crt
 
 >openssl enc -d -salt -aes-256-cbc -in secret.enc -kfile test.txt -out secret.txt
 
+>openssl rsa -noout -modulus -in alice.key | openssl md5
+>openssl x509 -noout -modulus -in alice.crt | openssl md5
