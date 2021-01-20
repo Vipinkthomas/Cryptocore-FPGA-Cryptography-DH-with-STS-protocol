@@ -1830,3 +1830,4 @@ MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("The driver for the FPGA-based CryptoCore");
 MODULE_SUPPORTED_DEVICE("CryptoCore");
 
+
