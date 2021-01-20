@@ -1,5 +1,7 @@
 import socket
 import threading
+import os
+import subprocess
 
 def connect(conn):
     '''receive messages from other party, and decode them'''
@@ -141,6 +143,8 @@ def send_msg(s):
 
 
 if __name__ == '__main__':
+
+    subprocess.call("./path-to-c-file") 
 
     HOST = '127.0.0.1'  # address (localhost)
     PORT = 12345        # Port to listen on
