@@ -61,7 +61,7 @@ int main(void)
 		
 	}	
 
-    FILE *fp2 = fopen("/home/vipin/e.txt", "r");
+    FILE *fp2 = fopen("/home/bob/e.txt", "r");
     if (fp2 == NULL) {
         fprintf(stderr, "Can't read file");
         return 0;
@@ -90,7 +90,7 @@ int main(void)
 	}
 	printf("\n\n");	
 
-    FILE *fp3 = fopen("/home/vipin/cAlice.txt", "r");
+    FILE *fp3 = fopen("/home/bob/cAlice.txt", "r");
     if (fp2 == NULL) {
         fprintf(stderr, "Can't read file");
         return 0;
@@ -110,7 +110,7 @@ int main(void)
 	}
 	printf("\n\n");
 
-	FILE *fp4 = fopen("/home/vipin/cBob.txt", "r");
+	FILE *fp4 = fopen("/home/bob/cBob.txt", "r");
     if (fp4 == NULL) {
         fprintf(stderr, "Can't read file");
         return 0;
@@ -118,7 +118,7 @@ int main(void)
 
     Fileread(fp4);
 
-	FILE *fwrite = fopen("/home/vipin/cBobAlice.txt", "w");
+	FILE *fwrite = fopen("/home/bob/cBobAlice.txt", "w");
     
     char hexString [256]= "";
       for(i=0 ; i< ModExp_512_test.prec/32; i++){
@@ -135,7 +135,7 @@ int main(void)
 		printf("Error occured\n");
 	}
 
-	FILE *f_write = fopen("/home/vipin/secret.txt", "w");
+	FILE *f_write = fopen("/home/bob/secret.txt", "w");
     
     char hex_String [128]= "";
       for(i=0 ; i< ModExp_512_test.prec/32; i++){
