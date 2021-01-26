@@ -14,6 +14,8 @@ __u32 *output;
 /* Prototypes for functions used to access physical memory addresses */
 int open_physical (int);
 void close_physical (int);
+void Fileread(FILE *);
+
 int main(void)
 {	
 	
@@ -39,28 +41,28 @@ int main(void)
 
 	usleep(10);
 
-// Configure Feedback Control Polynomial
+	// Configure Feedback Control Polynomial
 	trng_val = 0x0003ffff;
 	ret_val = ioctl(dd, IOCTL_SET_TRNG_CTR, &trng_val);
 	if(ret_val != 0) {
 		printf("Error occured\n");
 	}
 
-// Configure Stabilisation Time
+	// Configure Stabilisation Time
 	trng_val = 0x00000050;
 	ret_val = ioctl(dd, IOCTL_SET_TRNG_TSTAB, &trng_val);
 	if(ret_val != 0) {
 		printf("Error occured\n");
 	}
 
-// Configure Sample Time
+	// Configure Sample Time
 	trng_val = 0x00000006;
 	ret_val = ioctl(dd, IOCTL_SET_TRNG_TSAMPLE, &trng_val);
 	if(ret_val != 0) {
 		printf("Error occured\n");
 	}
 
-// Start TRNG
+	// Start TRNG
 	trng_val = 0x00000001;
 	ret_val = ioctl(dd, IOCTL_SET_TRNG_CMD, &trng_val);
 	if(ret_val != 0) {
@@ -79,6 +81,30 @@ int main(void)
 	};
 
 	clock_gettime(CLOCK_MONOTONIC, &tstart);
+
+	// Read TRNG FIRO
+	ModExp_512_test.e[0]=0x0;
+	ModExp_512_test.e[1]=0xffffffff;
+	for(i=2; i<ModExp_512_test.prec/32; i++){
+		ret_val = ioctl(dd, IOCTL_READ_TRNG_FIFO, &trng_val);
+		if(ret_val == 0) {
+			ModExp_512_test.e[i] = trng_val;
+		} else{
+			printf("Error occured\n");
+		}
+	}
+
+	//Writing e to e.txt
+	FILE *f_write = fopen("/home/bob/e.txt", "w");
+    
+    char hexString [128]= "";
+      for(i=0 ; i< ModExp_512_test.prec/32; i++){
+        sprintf(hexString, "%08x,", ModExp_512_test.e[i]);
+        fprintf(f_write,"%s",hexString);
+    }
+}
+
+
 
 	// Read TRNG FIRO
 	ModExp_512_test.e[0]=0x0;
@@ -128,3 +154,5 @@ void close_physical (int dd)
 {
    close (dd);
 }
+
+
