@@ -118,10 +118,10 @@ if __name__ == '__main__':
         elif userMenuInput=='3':
             subprocess.call('home/bob/stoesd_ii_2020-21/applications/Bob/secret', shell=True)
         elif userMenuInput=='4':
+            subprocess.call([r'createEncSig.sh'])
+        elif userMenuInput=='5':
             thread2.start()
             thread2.join()
-        elif userMenuInput=='5':
-            subprocess.call([r'createEncSig.sh'])
         elif userMenuInput=='6':
             subprocess.call([r'verifyCertSig.sh'])
         elif userMenuInput=='7':
