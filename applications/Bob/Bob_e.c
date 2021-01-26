@@ -103,41 +103,6 @@ int main(void)
         fprintf(f_write,"%s",hexString);
     }
 }
-
-
-
-	// Read TRNG FIRO
-	ModExp_512_test.e[0]=0x0;
-	ModExp_512_test.e[1]=0xffffffff;
-	for(i=2; i<ModExp_512_test.prec/32; i++){
-		ret_val = ioctl(dd, IOCTL_READ_TRNG_FIFO, &trng_val);
-		if(ret_val == 0) {
-			ModExp_512_test.e[i] = trng_val;
-		} else{
-			printf("Error occured\n");
-		}
-	}
-
-    FILE *f_write = fopen("/home/vipin/e.txt", "w");
-    
-    char hexString [128]= "";
-      for(i=0 ; i< ModExp_512_test.prec/32; i++){
-        sprintf(hexString, "%08x,", ModExp_512_test.e[i]);
-        fprintf(f_write,"%s",hexString);
-    }
-	
-	i = 0;
-	printf("E: 0x");
-	for(i=0; i<ModExp_512_test.prec/32; i++){
-		printf("%08x", ModExp_512_test.e[i]);
-	}
-
-	close_physical (dd);   // close /dev/cryptocore
-    //file close and free
-    fclose(f_write);
-	return 0;
-}
-
 int open_physical (int dd)
 {
    if (dd == -1)
@@ -154,5 +119,3 @@ void close_physical (int dd)
 {
    close (dd);
 }
-
-
