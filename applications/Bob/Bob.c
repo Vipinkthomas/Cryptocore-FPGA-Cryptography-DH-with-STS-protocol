@@ -43,7 +43,7 @@ int main(void)
 
 	clock_gettime(CLOCK_MONOTONIC, &tstart);
 
-	FILE *fp0 = fopen("/home/vipin/e.txt", "r");
+	FILE *fp0 = fopen("/home/bob/e.txt", "r");
     if (fp0 == NULL) {
         fprintf(stderr, "Can't read file");
         return 0;
@@ -114,7 +114,7 @@ int main(void)
 	if(ret_val != 0) {
 		printf("Error occured\n");
 	}
-	FILE *f_write = fopen("/home/vipin/cBob.txt", "w");
+	FILE *f_write = fopen("/home/bob/cBob.txt", "w");
     
     char hexString [128]= "";
       for(i=0 ; i< ModExp_512_test.prec/32; i++){
