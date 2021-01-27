@@ -67,7 +67,7 @@ def sendMsg(s):
     ## if string message pubk received, bob will send a message "pubk" along with the pubk.pem file to alice
     ## which will later use it to decrypt the signature
     elif s_msg.decode() == '6':
-        s.send('bobSignature')
+        s.send(b'bobSignature')
         file = open("/home/bob/signatureBob.enc", "rb")
         SendData = file.read(4096)
         s.send(SendData)
@@ -214,7 +214,7 @@ if __name__ == '__main__':
         userMenuInput=input()
 
         if userMenuInput == '7':
-            thread2.start()
+            
             thread2.join()
             break
 
@@ -226,7 +226,7 @@ if __name__ == '__main__':
         userMenuInput=input()
 
         if userMenuInput == '8':
-            thread2.start()
+            
             thread2.join()
             break
 
