@@ -132,6 +132,9 @@ if __name__ == '__main__':
     #thread for sending encoded messages
     thread2 = threading.Thread(target = sendMsg, args = ([conn]))
     
+    thread3 = threading.Thread(target = sendMsg, args = ([conn]))
+    thread4 = threading.Thread(target = sendMsg, args = ([conn]))
+    
     thread1.start()
 
     userMenuInput= ''
@@ -215,8 +218,9 @@ if __name__ == '__main__':
         userMenuInput=input()
 
         if userMenuInput == '7':
-            # thread2.start()
-            sendMsg(s)
+            thread3.start()
+            # sendMsg(s)
+            # thread3.join()
             
             break
     # thread2.join()
@@ -228,8 +232,9 @@ if __name__ == '__main__':
         userMenuInput=input()
 
         if userMenuInput == '8':
-            # thread2.start()
-            sendMsg(s)
+            thread4.start()
+            # sendMsg(s)
+            thread4.join()
             
             break
 
@@ -241,7 +246,7 @@ if __name__ == '__main__':
     # thread2.start()
     
     #join the two threads
-    thread1.join()
+    # thread1.join()
     # thread2.join()
 
     '''
