@@ -166,10 +166,13 @@ if __name__ == '__main__':
             thread2.join()
             break
     
-    print("Enter 00 to generate secret exponent")
-    userMenuInput=input()
-    if userMenuInput == '00':
-        sys.exit()
+
+    # print("Enter 00 to exit")
+    # userMenuInput=input()
+    # if userMenuInput == '00':
+    #     sys.exit()
+
+    print("Please wait for Bob to send some data")
 
 
 
