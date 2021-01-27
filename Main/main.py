@@ -157,7 +157,7 @@ if __name__ == '__main__':
     #--------------------------------------------------------------------------------------------->
     
         print("cAlice has been generated")
-        print("please Enter 3 to send Bob")
+        print("please Enter 3 to send cALice to Bob")
         userMenuInput=input()
 
         if userMenuInput =='3':
