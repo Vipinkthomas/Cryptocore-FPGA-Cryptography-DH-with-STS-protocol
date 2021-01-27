@@ -232,6 +232,8 @@ if __name__ == '__main__':
         print("Congrats, Now you can talk to each other securely")
         thread5.start()
         thread6.start()
+        thread5.join()
+        thread6.join()
         while userMenuInput != 'bye':
             userMenuInput=input()
             
