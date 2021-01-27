@@ -61,23 +61,23 @@ def sendMsg(s):
 
     while True:
         
-        s_msg = input().encode('utf-8')
+        s_msg = userMenuInput.encode('utf-8')
         if s_msg == '':
             pass
 
         ## if string message pubk received, bob will send a message "pubk" along with the pubk.pem file to alice
         ## which will later use it to decrypt the signature
-        elif s_msg.decode() == 'cBob':
-            s.send('cBob')
-            file = open("/home/bob/cBob.txt", "rb")
+        elif s_msg.decode() == '6':
+            s.send('bobSignature')
+            file = open("/home/bob/signatureBob.enc", "rb")
             SendData = file.read(4096)
             s.send(SendData)
             file.close()
 
         ## if string message cert received, bob will send a message "cert" along with the Certificate.crt file to alice
         ## which will use it to verify the sender
-        elif s_msg.decode() == 'Cert':
-            s.send(b'cert')
+        elif s_msg.decode() == '7':
+            s.send(b'bobCertificate')
             file = open("/home/bob/bob.crt", "rb")
             SendData = file.read(4096)
             s.send(SendData)
@@ -85,10 +85,10 @@ def sendMsg(s):
 
         ## if string message encMsg received, bob will send a message "encSig" along with the encrpyted sign.sha256.base64 file to alice 
         ## this file will be decrypted and check if it matches with the hashing value of the original message
-        elif s_msg.decode() == 'encSig':
+        elif s_msg.decode() == '8':
 
-            s.send(b'encScrt')
-            file = open("/home/bob/signatureBob.enc", "rb")
+            s.send(b'cBob')
+            file = open("/home/bob/cBob", "rb")
             SendData = file.read(4096)
             s.send(SendData)
             file.close()
@@ -196,6 +196,42 @@ if __name__ == '__main__':
         if userMenuInput == '5':
             subprocess.call(['sh','/home/bob/stoesd_ii_2020-21/Main/createEncSig.sh'])
             break
+#------------------------------------------------------------------------------------------------------->
+    print('Created signature.')
+
+    while userMenuInput != '0':
+        print("please Enter 6 to send Encrypted signature to Alice")
+        userMenuInput=input()
+
+        if userMenuInput == '6':
+            thread2.start()
+            thread2.join()
+            break
+#--------------------------------------------------------------------------------------------------->
+    print('sent signature to Alice.')
+
+    while userMenuInput != '0':
+        print("please Enter 7 to send certificate to Alice")
+        userMenuInput=input()
+
+        if userMenuInput == '7':
+            thread2.start()
+            thread2.join()
+            break
+
+#--------------------------------------------------------------------------------------------------->
+    print('sent certificate to Alice.')
+
+    while userMenuInput != '0':
+        print("please Enter 8 to send certificate to Alice")
+        userMenuInput=input()
+
+        if userMenuInput == '8':
+            thread2.start()
+            thread2.join()
+            break
+
+
 
 
     #starting the two threads
