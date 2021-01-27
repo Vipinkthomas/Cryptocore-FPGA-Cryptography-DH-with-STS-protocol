@@ -233,17 +233,24 @@ if __name__ == '__main__':
             thread4.join()
     # thread2.join()
 #--------------------------------------------------------------------------------------------------->
-
-
-        thread1.join()
-        thread2.join()
-        thread3.join()
-        thread4.join()
-
-        print("Now you can talk securely , bravoo")
         
-        thread5.start()
-        thread6.start()
+        print("start a secure chat")
+        while userMenuInput != 'bye':
+            userMenuInput=input()
+            thread5.start()
+            thread6.start()
+
+        
+
+        # thread1.join()
+        # thread2.join()
+        # thread3.join()
+        # thread4.join()
+
+        # print("Now you can talk securely , bravoo")
+        
+        # thread5.start()
+        # thread6.start()
 
 
 
