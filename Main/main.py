@@ -139,30 +139,24 @@ if __name__ == '__main__':
 
     userMenuInput= ''
 
-    while userMenuInput != '0':
+    if userMenuInput != '0':
         print("Enter 1 to generate secret exponent")
         userMenuInput=input()
 
         if userMenuInput == '1':
             subprocess.call('/home/bob/stoesd_ii_2020-21/applications/Bob/e', shell=True)
-            break
             
     #--------------------------------------------------------------------------------------------->
 
-    print("E has been generated")
-    
-    while userMenuInput != '0':
+        print("E has been generated")
         print("please Enter 2 to generate cBob")
         userMenuInput=input()
 
         if userMenuInput =='2':
             subprocess.call('/home/bob/stoesd_ii_2020-21/applications/Bob/cbob', shell=True)
-            break
     #--------------------------------------------------------------------------------------------->
 
-    print("cBob has been generated")
-    
-    while userMenuInput != '0':
+        print("cBob has been generated")
         print("please Enter 3 to generate the SECRET KEY")
         userMenuInput=input()
 
@@ -173,47 +167,33 @@ if __name__ == '__main__':
             
         if userMenuInput =='3':
             subprocess.call('/home/bob/stoesd_ii_2020-21/applications/Bob/secret', shell=True)
-            break
 
-    print("SECRET KEY has been created")
+        print("SECRET KEY has been created")
 #---------------------------------------------------------------------------------------------------->
-    print("Now you can create the Certificate")
-    
-    while userMenuInput != '0':
+        print("Now you can create the Certificate")
         print("please Enter 4 to create bob's certificate it")
         userMenuInput=input()
 
         if userMenuInput == '4':
             subprocess.call(['sh','/home/bob/stoesd_ii_2020-21/Main/createCertificate.sh'])
             # subprocess.call('cd /home/bob/stoesd_ii_2020-21/Main ; ./createCertificate.sh', shell=True)
-            
-            break
 #---------------------------------------------------------------------------------------------------->
-    print("Now you can create the encrypted signature")
-    
-    while userMenuInput != '0':
+        print("Now you can create the encrypted signature")
         print("please Enter 5 to create a signature and encrypt it")
         userMenuInput=input()
 
         if userMenuInput == '5':
             subprocess.call(['sh','/home/bob/stoesd_ii_2020-21/Main/createEncSig.sh'])
-            break
 #------------------------------------------------------------------------------------------------------->
-    print('Created signature.')
-
-    while userMenuInput != '0':
+        print('Created signature.')
         print("please Enter 6 to send Encrypted signature to Alice")
         userMenuInput=input()
 
         if userMenuInput == '6':
             thread2.start()
-            
-            break
     # thread2.join()
 #--------------------------------------------------------------------------------------------------->
-    print('sent signature to Alice.')
-
-    while userMenuInput != '0':
+        print('sent signature to Alice.')
         print("please Enter 7 to send certificate to Alice")
         userMenuInput=input()
 
@@ -221,13 +201,9 @@ if __name__ == '__main__':
             thread3.start()
             # sendMsg(s)
             # thread3.join()
-            
-            break
     # thread2.join()
 #--------------------------------------------------------------------------------------------------->
-    print('sent certificate to Alice.')
-
-    while userMenuInput != '0':
+        print('sent certificate to Alice.')
         print("please Enter 8 to send cBob to Alice")
         userMenuInput=input()
 
@@ -235,8 +211,6 @@ if __name__ == '__main__':
             thread4.start()
             # sendMsg(s)
             thread4.join()
-            
-            break
 
     # thread2.join()
 
