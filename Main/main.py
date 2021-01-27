@@ -126,9 +126,9 @@ if __name__ == '__main__':
 
 
 
-    thread1 = threading.Thread(target = connect, args = ([s]))
+    thread1 = threading.Thread(target = connect, args = ([conn]))
     #thread for sending encoded messages
-    thread2 = threading.Thread(target = sendMsg, args = ([s]))
+    thread2 = threading.Thread(target = sendMsg, args = ([conn]))
     
     #starting the two threads
     thread1.start()
