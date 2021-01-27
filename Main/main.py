@@ -182,7 +182,7 @@ if __name__ == '__main__':
         userMenuInput=input()
 
         if userMenuInput == '4':
-            subprocess.call(['sh','/home/bob/stoesd_ii_2020-21/Main/createCertificate.sh'], shell=True)
+            subprocess.call(['sh','/home/bob/stoesd_ii_2020-21/Main/createCertificate.sh'])
             # subprocess.call('cd /home/bob/stoesd_ii_2020-21/Main ; ./createCertificate.sh', shell=True)
             
             break
@@ -194,7 +194,7 @@ if __name__ == '__main__':
         userMenuInput=input()
 
         if userMenuInput == '5':
-            subprocess.call(['sh','/home/bob/stoesd_ii_2020-21/Main/createEncSig.sh'], shell=True)
+            subprocess.call(['sh','/home/bob/stoesd_ii_2020-21/Main/createEncSig.sh'])
             break
 
 
