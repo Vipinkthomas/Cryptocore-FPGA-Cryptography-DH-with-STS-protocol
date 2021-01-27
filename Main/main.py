@@ -137,6 +137,9 @@ if __name__ == '__main__':
     
     thread3 = threading.Thread(target = sendMsg, args = ([conn]))
     thread4 = threading.Thread(target = sendMsg, args = ([conn]))
+
+    thread5 = threading.Thread(target = connect, args = ([conn]))
+    thread6 = threading.Thread(target = sendMsg, args = ([conn]))
     
     thread1.start()
 
@@ -226,7 +229,15 @@ if __name__ == '__main__':
             subprocess.call(['sh','/home/bob/stoesd_ii_2020-21/Main/verifyCertSig.sh'])
             # subprocess.call('cd /home/bob/stoesd_ii_2020-21/Main ; ./createCertificate.sh', shell=True)
         
+        print("Congrats, Now you can talk to each other securely")
         
+        thread1.join()
+        thread2.join()
+        thread3.join()
+        thread4.join()
+        
+        thread5.start()
+        thread6.start()
 
     # thread2.join()
 
