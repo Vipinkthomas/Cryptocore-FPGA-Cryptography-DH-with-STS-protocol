@@ -142,8 +142,8 @@ int main(void)
     
     char hex_String [128]= "";
       for(i=0 ; i< ModExp_512_test.prec/32; i++){
-        sprintf(hexString, "%08x", ModExp_512_test.c[i]);
-        fprintf(f_write,"%s",hexString);
+        sprintf(hex_String, "%08x", ModExp_512_test.c[i]);
+        fprintf(f_write,"%s",hex_String);
     }
 	
 	printf("secret = ModExp(R,R,E,C2,P): 0x");
