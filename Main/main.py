@@ -147,7 +147,7 @@ if __name__ == '__main__':
 
         if userMenuInput == '1':
             subprocess.call('/home/alice/stoesd_ii_2020-21/applications/prime/e', shell=True)
-            break
+            
             
     #--------------------------------------------------------------------------------------------->
 
@@ -157,7 +157,7 @@ if __name__ == '__main__':
 
         if userMenuInput =='2':
             subprocess.call('/home/alice/stoesd_ii_2020-21/applications/prime/cAlice', shell=True)
-            break
+            
     #--------------------------------------------------------------------------------------------->
     
         print("cAlice has been generated")
@@ -167,7 +167,7 @@ if __name__ == '__main__':
         if userMenuInput =='3':
             thread2.start()
             thread2.join()
-            break
+            
     
 
     # print("Enter 00 to exit")
