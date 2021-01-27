@@ -139,6 +139,7 @@ if __name__ == '__main__':
         userMenuInput=input()
 
         if userMenuInput =='1':
+            print('here')
             subprocess.call('/home/alice/stoesd_ii_2020-21/applications/prime/e', shell=True)
             
     #--------------------------------------------------------------------------------------------->
