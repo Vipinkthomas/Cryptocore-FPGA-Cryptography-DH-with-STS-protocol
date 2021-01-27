@@ -140,7 +140,7 @@ if __name__ == '__main__':
 
         if userMenuInput =='1':
             subprocess.call('/home/alice/stoesd_ii_2020-21/applications/prime/e', shell=True)
-            break
+            
     #--------------------------------------------------------------------------------------------->
 
     print("E has been generated, Enter 2 to generate cAlice")
