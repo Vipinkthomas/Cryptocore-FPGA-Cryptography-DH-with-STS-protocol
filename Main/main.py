@@ -139,7 +139,7 @@ if __name__ == '__main__':
         userMenuInput=input()
 
         if userMenuInput =='1':
-            subprocess.call('home/alice/stoesd_ii_2020-21/applications/prime/e', shell=True)
+            subprocess.call('/home/alice/stoesd_ii_2020-21/applications/prime/e', shell=True)
             break
     #--------------------------------------------------------------------------------------------->
 
@@ -151,7 +151,7 @@ if __name__ == '__main__':
         userMenuInput=input()
 
         if userMenuInput =='2':
-            subprocess.call('home/alice/stoesd_ii_2020-21/applications/prime/cAlice', shell=True)
+            subprocess.call('/home/alice/stoesd_ii_2020-21/applications/prime/cAlice', shell=True)
             break
     #--------------------------------------------------------------------------------------------->
     
