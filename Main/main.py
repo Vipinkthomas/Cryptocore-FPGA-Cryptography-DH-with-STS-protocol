@@ -4,6 +4,7 @@
 import subprocess
 import socket
 import threading
+import sys
 
 ## This function will encode the message from user input and send it
 def connect(s):
@@ -59,13 +60,14 @@ def sendMsg(s):
 
     while True:
         
-        s_msg = input().encode('utf-8')
+        s_msg = userMenuInput.encode('utf-8')
+
         if s_msg == '':
             pass
 
         ## if string message pubk received, bob will send a message "pubk" along with the pubk.pem file to alice
         ## which will later use it to decrypt the signature
-        elif s_msg.decode() == 'cAlice':
+        elif s_msg.decode() == '3':
             s.send(b'cAlice')
             file = open("/home/alice/cAlice.txt", "rb")
             SendData = file.read(4096)
@@ -121,11 +123,62 @@ if __name__ == '__main__':
     
     #starting the two threads
     thread1.start()
-    thread2.start()
+    # thread2.start()
 
     #use join to "hold" on the main program
     thread1.join()
-    thread2.join()
+    # thread2.join()
+
+    #--------------------------------------------------------------------------------------------->
+
+    print("Enter 1 to generate secret exponent")
+    userMenuInput=input()
+
+    while userMenuInput != '1':
+        print("Enter 1 to generate secret exponent")
+        userMenuInput=input()
+
+        if userMenuInput =='1':
+            subprocess.call('home/alice/stoesd_ii_2020-21/applications/prime/e', shell=True)
+            break
+    #--------------------------------------------------------------------------------------------->
+
+    print("E has been generated, Enter 2 to generate cAlice")
+    userMenuInput=input()
+
+    while (userMenuInput != '2'):
+        print("please Enter 2 to generate cAlice")
+        userMenuInput=input()
+
+        if userMenuInput =='2':
+            subprocess.call('home/alice/stoesd_ii_2020-21/applications/prime/cAlice', shell=True)
+            break
+    #--------------------------------------------------------------------------------------------->
+    
+    print("cAlice has been generated, Enter 3 to send it to Bob")
+    userMenuInput=input()
+
+    while (userMenuInput != '3'):
+        print("please Enter 3 to send Bob")
+        userMenuInput=input()
+
+        if userMenuInput =='3':
+            thread2.start()
+            thread2.join()
+            break
+    
+    print("Enter 00 to generate secret exponent")
+    userMenuInput=input()
+    if userMenuInput == '00':
+        sys.exit()
+
+
+
+            
+
+
+
+        
 
     '''
     print("Diffie Hellmann(with STS protocol) Algorithm - Prototype")
