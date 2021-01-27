@@ -21,6 +21,7 @@ def connect(s):
             RecvData = s.recv(4096)
             file.write(RecvData)
             file.close()
+            print("cAlice has been received")
 
         elif received.decode() == 'Cert':
             ## if string message cert received, alice will create a new file and write the certificate to Certificate.crt file
@@ -130,6 +131,43 @@ if __name__ == '__main__':
     #thread for sending encoded messages
     thread2 = threading.Thread(target = sendMsg, args = ([conn]))
     
+    userMenuInput= ''
+
+    while userMenuInput != '0':
+        print("Enter 1 to generate secret exponent")
+        userMenuInput=input()
+
+        if userMenuInput == '1':
+            subprocess.call('/home/bob/stoesd_ii_2020-21/applications/Bob/e', shell=True)
+            break
+            
+    #--------------------------------------------------------------------------------------------->
+
+    print("E has been generated")
+    
+    while userMenuInput != '0':
+        print("please Enter 2 to generate cBob")
+        userMenuInput=input()
+
+        if userMenuInput =='2':
+            subprocess.call('/home/bob/stoesd_ii_2020-21/applications/Bob/cbob', shell=True)
+            break
+    #--------------------------------------------------------------------------------------------->
+
+    print("cBob has been generated")
+    
+    while userMenuInput != '0':
+        print("please Enter 3 to generate the SECRET KEY")
+        userMenuInput=input()
+
+        if userMenuInput =='3':
+            subprocess.call('/home/bob/stoesd_ii_2020-21/applications/Bob/secret', shell=True)
+            break
+
+    print("SECRET KEY has been created")
+
+
+
     #starting the two threads
     thread1.start()
     thread2.start()
