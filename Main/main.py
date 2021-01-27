@@ -4,6 +4,7 @@
 import subprocess
 import socket
 import threading
+import time
 
 ## This function will encode the message from user input and send it
 def connect(s):
@@ -159,7 +160,12 @@ if __name__ == '__main__':
     while userMenuInput != '0':
         print("please Enter 3 to generate the SECRET KEY")
         userMenuInput=input()
+        f = open("/home/bob/cAlice.txt", "r")
 
+        while(!f):
+            print('waiting for alice to send cAlice')
+            time.sleep(1)
+            
         if userMenuInput =='3':
             subprocess.call('/home/bob/stoesd_ii_2020-21/applications/Bob/secret', shell=True)
             break
