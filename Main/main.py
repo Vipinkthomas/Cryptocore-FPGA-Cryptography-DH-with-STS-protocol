@@ -134,12 +134,12 @@ if __name__ == '__main__':
     print("Enter 1 to generate secret exponent")
     userMenuInput=input()
 
-    while userMenuInput != '1':
+    while userMenuInput != '0':
         print("Enter 1 to generate secret exponent")
         userMenuInput=input()
 
-        if userMenuInput =='1':
-            print('here')
+        if userMenuInput == '1':
+            
             subprocess.call('/home/alice/stoesd_ii_2020-21/applications/prime/e', shell=True)
             
     #--------------------------------------------------------------------------------------------->
@@ -147,7 +147,7 @@ if __name__ == '__main__':
     print("E has been generated, Enter 2 to generate cAlice")
     userMenuInput=input()
 
-    while (userMenuInput != '2'):
+    while (userMenuInput != '0'):
         print("please Enter 2 to generate cAlice")
         userMenuInput=input()
 
@@ -159,7 +159,7 @@ if __name__ == '__main__':
     print("cAlice has been generated, Enter 3 to send it to Bob")
     userMenuInput=input()
 
-    while (userMenuInput != '3'):
+    while (userMenuInput != '0'):
         print("please Enter 3 to send Bob")
         userMenuInput=input()
 
