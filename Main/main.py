@@ -155,7 +155,7 @@ if __name__ == '__main__':
             break
     #--------------------------------------------------------------------------------------------->
     
-    print("cAlice has been generated)
+    print("cAlice has been generated")
 
     while userMenuInput != '0':
         print("please Enter 3 to send Bob")
