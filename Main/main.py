@@ -175,16 +175,25 @@ if __name__ == '__main__':
 
     print("SECRET KEY has been created")
 #---------------------------------------------------------------------------------------------------->
-    print("Now you can create the encrypted signature")
+    print("Now you can create the Certificate")
     
     while userMenuInput != '0':
-        print("please Enter 4 to create a signature and encrypt it")
+        print("please Enter 4 to create bob's certificate it")
         userMenuInput=input()
 
         if userMenuInput == '4':
+            subprocess.call([r'/home/bob/stoesd_ii_2020-21/Main/createCertificate.sh'])
+            break
+#---------------------------------------------------------------------------------------------------->
+    print("Now you can create the encrypted signature")
+    
+    while userMenuInput != '0':
+        print("please Enter 5 to create a signature and encrypt it")
+        userMenuInput=input()
+
+        if userMenuInput == '5':
             subprocess.call([r'/home/bob/stoesd_ii_2020-21/Main/createEncSig.sh'])
             break
-
 
 
     #starting the two threads
