@@ -182,7 +182,7 @@ if __name__ == '__main__':
         userMenuInput=input()
 
         if userMenuInput == '4':
-            subprocess.call([r'/home/bob/stoesd_ii_2020-21/Main/createCertificate.sh'])
+            subprocess.call('./home/bob/stoesd_ii_2020-21/Main/createCertificate.sh', shell=True)
             break
 #---------------------------------------------------------------------------------------------------->
     print("Now you can create the encrypted signature")
@@ -192,7 +192,7 @@ if __name__ == '__main__':
         userMenuInput=input()
 
         if userMenuInput == '5':
-            subprocess.call([r'/home/bob/stoesd_ii_2020-21/Main/createEncSig.sh'])
+            subprocess.call('./home/bob/stoesd_ii_2020-21/Main/createEncSig.sh', shell=True)
             break
 
 
