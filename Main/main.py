@@ -215,6 +215,19 @@ if __name__ == '__main__':
             # sendMsg(s)
             thread4.join()
 
+        while not os.path.isfile("/home/bob/alice.crt"):
+            print('waiting for alice to send certificate')
+            time.sleep(5)
+        
+        print("please Enter 9 to verify alice's certificate and signature")
+        userMenuInput=input()
+
+        if userMenuInput == '9':
+            subprocess.call(['sh','/home/bob/stoesd_ii_2020-21/Main/verifyCertSig.sh'])
+            # subprocess.call('cd /home/bob/stoesd_ii_2020-21/Main ; ./createCertificate.sh', shell=True)
+        
+        
+
     # thread2.join()
 
 
