@@ -123,6 +123,8 @@ if __name__ == '__main__':
     thread1 = threading.Thread(target = connect, args = ([s]))
     #thread for sending encoded messages
     thread2 = threading.Thread(target = sendMsg, args = ([s]))
+    thread3 = threading.Thread(target = sendMsg, args = ([s]))
+    thread4 = threading.Thread(target = sendMsg, args = ([s]))
     
     #starting the two threads
     thread1.start()
@@ -180,7 +182,33 @@ if __name__ == '__main__':
             # subprocess.call('cd /home/bob/stoesd_ii_2020-21/Main ; ./createCertificate.sh', shell=True)
 
 #---------------------------------------------------------------------------------------------------->
-    
+        print("Now you can create the encrypted signature")
+        print("please Enter 5 to create a signature and encrypt it")
+        userMenuInput=input()
+
+        if userMenuInput == '5':
+            subprocess.call(['sh','/home/alice/stoesd_ii_2020-21/Main/createEncSig.sh'])
+#------------------------------------------------------------------------------------------------------->
+        print('Created signature.')
+        print("please Enter 6 to send Encrypted signature to Bob")
+        userMenuInput=input()
+
+        if userMenuInput == '6':
+            thread2.start()
+            thread2.join()
+#--------------------------------------------------------------------------------------------------->
+        print('sent signature to Bob.')
+        print("please Enter 7 to send certificate to Bob")
+        userMenuInput=input()
+
+        if userMenuInput == '7':
+            thread3.start()
+            # sendMsg(s)
+            thread3.join()
+    # thread2.join()
+#--------------------------------------------------------------------------------------------------->
+
+
     thread1.join()
 
 
