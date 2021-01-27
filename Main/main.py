@@ -119,6 +119,7 @@ if __name__ == '__main__':
 
     #sets up and start TCP listener
     s.listen(5)
+    print('Bob is listening on port 12345 .... \n')
 
     #Establish connection with other party( BOB ).
     (conn, addr) = s.accept()
