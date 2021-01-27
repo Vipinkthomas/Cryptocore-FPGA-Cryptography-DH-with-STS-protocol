@@ -237,6 +237,8 @@ if __name__ == '__main__':
         print("start a secure chat")
         thread5.start()
         thread6.start()
+        thread5.join()
+        thread6.join()
         while userMenuInput != 'bye':
             userMenuInput=input()
             
