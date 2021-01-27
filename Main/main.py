@@ -162,7 +162,7 @@ if __name__ == '__main__':
         userMenuInput=input()
         f = open("/home/bob/cAlice.txt", "r")
 
-        while(!f):
+        while !f:
             print('waiting for alice to send cAlice')
             time.sleep(1)
             
