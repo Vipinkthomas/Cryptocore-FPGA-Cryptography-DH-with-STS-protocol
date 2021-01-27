@@ -128,6 +128,9 @@ if __name__ == '__main__':
     thread2 = threading.Thread(target = sendMsg, args = ([s]))
     thread3 = threading.Thread(target = sendMsg, args = ([s]))
     thread4 = threading.Thread(target = sendMsg, args = ([s]))
+
+    thread5 = threading.Thread(target = connect, args = ([s]))
+    thread6 = threading.Thread(target = sendMsg, args = ([s]))
     
     #starting the two threads
     thread1.start()
@@ -188,7 +191,7 @@ if __name__ == '__main__':
         print("SECRET KEY has been created")
 #---------------------------------------------------------------------------------------------------->
         print("Now you can verify")
-        print("please Enter  to verify bob's certificate and signature")
+        print("please Enter 5 to verify bob's certificate and signature")
         userMenuInput=input()
 
         if userMenuInput == '5':
@@ -233,6 +236,14 @@ if __name__ == '__main__':
 
 
     thread1.join()
+    thread2.join()
+    thread3.join()
+    thread4.join()
+
+    print("Now you can talk securely , bravoo")
+    
+    thread5.start()
+    thread6.start()
 
 
 
