@@ -178,44 +178,53 @@ if __name__ == '__main__':
     # if userMenuInput == '00':
     #     sys.exit()
 #---------------------------------------------------------------------------------------------------->
+        print("please Enter 4 to generate the SECRET KEY")
+        userMenuInput=input()
+        
+            
+        if userMenuInput =='4':
+            subprocess.call('/home/alice/stoesd_ii_2020-21/applications/prime/secret', shell=True)
+
+        print("SECRET KEY has been created")
+#---------------------------------------------------------------------------------------------------->
         print("Now you can verify")
-        print("please Enter  to create bob's certificate it")
+        print("please Enter  to verify bob's certificate and signature")
         userMenuInput=input()
 
         if userMenuInput == '5':
-            subprocess.call(['sh','/home/alice/stoesd_ii_2020-21/Main/createCertificate.sh'])
+            subprocess.call(['sh','/home/alice/stoesd_ii_2020-21/Main/verifyCertSig.sh'])
             # subprocess.call('cd /home/bob/stoesd_ii_2020-21/Main ; ./createCertificate.sh', shell=True)
 
 #---------------------------------------------------------------------------------------------------->
         print("Now you can create the Certificate")
-        print("please Enter 5 to create bob's certificate it")
+        print("please Enter 6 to create bob's certificate it")
         userMenuInput=input()
 
-        if userMenuInput == '5':
+        if userMenuInput == '6':
             subprocess.call(['sh','/home/alice/stoesd_ii_2020-21/Main/createCertificate.sh'])
             # subprocess.call('cd /home/bob/stoesd_ii_2020-21/Main ; ./createCertificate.sh', shell=True)
 
 #---------------------------------------------------------------------------------------------------->
         print("Now you can create the encrypted signature")
-        print("please Enter 6 to create a signature and encrypt it")
-        userMenuInput=input()
-
-        if userMenuInput == '6':
-            subprocess.call(['sh','/home/alice/stoesd_ii_2020-21/Main/createEncSig.sh'])
-#------------------------------------------------------------------------------------------------------->
-        print('Created signature.')
-        print("please Enter 7 to send Encrypted signature to Bob")
+        print("please Enter 7 to create a signature and encrypt it")
         userMenuInput=input()
 
         if userMenuInput == '7':
+            subprocess.call(['sh','/home/alice/stoesd_ii_2020-21/Main/createEncSig.sh'])
+#------------------------------------------------------------------------------------------------------->
+        print('Created signature.')
+        print("please Enter 8 to send Encrypted signature to Bob")
+        userMenuInput=input()
+
+        if userMenuInput == '8':
             thread2.start()
             thread2.join()
 #--------------------------------------------------------------------------------------------------->
         print('sent signature to Bob.')
-        print("please Enter 8 to send certificate to Bob")
+        print("please Enter 9 to send certificate to Bob")
         userMenuInput=input()
 
-        if userMenuInput == '8':
+        if userMenuInput == '9':
             thread3.start()
             # sendMsg(s)
             thread3.join()
