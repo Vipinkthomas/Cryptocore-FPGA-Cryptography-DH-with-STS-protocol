@@ -23,16 +23,18 @@ def connect(s):
             RecvData = s.recv(4096)
             file.write(RecvData)
             file.close()
+            print("Received cBob")
 
-        elif received.decode() == 'Cert':
+        elif received.decode() == 'bobCertificate':
             ## if string message cert received, alice will create a new file and write the certificate to Certificate.crt file
             ## which will use it to verify the sender
             file = open("/home/alice/bob.crt", "wb")
             RecvData = s.recv(4096)
             file.write(RecvData)
             file.close()
+            print('Received Bob Certificate')
 
-        elif received.decode() == 'encSig':
+        elif received.decode() == 'bobSignature':
             ## if string message encSig "signatureAlice.enc" received, alice will create a new file and write the signature to 
             # signatureAlice.enc file
             ## this file will be decrypted and check if it matches with the hashing value of the original message
@@ -40,6 +42,7 @@ def connect(s):
             RecvData = s.recv(4096)
             file.write(RecvData)
             file.close()
+            print('received bob signature')
 
         elif received.decode() == 'Msg':
             ## if string message Msg "signatureAlice.enc" received, alice will create a new file and write the signature to 
