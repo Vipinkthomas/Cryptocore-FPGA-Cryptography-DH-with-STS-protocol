@@ -217,17 +217,17 @@ if __name__ == '__main__':
         userMenuInput=input()
 
         if userMenuInput == '8':
-            thread2.start()
-            thread2.join()
+            thread3.start()
+            thread3.join()
 #--------------------------------------------------------------------------------------------------->
         print('sent signature to Bob.')
         print("please Enter 9 to send certificate to Bob")
         userMenuInput=input()
 
         if userMenuInput == '9':
-            thread3.start()
+            thread4.start()
             # sendMsg(s)
-            thread3.join()
+            thread4.join()
     # thread2.join()
 #--------------------------------------------------------------------------------------------------->
 
