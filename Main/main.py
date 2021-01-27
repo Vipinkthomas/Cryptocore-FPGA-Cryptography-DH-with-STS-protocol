@@ -168,7 +168,9 @@ if __name__ == '__main__':
             thread2.start()
             thread2.join()
             
-    
+        while not os.path.isfile("/home/alice/cBob.txt"):
+            print('waiting for bob to send cBob')
+            time.sleep(5)
 
     # print("Enter 00 to exit")
     # userMenuInput=input()
