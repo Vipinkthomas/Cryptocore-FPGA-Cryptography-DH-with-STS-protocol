@@ -216,6 +216,7 @@ if __name__ == '__main__':
 
         if userMenuInput == '7':
             # thread2.start()
+            sendMsg(s)
             
             break
     # thread2.join()
@@ -228,6 +229,7 @@ if __name__ == '__main__':
 
         if userMenuInput == '8':
             # thread2.start()
+            sendMsg(s)
             
             break
 
