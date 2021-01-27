@@ -182,7 +182,7 @@ if __name__ == '__main__':
         userMenuInput=input()
 
         if userMenuInput == '4':
-            subprocess.call([r'createEncSig.sh'])
+            subprocess.call([r'/home/bob/stoesd_ii_2020-21/Main/createEncSig.sh'])
             break
 
 
