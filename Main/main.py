@@ -230,10 +230,11 @@ if __name__ == '__main__':
             # subprocess.call('cd /home/bob/stoesd_ii_2020-21/Main ; ./createCertificate.sh', shell=True)
         
         print("Congrats, Now you can talk to each other securely")
+        thread5.start()
+        thread6.start()
         while userMenuInput != 'bye':
             userMenuInput=input()
-            thread5.start()
-            thread6.start()
+            
 
         # thread1.join()
         # thread2.join()
