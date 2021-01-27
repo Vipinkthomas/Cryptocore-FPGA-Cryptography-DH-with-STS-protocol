@@ -125,7 +125,7 @@ if __name__ == '__main__':
     thread2 = threading.Thread(target = sendMsg, args = ([s]))
     
     #starting the two threads
-    # thread1.start()
+    thread1.start()
     # thread2.start()
 
     #use join to "hold" on the main program
@@ -170,10 +170,18 @@ if __name__ == '__main__':
     # userMenuInput=input()
     # if userMenuInput == '00':
     #     sys.exit()
+#---------------------------------------------------------------------------------------------------->
+        print("Now you can create the Certificate")
+        print("please Enter 4 to create bob's certificate it")
+        userMenuInput=input()
 
-    print("Please wait for Bob to send some data")
-    thread1.start()
-    # thread1.join()
+        if userMenuInput == '4':
+            subprocess.call(['sh','/home/alice/stoesd_ii_2020-21/Main/createCertificate.sh'])
+            # subprocess.call('cd /home/bob/stoesd_ii_2020-21/Main ; ./createCertificate.sh', shell=True)
+
+#---------------------------------------------------------------------------------------------------->
+    
+    thread1.join()
 
 
 
