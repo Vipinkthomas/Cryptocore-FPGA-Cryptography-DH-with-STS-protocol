@@ -109,7 +109,15 @@ if __name__ == '__main__':
     thread1 = threading.Thread(target = connect, args = ([s]))
     #thread for sending encoded messages
     thread2 = threading.Thread(target = sendMsg, args = ([s]))
+    
+    #starting the two threads
     thread1.start()
+    thread2.start()
+
+    #use join to "hold" on the main program
+    thread1.join()
+    thread2.join()
+
 
     print("Diffie Hellmann(with STS protocol) Algorithm - Prototype")
     print("..........................................\n")
