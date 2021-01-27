@@ -1,3 +1,6 @@
+# Have to add funcationality to check whether the files are avilable before sending it, 
+#if not ask the permission to create the files 
+
 import subprocess
 import socket
 import threading
