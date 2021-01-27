@@ -174,6 +174,16 @@ if __name__ == '__main__':
             break
 
     print("SECRET KEY has been created")
+#---------------------------------------------------------------------------------------------------->
+    print("Now you can create the encrypted signature")
+    
+    while userMenuInput != '0':
+        print("please Enter 4 to create a signature and encrypt it")
+        userMenuInput=input()
+
+        if userMenuInput == '4':
+            subprocess.call([r'createEncSig.sh'])
+            break
 
 
 
