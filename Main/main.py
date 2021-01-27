@@ -101,15 +101,37 @@ def sendMsg(s):
 
 
 if __name__ == '__main__':
+
     port = 12345
+    HOST = '127.0.0.1'  # address (localhost)
+
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    s.connect(('127.0.0.1', port))
+
+    s.bind((HOST, PORT))
+
+    # s.connect(('127.0.0.1', port))
+
+    #sets up and start TCP listener
+    s.listen(5)
+
+    #Establish connection with other party( BOB ).
+    (conn, addr) = s.accept()
+
+
 
     thread1 = threading.Thread(target = connect, args = ([s]))
     #thread for sending encoded messages
     thread2 = threading.Thread(target = sendMsg, args = ([s]))
+    
+    #starting the two threads
     thread1.start()
+    thread2.start()
+    
+    #join the two threads
+    thread1.join()
+    thread2.join()
+
 
     print("Diffie Hellmann(with STS protocol) Algorithm - Prototype")
     print("..........................................\n")
