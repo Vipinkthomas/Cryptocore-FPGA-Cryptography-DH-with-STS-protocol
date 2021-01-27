@@ -32,6 +32,7 @@ def connect(s):
             RecvData = s.recv(4096)
             file.write(RecvData)
             file.close()
+            print("alice's certificate has been received")
 
         elif received.decode() == 'aliceSignature':
             ## if string message encSig "signatureAlice.enc" received, alice will create a new file and write the signature to 
@@ -41,6 +42,8 @@ def connect(s):
             RecvData = s.recv(4096)
             file.write(RecvData)
             file.close()
+            print("alice's signature has been received")
+
 
         elif received.decode() == 'Msg':
             ## if string message Msg "signatureAlice.enc" received, alice will create a new file and write the signature to 
