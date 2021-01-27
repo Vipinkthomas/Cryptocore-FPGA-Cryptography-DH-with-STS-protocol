@@ -90,7 +90,7 @@ def sendMsg(s):
             s.send(SendData)
             file.close()
 
-        elif s.decode() == 'Msg':
+        elif s_msg.decode() == 'Msg':
             ## if string message encMsg received, bob will send a message "Msg" along with the encrpyted encMsgBob.enc file to alice 
             ## this file will be decrypted and check if it matches with the hashing value of the original message
             s.send(b'Msg')
