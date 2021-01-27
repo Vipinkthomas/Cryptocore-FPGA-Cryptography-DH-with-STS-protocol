@@ -122,11 +122,11 @@ if __name__ == '__main__':
     thread2 = threading.Thread(target = sendMsg, args = ([s]))
     
     #starting the two threads
-    thread1.start()
+    # thread1.start()
     # thread2.start()
 
     #use join to "hold" on the main program
-    thread1.join()
+    # thread1.join()
     # thread2.join()
 
     #--------------------------------------------------------------------------------------------->
