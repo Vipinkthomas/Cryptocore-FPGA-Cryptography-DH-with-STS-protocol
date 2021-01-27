@@ -145,7 +145,7 @@ int main(void)
     
     char hex_String [128]= "";
       for(i=0 ; i< ModExp_512_test.prec/32; i++){
-        sprintf(hex_String, "%08x,", ModExp_512_test.c[i]);
+        sprintf(hex_String, "%08x", ModExp_512_test.c[i]);
         fprintf(f_write,"%s",hex_String);
     }
 
