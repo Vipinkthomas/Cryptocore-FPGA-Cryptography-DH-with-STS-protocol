@@ -59,51 +59,51 @@ def connect(s):
 ## chanel
 def sendMsg(s):
 
-        
-    s_msg = userMenuInput.encode('utf-8')
-    if s_msg == '':
-        pass
+    while True:
+        s_msg = userMenuInput.encode('utf-8')
+        if s_msg == '':
+            pass
 
-    ## if string message pubk received, bob will send a message "pubk" along with the pubk.pem file to alice
-    ## which will later use it to decrypt the signature
-    elif s_msg.decode() == '6':
-        s.send(b'bobSignature')
-        file = open("/home/bob/signatureBob.enc", "rb")
-        SendData = file.read(4096)
-        s.send(SendData)
-        file.close()
+        ## if string message pubk received, bob will send a message "pubk" along with the pubk.pem file to alice
+        ## which will later use it to decrypt the signature
+        elif s_msg.decode() == '6':
+            s.send(b'bobSignature')
+            file = open("/home/bob/signatureBob.enc", "rb")
+            SendData = file.read(4096)
+            s.send(SendData)
+            file.close()
 
-    ## if string message cert received, bob will send a message "cert" along with the Certificate.crt file to alice
-    ## which will use it to verify the sender
-    elif s_msg.decode() == '7':
-        s.send(b'bobCertificate')
-        file = open("/home/bob/bob.crt", "rb")
-        SendData = file.read(4096)
-        s.send(SendData)
-        file.close()
+        ## if string message cert received, bob will send a message "cert" along with the Certificate.crt file to alice
+        ## which will use it to verify the sender
+        elif s_msg.decode() == '7':
+            s.send(b'bobCertificate')
+            file = open("/home/bob/bob.crt", "rb")
+            SendData = file.read(4096)
+            s.send(SendData)
+            file.close()
 
-    ## if string message encMsg received, bob will send a message "encSig" along with the encrpyted sign.sha256.base64 file to alice 
-    ## this file will be decrypted and check if it matches with the hashing value of the original message
-    elif s_msg.decode() == '8':
-
-        s.send(b'cBob')
-        file = open("/home/bob/cBob.txt", "rb")
-        SendData = file.read(4096)
-        s.send(SendData)
-        file.close()
-
-    elif s_msg.decode() == 'Msg':
-        ## if string message encMsg received, bob will send a message "Msg" along with the encrpyted encMsgBob.enc file to alice 
+        ## if string message encMsg received, bob will send a message "encSig" along with the encrpyted sign.sha256.base64 file to alice 
         ## this file will be decrypted and check if it matches with the hashing value of the original message
-        s.send(b'Msg')
-        file = open("/home/bob/encMsgBob.enc", "rb")
-        SendData = file.read(4096)
-        s.send(SendData)
-        file.close()
+        elif s_msg.decode() == '8':
+
+            s.send(b'cBob')
+            file = open("/home/bob/cBob.txt", "rb")
+            SendData = file.read(4096)
+            s.send(SendData)
+            file.close()
+
+        elif s_msg.decode() == 'Msg':
+            ## if string message encMsg received, bob will send a message "Msg" along with the encrpyted encMsgBob.enc file to alice 
+            ## this file will be decrypted and check if it matches with the hashing value of the original message
+            s.send(b'Msg')
+            file = open("/home/bob/encMsgBob.enc", "rb")
+            SendData = file.read(4096)
+            s.send(SendData)
+            file.close()
 
 
-    else:
-        s.sendall(s_msg)
+        else:
+            s.sendall(s_msg)
 
 
 
