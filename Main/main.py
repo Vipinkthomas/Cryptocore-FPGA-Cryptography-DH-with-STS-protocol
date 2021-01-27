@@ -204,8 +204,9 @@ if __name__ == '__main__':
 
         if userMenuInput == '6':
             thread2.start()
-            thread2.join()
+            
             break
+    thread2.join()
 #--------------------------------------------------------------------------------------------------->
     print('sent signature to Alice.')
 
@@ -214,23 +215,23 @@ if __name__ == '__main__':
         userMenuInput=input()
 
         if userMenuInput == '7':
+            thread2.start()
             
-            thread2.join()
             break
-
+    thread2.join()
 #--------------------------------------------------------------------------------------------------->
     print('sent certificate to Alice.')
 
     while userMenuInput != '0':
-        print("please Enter 8 to send certificate to Alice")
+        print("please Enter 8 to send cBob to Alice")
         userMenuInput=input()
 
         if userMenuInput == '8':
+            thread2.start()
             
-            thread2.join()
             break
 
-
+    thread2.join()
 
 
     #starting the two threads
