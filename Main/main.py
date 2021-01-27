@@ -137,7 +137,7 @@ if __name__ == '__main__':
     thread1.join()
     thread2.join()
 
-
+    '''
     print("Diffie Hellmann(with STS protocol) Algorithm - Prototype")
     print("..........................................\n")
     print("Enter 0 for exit or press Enter to continue\n")
@@ -186,3 +186,4 @@ if __name__ == '__main__':
             break
 
     # thread1.join()
+    '''
