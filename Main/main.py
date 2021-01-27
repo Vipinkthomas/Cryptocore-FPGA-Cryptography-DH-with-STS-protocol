@@ -175,7 +175,7 @@ if __name__ == '__main__':
     # if userMenuInput == '00':
     #     sys.exit()
 #---------------------------------------------------------------------------------------------------->
-        print("Now you can create the Certificate")
+        print("Now you can verify")
         print("please Enter  to create bob's certificate it")
         userMenuInput=input()
 
