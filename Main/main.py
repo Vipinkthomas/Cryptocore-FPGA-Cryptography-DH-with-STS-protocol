@@ -82,8 +82,8 @@ def sendMsg(s):
 
     ## if string message cert received, bob will send a message "cert" along with the Certificate.crt file to alice
     ## which will use it to verify the sender
-    elif s_msg.decode() == 'Cert':
-        s.send(b'cert')
+    elif s_msg.decode() == '9':
+        s.send(b'aliceCertificate')
         file = open("/home/alice/alice.crt", "rb")
         SendData = file.read(4096)
         s.send(SendData)
@@ -91,9 +91,9 @@ def sendMsg(s):
 
     ## if string message encMsg received, bob will send a message "encSig" along with the encrpyted sign.sha256.base64 file to alice 
     ## this file will be decrypted and check if it matches with the hashing value of the original message
-    elif s_msg.decode() == 'encSig':
+    elif s_msg.decode() == '8':
 
-        s.send(b'encScrt')
+        s.send(b'aliceSignature')
         file = open("/home/alice/signatureAlice.enc", "rb")
         SendData = file.read(4096)
         s.send(SendData)
