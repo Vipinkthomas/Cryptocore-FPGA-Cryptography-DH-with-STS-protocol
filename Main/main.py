@@ -180,4 +180,4 @@ if __name__ == '__main__':
         elif userMenuInput=='0':
             break
 
-    thread1.join()
+    # thread1.join()
