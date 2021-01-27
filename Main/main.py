@@ -174,7 +174,7 @@ if __name__ == '__main__':
 
     print("Please wait for Bob to send some data")
     thread1.start()
-    thread.join()
+    thread1.join()
 
 
 
