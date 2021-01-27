@@ -161,7 +161,6 @@ if __name__ == '__main__':
     while userMenuInput != '0':
         print("please Enter 3 to generate the SECRET KEY")
         userMenuInput=input()
-        f = open("/home/bob/cAlice.txt", "r")
 
         while not os.path.isfile("/home/bob/cAlice.txt"):
             print('waiting for alice to send cAlice')
