@@ -9,12 +9,14 @@ import sys
 ## This function will encode the message from user input and send it
 def connect(s):
     '''receive messages from other party, and decode them'''
-
-    while True:
+    received=''
+    while received!='exit':
 
         received = s.recv(4096)
         if received == '':
             pass
+        elif received=='exit':
+            s.send(b'exit')
 
         elif received.decode() == 'cBob':
             ## if string message pubk received, alice will create a new file and write the pubk to pubkey.pem file
@@ -172,6 +174,15 @@ if __name__ == '__main__':
     # userMenuInput=input()
     # if userMenuInput == '00':
     #     sys.exit()
+#---------------------------------------------------------------------------------------------------->
+        print("Now you can create the Certificate")
+        print("please Enter  to create bob's certificate it")
+        userMenuInput=input()
+
+        if userMenuInput == '5':
+            subprocess.call(['sh','/home/alice/stoesd_ii_2020-21/Main/createCertificate.sh'])
+            # subprocess.call('cd /home/bob/stoesd_ii_2020-21/Main ; ./createCertificate.sh', shell=True)
+
 #---------------------------------------------------------------------------------------------------->
         print("Now you can create the Certificate")
         print("please Enter 5 to create bob's certificate it")
