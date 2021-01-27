@@ -118,17 +118,19 @@ int main(void)
 
     Fileread(fp4);
 
-	FILE *fwrite = fopen("/home/bob/cBobAlice.txt", "w");
+	FILE *fwrite = fopen("/home/bob/cAliceBob.txt", "w");
     
     char hexString [256]= "";
-      for(i=0 ; i< ModExp_512_test.prec/32; i++){
-        sprintf(hexString, "%08x", ModExp_512_test.b[i]);
-        fprintf(fwrite,"%s",hexString);
-    }
+
 	for(i=0 ; i< ModExp_512_test.prec/32; i++){
         sprintf(hexString, "%08x", output[i]);
         fprintf(fwrite,"%s",hexString);
     }
+      for(i=0 ; i< ModExp_512_test.prec/32; i++){
+        sprintf(hexString, "%08x", ModExp_512_test.b[i]);
+        fprintf(fwrite,"%s",hexString);
+    }
+	
 
 	ret_val = ioctl(dd, IOCTL_MWMAC_MODEXP, &ModExp_512_test);
 	if(ret_val != 0) {
