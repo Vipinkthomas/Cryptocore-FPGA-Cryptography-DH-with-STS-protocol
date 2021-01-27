@@ -133,6 +133,8 @@ if __name__ == '__main__':
     #thread for sending encoded messages
     thread2 = threading.Thread(target = sendMsg, args = ([conn]))
     
+    thread1.start()
+
     userMenuInput= ''
 
     while userMenuInput != '0':
@@ -176,12 +178,12 @@ if __name__ == '__main__':
 
 
     #starting the two threads
-    thread1.start()
-    thread2.start()
+    
+    # thread2.start()
     
     #join the two threads
     thread1.join()
-    thread2.join()
+    # thread2.join()
 
     '''
     print("Diffie Hellmann(with STS protocol) Algorithm - Prototype")
