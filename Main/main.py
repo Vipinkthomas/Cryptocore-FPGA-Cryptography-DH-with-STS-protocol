@@ -87,7 +87,7 @@ def sendMsg(s):
     elif s_msg.decode() == '8':
 
         s.send(b'cBob')
-        file = open("/home/bob/cBob", "rb")
+        file = open("/home/bob/cBob.txt", "rb")
         SendData = file.read(4096)
         s.send(SendData)
         file.close()
