@@ -137,7 +137,7 @@ if __name__ == '__main__':
     # print("Enter 1 to generate secret exponent")
     userMenuInput= ''
 
-    while userMenuInput != '0':
+    if userMenuInput != '0':
         print("Enter 1 to generate secret exponent")
         userMenuInput=input()
 
@@ -147,9 +147,7 @@ if __name__ == '__main__':
             
     #--------------------------------------------------------------------------------------------->
 
-    print("E has been generated")
-    
-    while userMenuInput != '0':
+        print("E has been generated")
         print("please Enter 2 to generate cAlice")
         userMenuInput=input()
 
@@ -158,9 +156,7 @@ if __name__ == '__main__':
             break
     #--------------------------------------------------------------------------------------------->
     
-    print("cAlice has been generated")
-
-    while userMenuInput != '0':
+        print("cAlice has been generated")
         print("please Enter 3 to send Bob")
         userMenuInput=input()
 
