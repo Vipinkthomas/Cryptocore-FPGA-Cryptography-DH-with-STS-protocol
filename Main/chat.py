@@ -42,7 +42,7 @@ def sendMsg(s):
         file.write(bytes(userInput, 'UTF-8'))
         file.close()
         
-        subprocess.call('openssl enc -salt -aes-256-cbc -in /home/bob/aliceMsg.txt -kfile /home/alice/secret.txt -out /home/alice/encMsgAlice.enc', shell=True)
+        subprocess.call('openssl enc -salt -aes-256-cbc -in /home/alice/aliceMsg.txt -kfile /home/alice/secret.txt -out /home/alice/encMsgAlice.enc', shell=True)
 
         userInput = input("Enter 2 to send the encrypted message to Bob: ")
         s_msg = userInput.encode('utf-8')
