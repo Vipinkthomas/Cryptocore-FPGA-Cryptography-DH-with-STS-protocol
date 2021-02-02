@@ -21,6 +21,11 @@ def connect(s):
             RecvData = s.recv(4096)
             file.write(RecvData)
             file.close()
+            subprocess.call('openssl enc -d -salt -aes-256-cbc -in /home/alice/encMsgBob.enc -kfile /home/alice/secret.txt -out /home/alice/bobMessage.txt', shell=True)
+
+            file = open("/home/alice/bobMessage.txt", "rb")
+            print(file.read(4096))
+            file.close()
 
    
         
