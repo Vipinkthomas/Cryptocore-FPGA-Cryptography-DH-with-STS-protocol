@@ -13,18 +13,18 @@ def connect(s):
 
     while True:
         received = s.recv(4096)
-        if received.decode() != '':
-            file = open("/home/bob/encMsgAlice.enc", "wb")
-            RecvData = s.recv(4096)
-            file.write(RecvData)
-            file.close()
+        # if received.decode() != '':
+        file = open("/home/bob/encMsgAlice.enc", "wb")
+        RecvData = s.recv(4096)
+        file.write(RecvData)
+        file.close()
 
-            subprocess.call('openssl enc -d -salt -aes-256-cbc -in /home/bob/encMsgAlice.enc -kfile /home/bob/secret.txt -out /home/bob/aliceMessage.txt', shell=True)
+        subprocess.call('openssl enc -d -salt -aes-256-cbc -in /home/bob/encMsgAlice.enc -kfile /home/bob/secret.txt -out /home/bob/aliceMessage.txt', shell=True)
 
-            file = open("/home/bob/aliceMessage.txt", "rb")
-            message = file.read(4096)
-            print(message)
-            file.close()
+        file = open("/home/bob/aliceMessage.txt", "rb")
+        message = file.read(4096)
+        print(message)
+        file.close()
         
 
     
