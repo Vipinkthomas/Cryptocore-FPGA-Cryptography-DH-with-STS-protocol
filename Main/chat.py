@@ -7,6 +7,7 @@ import threading
 import time
 import os
 
+userInput = ''
 ## This function will encode the message from user input and send it
 def connect(s):
     '''receive messages from other party, and decode them'''
