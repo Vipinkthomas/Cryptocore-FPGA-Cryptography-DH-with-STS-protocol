@@ -30,7 +30,7 @@ def sendMsg(s):
 
     ## if string message pubk received, bob will send a message "pubk" along with the pubk.pem file to alice
     ## which will later use it to decrypt the signature
-    if userInput == '2':
+    if userInput.decode() == '2':
         file = open("/home/alice/encMsgAlice.enc", "rb")
         SendData = file.read(4096)
         s.send(SendData)
