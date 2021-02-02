@@ -17,8 +17,8 @@ def connect(s):
         # if received.decode() != '':
         print('receiving sth')
         file = open("/home/alice/encMsgBob.enc", "wb")
-        RecvData = s.recv(4096)
-        file.write(RecvData)
+        # RecvData = s.recv(4096)
+        file.write(received)
         file.close()
         subprocess.call('openssl enc -d -salt -aes-256-cbc -in /home/alice/encMsgBob.enc -kfile /home/alice/secret.txt -out /home/alice/bobMessage.txt', shell=True)
 
