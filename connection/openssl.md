@@ -28,6 +28,9 @@ openssl x509 -noout -modulus -in bobcertificate.crt
 **Reference:**
 
 ```
+
+echo -n "aaaabbbbccccdddd" | openssl enc -e -aes-256-cbc -a -salt
+echo -n "aaaabbbbccccdddd" | openssl enc -salt -aes-256-cbc -kfile secret.txt -out secret.enc
 *test.txt : K value (k.txt)*
 *sign.sha256.base64 : signed value of (CBob,CAlice)*
 ```
