@@ -14,17 +14,17 @@ def connect(s):
     '''receive messages from other party, and decode them'''
     while True:
         received = s.recv(4096)
-        if received.decode() != '':
-            print('receiving sth')
-            file = open("/home/alice/encMsgBob.enc", "wb")
-            RecvData = s.recv(4096)
-            file.write(RecvData)
-            file.close()
-            subprocess.call('openssl enc -d -salt -aes-256-cbc -in /home/alice/encMsgBob.enc -kfile /home/alice/secret.txt -out /home/alice/bobMessage.txt', shell=True)
+        # if received.decode() != '':
+        print('receiving sth')
+        file = open("/home/alice/encMsgBob.enc", "wb")
+        RecvData = s.recv(4096)
+        file.write(RecvData)
+        file.close()
+        subprocess.call('openssl enc -d -salt -aes-256-cbc -in /home/alice/encMsgBob.enc -kfile /home/alice/secret.txt -out /home/alice/bobMessage.txt', shell=True)
 
-            file = open("/home/alice/bobMessage.txt", "rb")
-            print(file.read(4096))
-            file.close()
+        file = open("/home/alice/bobMessage.txt", "rb")
+        print(file.read(4096))
+        file.close()
 
    
         
