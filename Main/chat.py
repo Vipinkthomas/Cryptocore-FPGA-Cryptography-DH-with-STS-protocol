@@ -25,16 +25,16 @@ def connect(s):
 ## chanel
 def sendMsg(s):
 
-    s_msg = userInput.encode('utf-8')
-    print('here1')
-    ## if string message pubk received, bob will send a message "pubk" along with the pubk.pem file to alice
-    ## which will later use it to decrypt the signature
-    if s_msg.decode() == '2':
-        print('here 2')
-        file = open("/home/bob/encMsgBob.enc", "rb")
-        SendData = file.read(4096)
-        s.send(SendData)
-        file.close()
+    while True:
+        s_msg = userInput.encode('utf-8')
+        ## if string message pubk received, bob will send a message "pubk" along with the pubk.pem file to alice
+        ## which will later use it to decrypt the signature
+        if s_msg.decode() == '2':
+            print('here 2')
+            file = open("/home/bob/encMsgBob.enc", "rb")
+            SendData = file.read(4096)
+            s.send(SendData)
+            file.close()
 
 
 
@@ -64,22 +64,23 @@ if __name__ == '__main__':
     thread2 = threading.Thread(target = sendMsg, args = ([conn]))
     
     thread1.start()
+    
+
+    
+
+    userInput = ''
+    userInput = input("Enter the message: ")
+
+    file = open("/home/bob/bobMsg.txt", "wb")
+    file.write(bytes(userInput, 'UTF-8'))
+    file.close()
+    
+    subprocess.call('openssl enc -salt -aes-256-cbc -in /home/bob/bobMsg.txt -kfile /home/bob/secret.txt -out /home/bob/encMsgBob.enc', shell=True)
+
+    userInput = input("Enter 2 to send the encrypted message to ALICE: ")
+
     thread2.start()
-
-    while True:
-
-        userInput = ''
-        userInput = input("Enter the message: ")
-        file = open("/home/bob/bobMsg.txt", "wb")
-        
-        file.write(bytes(userInput, 'UTF-8'))
-        file.close()
-        
-        subprocess.call('openssl enc -salt -aes-256-cbc -in /home/bob/bobMsg.txt -kfile /home/bob/secret.txt -out /home/bob/encMsgBob.enc', shell=True)
-
-        userInput = input("Enter 2 to send the encrypted message to ALICE: ")
-
-        
+    
         
 
             
