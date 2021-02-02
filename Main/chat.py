@@ -19,6 +19,14 @@ def connect(s):
             file.write(RecvData)
             file.close()
 
+            subprocess.call('openssl enc -d -salt -aes-256-cbc -in /home/bob/encMsgAlice.enc -kfile /home/bob/secret.txt -out /home/bob/aliceMessage.txt', shell=True)
+
+            file = open("/home/bob/aliceMessage", "rb")
+            message = file.read(4096)
+            print(message)
+            file.close()
+        
+
     
 
 ## This function will encode the message from user input and send it and also transfer files across
@@ -40,7 +48,7 @@ def sendMsg(s):
         s_msg = userInput.encode('utf-8')
         
         if s_msg.decode() == '2':
-            print('here 2')
+            
             file = open("/home/bob/encMsgBob.enc", "rb")
             SendData = file.read(4096)
             s.send(SendData)
