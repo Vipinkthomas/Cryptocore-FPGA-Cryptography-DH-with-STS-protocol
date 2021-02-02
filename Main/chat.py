@@ -66,6 +66,7 @@ if __name__ == '__main__':
 
     while True:
 
+        userInput = ''
         userInput = input("Enter the message: ")
         file = open("/home/bob/bobMsg.txt", "wb")
         
