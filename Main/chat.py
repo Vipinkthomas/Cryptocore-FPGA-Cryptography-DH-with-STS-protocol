@@ -87,17 +87,6 @@ if __name__ == '__main__':
 
     thread2.start()
     
-        
-
-            
-
-
-    '''
     
-        elif userMenuInput=='7':
-            subprocess.call('openssl enc -salt -aes-256-cbc -in /home/bob/messageBob.txt -kfile /home/bob/secret.txt -out /home/bob/encMsgBob.enc', shell=True)
-        elif userMenuInput=='8':
-            subprocess.call('openssl enc -d -salt -aes-256-cbc -in /home/bob/encMsgBob.enc -kfile /home/bob/secret.txt -out /home/bob/messageAlice.txt', shell=True)
-        
-    # thread1.join()
-    '''
+    thread1.join()
+    thread2.join()
