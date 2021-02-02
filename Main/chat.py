@@ -16,6 +16,7 @@ def connect(s):
     while True:
         received = s.recv(4096)
         if received:
+            print('receiving sth')
             file = open("/home/alice/encMsgBob.enc", "wb")
             RecvData = s.recv(4096)
             file.write(RecvData)
