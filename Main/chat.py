@@ -38,7 +38,7 @@ def sendMsg(s):
         
         userInput = input("Enter the message: ")
 
-        file = open("/home/bob/aliceMsg.txt", "wb")
+        file = open("/home/alice/aliceMsg.txt", "wb")
         file.write(bytes(userInput, 'UTF-8'))
         file.close()
         
