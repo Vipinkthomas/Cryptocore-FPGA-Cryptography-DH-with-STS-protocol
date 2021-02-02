@@ -72,17 +72,9 @@ if __name__ == '__main__':
     thread1.start()
     thread2.start()
     # thread2.start()
-    while True:
-
-        userInput = input("Enter the message: ")
-        file = open("/home/alice/aliceMsg.txt", "wb")
-        file.write(bytes(userInput, 'UTF-8'))
-        
-        file.close()
-        
-        subprocess.call('openssl enc -salt -aes-256-cbc -in /home/alice/aliceMsg.txt -kfile /home/alice/secret.txt -out /home/alice/encMsgAlice.enc', shell=True)
-
-        userInput = input("Enter 2 to send the encrypted message to ALICE: ")
+    
+    thread1.join()
+    thread2.join()
 
 
     '''
