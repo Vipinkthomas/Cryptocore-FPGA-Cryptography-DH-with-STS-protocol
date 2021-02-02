@@ -29,15 +29,27 @@ def connect(s):
 ## chanel
 def sendMsg(s):
 
-    s_msg = userInput.encode('utf-8')
-    ## if string message pubk received, bob will send a message "pubk" along with the pubk.pem file to alice
-    ## which will later use it to decrypt the signature
-    if s_msg.decode() == '2':
-        print('here')
-        file = open("/home/alice/encMsgAlice.enc", "rb")
-        SendData = file.read(4096)
-        s.send(SendData)
+    userInput = ''
+    while userInput != 'exit':
+        
+        userInput = input("Enter the message: ")
+
+        file = open("/home/bob/aliceMsg.txt", "wb")
+        file.write(bytes(userInput, 'UTF-8'))
         file.close()
+        
+        subprocess.call('openssl enc -salt -aes-256-cbc -in /home/bob/aliceMsg.txt -kfile /home/alice/secret.txt -out /home/alice/encMsgAlice.enc', shell=True)
+
+        userInput = input("Enter 2 to send the encrypted message to Bob: ")
+        s_msg = userInput.encode('utf-8')
+        
+        if s_msg.decode() == '2':
+            print('here 2')
+            file = open("/home/alice/encMsgAlice.enc", "rb")
+            SendData = file.read(4096)
+            s.send(SendData)
+            file.close()
+
     
    
 
