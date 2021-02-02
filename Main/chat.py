@@ -13,7 +13,7 @@ def connect(s):
 
     while True:
         received = s.recv(4096)
-        if received:
+        if received.decode() != '':
             file = open("/home/bob/encMsgAlice.enc", "wb")
             RecvData = s.recv(4096)
             file.write(RecvData)
