@@ -14,7 +14,7 @@ def connect(s):
     while True:
         received = s.recv(4096)
         if received:
-            file = open("/home/bob/aliceMsg.txt", "wb")
+            file = open("/home/bob/encMsgAlice.enc", "wb")
             RecvData = s.recv(4096)
             file.write(RecvData)
             file.close()
