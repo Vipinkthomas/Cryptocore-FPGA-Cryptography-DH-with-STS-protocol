@@ -68,7 +68,8 @@ if __name__ == '__main__':
 
         userInput = input("Enter the message: ")
         file = open("/home/bob/bobMsg.txt", "wb")
-        file.write(userInput)
+        
+        file.write(bytes(userInput, 'UTF-8'))
         file.close()
         
         subprocess.call('openssl enc -salt -aes-256-cbc -in /home/bob/bobMsg.txt -kfile /home/bob/secret.txt -out /home/bob/encMsgBob.enc', shell=True)
