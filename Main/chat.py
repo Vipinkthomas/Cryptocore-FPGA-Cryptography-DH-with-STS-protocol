@@ -14,7 +14,7 @@ def connect(s):
     '''receive messages from other party, and decode them'''
     while True:
         received = s.recv(4096)
-        if received:
+        if received.decode() != '':
             print('receiving sth')
             file = open("/home/alice/encMsgBob.enc", "wb")
             RecvData = s.recv(4096)
@@ -80,18 +80,3 @@ if __name__ == '__main__':
     thread1.join()
     thread2.join()
 
-
-    '''
-        elif userMenuInput=='7':
-            subprocess.call('openssl enc -salt -aes-256-cbc -in /home/bob/messageBob.txt -kfile /home/bob/secret.txt -out /home/bob/encMsgBob.enc', shell=True)
-        elif userMenuInput=='8':
-            subprocess.call('openssl enc -d -salt -aes-256-cbc -in /home/bob/encMsgBob.enc -kfile /home/bob/secret.txt -out /home/bob/messageAlice.txt', shell=True)
-        elif userMenuInput=='7':
-            subprocess.call('echo $HOME', shell=True)
-        elif userMenuInput=='c':
-            subprocess.call([r'createCertificate.sh'])
-        elif userMenuInput=='0':
-            break
-
-    thread1.join()
-    '''
