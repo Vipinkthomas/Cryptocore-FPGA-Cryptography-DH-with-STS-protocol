@@ -61,7 +61,7 @@ if __name__ == '__main__':
             file.write(userInput)
             file.close()
         
-        subprocess.call('openssl enc -salt -aes-256-cbc -in /home/alice/aliceMsg.txt -kfile /home/alice/secret.txt -out /home/alice/encMsgBob.enc', shell=True)
+        subprocess.call('openssl enc -salt -aes-256-cbc -in /home/alice/aliceMsg.txt -kfile /home/alice/secret.txt -out /home/alice/encMsgAlice.enc', shell=True)
 
         userInput = input("Enter 2 to send the encrypted message to ALICE: ")
 
