@@ -8,7 +8,6 @@ import sys
 import os
 import time
 
-userInput = ''
 ## This function will encode the message from user input and send it
 
 def connect(s):
