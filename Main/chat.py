@@ -24,6 +24,7 @@ def connect(s):
 
         file = open("/home/alice/bobMessage.txt", "rb")
         print(file.read(4096))
+        print('after ')
         file.close()
 
    
