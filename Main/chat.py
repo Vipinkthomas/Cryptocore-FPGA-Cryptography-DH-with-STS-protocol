@@ -26,9 +26,10 @@ def connect(s):
 ## chanel
 def sendMsg(s):
 
+    s_msg = userInput.encode('utf-8')
     ## if string message pubk received, bob will send a message "pubk" along with the pubk.pem file to alice
     ## which will later use it to decrypt the signature
-    if userInput.decode() == '2':
+    if s_msg.decode() == '2':
         file = open("/home/bob/encMsgBob.enc", "rb")
         SendData = file.read(4096)
         s.send(SendData)
