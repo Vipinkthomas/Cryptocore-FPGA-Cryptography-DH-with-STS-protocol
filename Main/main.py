@@ -10,7 +10,7 @@ def connect(s):
     '''receive messages from other party, and decode them'''
 
     received=''
-    while received! = 'exit':
+    while received != 'exit':
 
         received = s.recv(4096)
 
