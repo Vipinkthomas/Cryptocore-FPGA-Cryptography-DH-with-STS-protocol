@@ -71,37 +71,48 @@ int main(void)
 
 	usleep(10);
 
-		ModExp_params_t ModExp_512_test = { 512,
-	1,
-	0,
-	{  },
-	{  },
-	{  },
-	{  },
-	};
+	struct TRNG_params TRNG_4096_test = { 4096, 
+	{  } };
+
 
 	clock_gettime(CLOCK_MONOTONIC, &tstart);
 
 	// Read TRNG FIRO
-	ModExp_512_test.e[0]=0x0;
-	ModExp_512_test.e[1]=0xffffffff;
-	for(i=2; i<ModExp_512_test.prec/32; i++){
+	TRNG_4096_test.rand[0]=0x0;
+	TRNG_4096_test.rand[1]=0xffffffff;
+	for(i=2; i<TRNG_4096_test.prec/32; i++){
 		ret_val = ioctl(dd, IOCTL_READ_TRNG_FIFO, &trng_val);
 		if(ret_val == 0) {
-			ModExp_512_test.e[i] = trng_val;
+			TRNG_4096_test.rand[i] = trng_val;
 		} else{
 			printf("Error occured\n");
 		}
 	}
 
+	
+
 	//Writing e to e.txt
 	FILE *f_write = fopen("/home/bob/e.txt", "w");
     
     char hexString [128]= "";
-      for(i=0 ; i< ModExp_512_test.prec/32; i++){
-        sprintf(hexString, "%08x,", ModExp_512_test.e[i]);
+      for(i=0 ; i< TRNG_4096_test.prec/32; i++){
+        sprintf(hexString, "%08x,", TRNG_4096_test.rand[i]);
         fprintf(f_write,"%s",hexString);
     }
+
+	clock_gettime(CLOCK_MONOTONIC, &tend);
+	printf("Exponent has been created");
+	printf("\n\n");
+
+	seconds = ((double)tend.tv_sec + 1.0e-9*tend.tv_nsec) - ((double)tstart.tv_sec + 1.0e-9*tstart.tv_nsec);
+	if (seconds*1000000.0 > 1000.0)
+		printf("Reading 4096 random bits took about %.5f ms\n", seconds*1000.0);
+	else 
+		printf("Reading 4096 random bits took about %.5f us\n", seconds*1000000.0);	
+
+	close_physical (dd);
+	return 0;
+
 }
 int open_physical (int dd)
 {
