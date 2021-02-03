@@ -2,7 +2,7 @@ def Alice1(b,e1,n,prec):
 	c1=Prime_ModExp(b,e1,n,prec)
 	return(c1)
 def Bob1(b,e2,n,prec):
-	c2=Prime_ModExp(b,e2,n,prec)
+	c2=Prime_ModExp(b,e2,n,prec)	
 	return(c2)
 def Alice2(b,c2,n,prec):
 	shared_key=Prime_ModExp(b,c2,n,prec)
@@ -37,6 +37,14 @@ def generatorValid(b,n,prec):
 			n=n-1
 	except TypeError:
 		print(TypeError)
+
+def openfile():
+	file = open("/home/alice/bobMessage.txt", "rb")
+    print("\nMessage from bob: ", file.read(4096))
+    file.close()
+
+
+	
 
 
 
