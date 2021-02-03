@@ -4,9 +4,6 @@
 import subprocess
 import socket
 import threading
-import sys
-import os
-import time
 
 ## This function will encode the message from user input and send it
 
@@ -14,18 +11,17 @@ def connect(s):
     '''receive messages from other party, and decode them'''
     while True:
         received = s.recv(4096)
-        # if received.decode() != '':
-        print('receiving sth')
+        
         file = open("/home/alice/encMsgBob.enc", "wb")
-        # RecvData = s.recv(4096)
         file.write(received)
         file.close()
         subprocess.call('openssl enc -d -salt -aes-256-cbc -in /home/alice/encMsgBob.enc -kfile /home/alice/secret.txt -out /home/alice/bobMessage.txt', shell=True)
 
         file = open("/home/alice/bobMessage.txt", "rb")
-        print(file.read(4096))
-        print('after ')
+        print("\nMessage from bob: ", (file.read(4096)).decode("utf-8"))
         file.close()
+
+        print("\nEnter the message: ")
 
    
         
@@ -37,7 +33,7 @@ def sendMsg(s):
     userInput = ''
     while userInput != 'exit':
         
-        userInput = input("Enter the message: ")
+        userInput = input("\nEnter the message: ")
 
         file = open("/home/alice/aliceMsg.txt", "wb")
         file.write(bytes(userInput, 'UTF-8'))
@@ -45,17 +41,14 @@ def sendMsg(s):
         
         subprocess.call('openssl enc -salt -aes-256-cbc -in /home/alice/aliceMsg.txt -kfile /home/alice/secret.txt -out /home/alice/encMsgAlice.enc', shell=True)
 
-        userInput = input("Enter 2 to send the encrypted message to Bob: ")
-        s_msg = userInput.encode('utf-8')
-        
-        if s_msg.decode() == '2':
-            print('here 2')
-            file = open("/home/alice/encMsgAlice.enc", "rb")
-            SendData = file.read(4096)
-            s.send(SendData)
-            file.close()
+        file = open("/home/alice/encMsgAlice.enc", "rb")
+        SendData = file.read(4096)
+        s.send(SendData)
+        file.close()
 
-    
+    s.close()
+    thread1.join()
+    thread2.join()
    
 
 
@@ -78,6 +71,4 @@ if __name__ == '__main__':
     thread2.start()
     # thread2.start()
     
-    thread1.join()
-    thread2.join()
 
