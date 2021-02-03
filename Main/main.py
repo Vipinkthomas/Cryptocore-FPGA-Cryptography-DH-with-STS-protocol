@@ -17,7 +17,7 @@ def connect(s):
         if received == '':
             pass
             
-        elif received=='exit':
+        elif received ==' exit':
             s.send(b'exit')
 
         elif received.decode() == 'cBob':
@@ -26,7 +26,7 @@ def connect(s):
             RecvData = s.recv(4096)
             file.write(RecvData)
             file.close()
-            print("Received cBob")
+            print("\nReceived cBob")
 
         elif received.decode() == 'bobCertificate':
             
@@ -34,7 +34,7 @@ def connect(s):
             RecvData = s.recv(4096)
             file.write(RecvData)
             file.close()
-            print('Received Bob Certificate')
+            print('\nReceived Bob Certificate')
 
         elif received.decode() == 'bobSignature':
            
@@ -42,7 +42,7 @@ def connect(s):
             RecvData = s.recv(4096)
             file.write(RecvData)
             file.close()
-            print('received bob signature')
+            print('\nreceived bob signature')
 
         elif received.decode() == 'Msg':
             
@@ -123,25 +123,27 @@ if __name__ == '__main__':
     userMenuInput= ''
 
     if userMenuInput != '0':
-        print("Enter 1 to generate secret exponent")
+        print("\nEnter 1 to generate secret exponent")
         userMenuInput=input()
 
         if userMenuInput == '1':
             subprocess.call('/home/alice/stoesd_ii_2020-21/applications/prime/e', shell=True)
-             
+
+        print("\nE has been generated")
     #--------------------------------------------------------------------------------------------->
 
-        print("E has been generated")
-        print("please Enter 2 to generate cAlice")
+        
+        print("\nplease Enter 2 to generate cAlice")
         userMenuInput=input()
 
         if userMenuInput =='2':
             subprocess.call('/home/alice/stoesd_ii_2020-21/applications/prime/cAlice', shell=True)
             
+        print("\ncAlice has been generated")
     #--------------------------------------------------------------------------------------------->
     
-        print("cAlice has been generated")
-        print("please Enter 3 to send cALice to Bob")
+        
+        print("\nplease Enter 3 to send cALice to Bob")
         userMenuInput=input()
 
         if userMenuInput =='3':
@@ -154,19 +156,19 @@ if __name__ == '__main__':
 
 #---------------------------------------------------------------------------------------------------->
         
-        print("please Enter 4 to generate the SECRET KEY")
+        print("\nplease Enter 4 to generate the SECRET KEY")
         userMenuInput=input()
         
             
         if userMenuInput =='4':
             subprocess.call('/home/alice/stoesd_ii_2020-21/applications/prime/secret', shell=True)
 
-        print("SECRET KEY has been created")
+        print("\n***SECRET KEY HAS BEEN CREATED***")
 
 #---------------------------------------------------------------------------------------------------->
         
-        print("Now you can verify")
-        print("please Enter 5 to verify bob's certificate and signature")
+        print("\nNow you can verify")
+        print("\nplease Enter 5 to verify bob's certificate and signature")
         userMenuInput=input()
 
         if userMenuInput == '5':
@@ -174,8 +176,8 @@ if __name__ == '__main__':
             
 #---------------------------------------------------------------------------------------------------->
         
-        print("Now you can create the Certificate")
-        print("please Enter 6 to create bob's certificate it")
+        print("\nNow you can create the Certificate")
+        print("\nplease Enter 6 to create bob's certificate it")
         userMenuInput=input()
 
         if userMenuInput == '6':
@@ -183,31 +185,37 @@ if __name__ == '__main__':
            
 #---------------------------------------------------------------------------------------------------->
         
-        print("Now you can create the encrypted signature")
-        print("please Enter 7 to create a signature and encrypt it")
+        print("\nNow you can create the encrypted signature")
+        print("\nplease Enter 7 to create a signature and encrypt it")
         userMenuInput=input()
 
         if userMenuInput == '7':
             subprocess.call(['sh','/home/alice/stoesd_ii_2020-21/Main/createEncSig.sh'])
+
+        print('\nCreated signature.')
 #------------------------------------------------------------------------------------------------------->
         
-        print('Created signature.')
-        print("please Enter 8 to send Encrypted signature to Bob")
+        
+        print("\nplease Enter 8 to send Encrypted signature to Bob")
         userMenuInput=input()
 
         if userMenuInput == '8':
             thread3.start()
             thread3.join()
+
+        print('\nsent signature to Bob.')
 #--------------------------------------------------------------------------------------------------->
         
-        print('sent signature to Bob.')
-        print("please Enter 9 to send certificate to Bob")
+        
+        print("\nplease Enter 9 to send certificate to Bob")
         userMenuInput=input()
 
         if userMenuInput == '9':
             thread4.start()
             thread4.join()
+        
+        print('\nsent certificate to Bob.')
 #--------------------------------------------------------------------------------------------------->
         
-        print("Congrats you have the key")
+        print("\n***NOW YOU CAN USER THE KEY TO ENCRYPT/DECRYPT MESSAGES***")
       
