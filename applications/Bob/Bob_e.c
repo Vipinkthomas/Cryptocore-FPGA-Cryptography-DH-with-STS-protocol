@@ -94,6 +94,8 @@ int main(void)
 		}
 	}
 
+	clock_gettime(CLOCK_MONOTONIC, &tend);
+
 	//Writing e to e.txt
 	FILE *f_write = fopen("/home/bob/e.txt", "w");
     
@@ -102,6 +104,19 @@ int main(void)
         sprintf(hexString, "%08x,", ModExp_512_test.e[i]);
         fprintf(f_write,"%s",hexString);
     }
+
+	printf("Exponent has been created");
+	printf("\n\n");
+
+	seconds = ((double)tend.tv_sec + 1.0e-9*tend.tv_nsec) - ((double)tstart.tv_sec + 1.0e-9*tstart.tv_nsec);
+	if (seconds*1000000.0 > 1000.0)
+		printf("Reading 512 random bits took about %.5f ms\n", seconds*1000.0);
+	else 
+		printf("Reading 512 random bits took about %.5f us\n", seconds*1000000.0);	
+
+	close_physical (dd);
+	return 0;
+
 }
 int open_physical (int dd)
 {
