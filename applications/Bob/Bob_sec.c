@@ -55,7 +55,7 @@ int main(void)
 	 i = 0;
 	while (i < ModExp_4096_test.prec/32) {
 		
-		ModExp_512_test.e[i] = output[i];
+		ModExp_4096_test.e[i] = output[i];
 		i++;
 		
 	}
