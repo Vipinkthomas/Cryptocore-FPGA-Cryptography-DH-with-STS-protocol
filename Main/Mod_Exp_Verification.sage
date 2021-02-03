@@ -32,4 +32,5 @@ def Prime_ModExp(b,e,n,prec):
 			x = (b * x) % n
 	c = x
 
-	return(c)
+	return(hex(c))
+Prime_ModExp(b,e,n,prec)
