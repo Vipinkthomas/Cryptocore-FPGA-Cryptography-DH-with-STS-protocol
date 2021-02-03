@@ -13,8 +13,10 @@ def connect(s):
     while received! = 'exit':
 
         received = s.recv(4096)
+
         if received == '':
             pass
+            
         elif received=='exit':
             s.send(b'exit')
 
