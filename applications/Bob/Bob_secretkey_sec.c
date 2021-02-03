@@ -153,6 +153,7 @@ int main(void)
 		printf("%08x", ModExp_4096_test.c[i]);
 	}
 	printf("\n\n");
+	
 	clock_gettime(CLOCK_MONOTONIC, &tend);
 
 	seconds = ((double)tend.tv_sec + 1.0e-9*tend.tv_nsec) - ((double)tstart.tv_sec + 1.0e-9*tstart.tv_nsec);
