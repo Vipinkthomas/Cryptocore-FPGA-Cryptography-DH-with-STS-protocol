@@ -31,7 +31,7 @@ int main(void)
 	if ((dd = open_physical (dd)) == -1)
     return (-1);
 
-	ModExp_params_t ModExp_512_test = { 512,
+	ModExp_params_t ModExp_4096_test = { 4096,
 	1,
 	0,
 	{  },
@@ -40,7 +40,8 @@ int main(void)
 	{  },
 	};
     
-	
+	clock_gettime(CLOCK_MONOTONIC, &tstart);
+
 	//----------------------------------------------------->>
 	FILE *fp1 = fopen("/home/alice/e.txt", "r");
     if (fp1 == NULL) {
@@ -51,9 +52,9 @@ int main(void)
     Fileread(fp1);
 	
 	i = 0;
-	while (i < ModExp_512_test.prec/32) {
+	while (i < ModExp_4096_test.prec/32) {
 		
-		ModExp_512_test.e[i] = output[i];
+		ModExp_4096_test.e[i] = output[i];
 		i++;
 		
 	}	
@@ -67,9 +68,9 @@ int main(void)
     Fileread(fp2);
 	
 	i = 0;
-	while (i < ModExp_512_test.prec/32) {
+	while (i < ModExp_4096_test.prec/32) {
 		
-		ModExp_512_test.n[i] = output[i];
+		ModExp_4096_test.n[i] = output[i];
 		i++;
 		
 	}	
@@ -79,14 +80,14 @@ int main(void)
  
 	printf("\n\n");
 	printf("N: 0x");
-	for(i=0; i<ModExp_512_test.prec/32; i++){
-		printf("%08x", ModExp_512_test.n[i]);
+	for(i=0; i<ModExp_4096_test.prec/32; i++){
+		printf("%08x", ModExp_4096_test.n[i]);
 	}
 	printf("\n\n");
 	
 	printf("E: 0x");
-	for(i=0; i<ModExp_512_test.prec/32; i++){
-		printf("%08x", ModExp_512_test.e[i]);
+	for(i=0; i<ModExp_4096_test.prec/32; i++){
+		printf("%08x", ModExp_4096_test.e[i]);
 	}
 	printf("\n\n");	
 
@@ -99,15 +100,15 @@ int main(void)
     Fileread(fp3);
 
 	i = 0;
-	while (i < ModExp_512_test.prec/32) {
+	while (i < ModExp_4096_test.prec/32) {
 		
-		ModExp_512_test.b[i] = output[i];
+		ModExp_4096_test.b[i] = output[i];
 		i++;
 		
 	}
 	printf("B/cBob: 0x");
-	for(i=0; i<ModExp_512_test.prec/32; i++){
-		printf("%08x", ModExp_512_test.b[i]);
+	for(i=0; i<ModExp_4096_test.prec/32; i++){
+		printf("%08x", ModExp_4096_test.b[i]);
 	}
 	printf("\n\n");
 
@@ -121,39 +122,45 @@ int main(void)
 
 	FILE *fwrite = fopen("/home/alice/cAliceBob.txt", "w");
     
-    char hexString [256]= "";
+    char hexString [128]= "";
 
 
   
-		for(i=0 ; i< ModExp_512_test.prec/32; i++){
+		for(i=0 ; i< ModExp_4096_test.prec/32; i++){
         sprintf(hexString, "%08x", output[i]);
         fprintf(fwrite,"%s",hexString);
     }
-	    for(i=0 ; i< ModExp_512_test.prec/32; i++){
-        sprintf(hexString, "%08x", ModExp_512_test.b[i]);
+	    for(i=0 ; i< ModExp_4096_test.prec/32; i++){
+        sprintf(hexString, "%08x", ModExp_4096_test.b[i]);
         fprintf(fwrite,"%s",hexString);
     }
 
-	ret_val = ioctl(dd, IOCTL_MWMAC_MODEXP, &ModExp_512_test);
+	ret_val = ioctl(dd, IOCTL_MWMAC_MODEXP, &ModExp_4096_test);
 	if(ret_val != 0) {
 		printf("Error occured\n");
 	}
 
 	printf("secret = ModExp(R,R,E,C2,P): 0x");
-	for(i=0; i<ModExp_512_test.prec/32; i++){
-		printf("%08x", ModExp_512_test.c[i]);
+	for(i=0; i<ModExp_4096_test.prec/32; i++){
+		printf("%08x", ModExp_4096_test.c[i]);
 	}
 	printf("\n\n");
 
 	FILE *f_write = fopen("/home/alice/secret.txt", "w");
     
     char hex_String [128]= "";
-      for(i=0 ; i< ModExp_512_test.prec/32; i++){
-        sprintf(hex_String, "%08x", ModExp_512_test.c[i]);
+      for(i=0 ; i< ModExp_4096_test.prec/32; i++){
+        sprintf(hex_String, "%08x", ModExp_4096_test.c[i]);
         fprintf(f_write,"%s",hex_String);
     }
 
-	
+	clock_gettime(CLOCK_MONOTONIC, &tend);
+
+	seconds = ((double)tend.tv_sec + 1.0e-9*tend.tv_nsec) - ((double)tstart.tv_sec + 1.0e-9*tstart.tv_nsec);
+	if (seconds*1000000.0 > 1000.0)
+		printf("Reading 4096 random bits took about %.5f ms\n", seconds*1000.0);
+	else 
+		printf("Reading 4096 random bits took about %.5f us\n", seconds*1000000.0);
 
 	close_physical (dd);   // close /dev/cryptocore
     //file close and free
@@ -187,7 +194,7 @@ void close_physical (int dd)
 // function
 
 void Fileread(FILE *fp)
-{	char n_string[512]="";
+{	char n_string[4096]="";
 	__u32 *temp_n;
 	fscanf(fp,"%s", n_string);
     char *tok_n;
