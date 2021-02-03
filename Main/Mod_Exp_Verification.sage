@@ -38,7 +38,7 @@ print(n_hex)
 file.close()
 ##########################################
 prec = 4096
-
+print(type(n_hex))
 Prime_ModExp(e_hex,e_hex,n_hex,4096)
 
 
