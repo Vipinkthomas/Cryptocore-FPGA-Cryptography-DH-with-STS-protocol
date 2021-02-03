@@ -1,11 +1,6 @@
-# Have to add funcationality to check whether the files are avilable before sending it, 
-#if not ask the permission to create the files 
-
 import subprocess
 import socket
 import threading
-import time
-import os
 
 ## This function will encode the message from user input and send it
 def connect(s):
@@ -13,9 +8,8 @@ def connect(s):
 
     while True:
         received = s.recv(4096)
-        # if received.decode() != '':
+        
         file = open("/home/bob/encMsgAlice.enc", "wb")
-        # RecvData = s.recv(4096)
         file.write(received)
         file.close()
 
@@ -23,8 +17,10 @@ def connect(s):
 
         file = open("/home/bob/aliceMessage.txt", "rb")
         message = file.read(4096)
-        print(message)
+        print("\nMessage from Alice: " , message.decode("utf-8"))
         file.close()
+
+        print("\nEnter the message: ")
         
 
     
@@ -36,7 +32,7 @@ def sendMsg(s):
     userInput = ''
     while userInput != 'exit':
         
-        userInput = input("Enter the message: ")
+        userInput = input("\nEnter the message: ")
 
         file = open("/home/bob/bobMsg.txt", "wb")
         file.write(bytes(userInput, 'UTF-8'))
@@ -44,16 +40,17 @@ def sendMsg(s):
         
         subprocess.call('openssl enc -salt -aes-256-cbc -in /home/bob/bobMsg.txt -kfile /home/bob/secret.txt -out /home/bob/encMsgBob.enc', shell=True)
 
-        userInput = input("Enter 2 to send the encrypted message to ALICE: ")
-        s_msg = userInput.encode('utf-8')
         
-        if s_msg.decode() == '2':
             
-            file = open("/home/bob/encMsgBob.enc", "rb")
-            SendData = file.read(4096)
-            s.send(SendData)
-            file.close()
-        
+        file = open("/home/bob/encMsgBob.enc", "rb")
+        SendData = file.read(4096)
+        s.send(SendData)
+        file.close()
+    
+    s.close()
+    thread1.join()
+    thread2.join()
+    
 
 
 
@@ -66,8 +63,6 @@ if __name__ == '__main__':
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
     s.bind((HOST, PORT))
-
-    # s.connect(('127.0.0.1', port))
 
     #sets up and start TCP listener
     s.listen(5)
@@ -83,10 +78,6 @@ if __name__ == '__main__':
     thread2 = threading.Thread(target = sendMsg, args = ([conn]))
     
     thread1.start()
-    
-
     thread2.start()
     
-    
-    thread1.join()
-    thread2.join()
+
