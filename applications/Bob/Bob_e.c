@@ -89,7 +89,7 @@ int main(void)
 		}
 	}
 
-	clock_gettime(CLOCK_MONOTONIC, &tend);
+	
 
 	//Writing e to e.txt
 	FILE *f_write = fopen("/home/bob/e.txt", "w");
@@ -100,6 +100,7 @@ int main(void)
         fprintf(f_write,"%s",hexString);
     }
 
+	clock_gettime(CLOCK_MONOTONIC, &tend);
 	printf("Exponent has been created");
 	printf("\n\n");
 
