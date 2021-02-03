@@ -71,24 +71,19 @@ int main(void)
 
 	usleep(10);
 
-		ModExp_params_t ModExp_512_test = { 512,
-	1,
-	0,
-	{  },
-	{  },
-	{  },
-	{  },
-	};
+	struct TRNG_params TRNG_512_test = { 4096, 
+	{  } };
+
 
 	clock_gettime(CLOCK_MONOTONIC, &tstart);
 
 	// Read TRNG FIRO
-	ModExp_512_test.e[0]=0x0;
-	ModExp_512_test.e[1]=0xffffffff;
-	for(i=2; i<ModExp_512_test.prec/32; i++){
+	TRNG_512_test.rand[0]=0x0;
+	TRNG_512_test.rand[1]=0xffffffff;
+	for(i=2; i<TRNG_512_test.prec/32; i++){
 		ret_val = ioctl(dd, IOCTL_READ_TRNG_FIFO, &trng_val);
 		if(ret_val == 0) {
-			ModExp_512_test.e[i] = trng_val;
+			TRNG_512_test.e[i] = trng_val;
 		} else{
 			printf("Error occured\n");
 		}
@@ -100,8 +95,8 @@ int main(void)
 	FILE *f_write = fopen("/home/bob/e.txt", "w");
     
     char hexString [128]= "";
-      for(i=0 ; i< ModExp_512_test.prec/32; i++){
-        sprintf(hexString, "%08x,", ModExp_512_test.e[i]);
+      for(i=0 ; i< TRNG_512_test.prec/32; i++){
+        sprintf(hexString, "%08x,", TRNG_512_test.e[i]);
         fprintf(f_write,"%s",hexString);
     }
 
