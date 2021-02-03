@@ -111,8 +111,8 @@ if __name__ == '__main__':
     s.connect(('127.0.0.1', port))
 
     thread1 = threading.Thread(target = connect, args = ([s]))
-    #thread for sending encoded messages
     thread2 = threading.Thread(target = sendMsg, args = ([s]))
+    
     thread3 = threading.Thread(target = sendMsg, args = ([s]))
     thread4 = threading.Thread(target = sendMsg, args = ([s]))
 
