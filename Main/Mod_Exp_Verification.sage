@@ -30,13 +30,15 @@ prec = 4096
 
 def Prime_ModExp(b,e,n,prec):
  
-	x = (1) % int(n)
-	exp = int(e)
+	x = (1) % n
+	exp = e
 	for i in reversed(xrange(prec)):
-		x = (int(x) * int(x)) % int(n)
+		x = (x * x) % n
 		if(Integer(exp).digits(base=2,padto=prec)[i] == 1):
-			x = (int(b) * int(x)) % int(n)
+			x = (b * x) % n
 	c = x
 
 	return(c)
-Prime_ModExp(b_hex,e_hex,n_hex,prec)
+
+
+Prime_ModExp(b_hex,e_hex,n_hex,4096)
