@@ -59,14 +59,11 @@ def connect(s):
 ## chanel
 def sendMsg(s):
 
-    
-    
     s_msg = userMenuInput.encode('utf-8')
 
     if s_msg == '':
         pass
 
-    
     elif s_msg.decode() == '3':
         s.send(b'cAlice')
         file = open("/home/alice/cAlice.txt", "rb")
