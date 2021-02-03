@@ -33,9 +33,9 @@ def Prime_ModExp(b,e,n,prec):
 	x = (1) % int(n)
 	exp = int(e)
 	for i in reversed(xrange(prec)):
-		x = int(x * x) % int(n)
+		x = (int(x) * int(x)) % int(n)
 		if(Integer(exp).digits(base=2,padto=prec)[i] == 1):
-			x = int(b * x) % int(n)
+			x = (int(b) * int(x)) % int(n)
 	c = x
 
 	return(c)
