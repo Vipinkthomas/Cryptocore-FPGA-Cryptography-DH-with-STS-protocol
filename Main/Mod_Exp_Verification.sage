@@ -20,8 +20,8 @@ n = file.read(4096)
 n = n.replace('0x','')
 n = '0x' + n.replace(',','')
 n_integer = int(n, 16)
-n_hex = hex(n_integer)
-print(n)
+n_hex = hex(n_integer).rstrip("L")
+print(n_hex)
 file.close()
 ##########################################
 prec = 4096
