@@ -220,6 +220,6 @@ if __name__ == '__main__':
             
 
         print("\n***NOW YOU CAN USER THE KEY TO ENCRYPT/DECRYPT MESSAGES***")
-        sys.exit()
+        exit()
         
     
