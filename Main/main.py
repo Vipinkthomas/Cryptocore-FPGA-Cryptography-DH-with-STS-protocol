@@ -3,6 +3,7 @@ import socket
 import threading
 import time
 import os
+import sys
 
 ## This function will encode the message from user input and send it
 def connect(s):
