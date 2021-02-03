@@ -7,7 +7,7 @@ file.close()
 file = open("/home/data_user/b.txt", "rb")
 b = file.read(4096)
 b = b.replace('0x','')
-b = b.replace(',','')
+b = '0x' + b.replace(',','')
 print(b)
 file.close()
 ##################3
