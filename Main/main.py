@@ -21,7 +21,7 @@ def connect(s):
             RecvData = s.recv(4096)
             file.write(RecvData)
             file.close()
-            print("\ncAlice has been received")
+            print("\n*cAlice has been received*")
 
         elif received.decode() == 'aliceCertificate':
             
@@ -29,7 +29,7 @@ def connect(s):
             RecvData = s.recv(4096)
             file.write(RecvData)
             file.close()
-            print("\nAlice's certificate has been received")
+            print("\n*Alice's certificate has been received*")
 
         elif received.decode() == 'aliceSignature':
             
@@ -37,7 +37,7 @@ def connect(s):
             RecvData = s.recv(4096)
             file.write(RecvData)
             file.close()
-            print("\nAlice's signature has been received")
+            print("\n*Alice's signature has been received*")
 
 
         elif received.decode() == 'Msg':
