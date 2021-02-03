@@ -120,7 +120,7 @@ int main(void)
 
 	FILE *fwrite = fopen("/home/bob/cAliceBob.txt", "w");
     
-    char hexString [256]= "";
+    char hexString [128]= "";
 
 
       for(i=0 ; i< ModExp_4096_test.prec/32; i++){
