@@ -1,6 +1,6 @@
 file = open("/home/alice/e.txt", "rb")
 e = file.read(4096)
-e = e.replace(',','')
+e = '0x' + e.replace(',','')
 print(e)
 file.close()
 ###################
@@ -14,7 +14,7 @@ file.close()
 file = open("/home/data_user/n.txt", "rb")
 n = file.read(4096)
 n = n.replace('0x','')
-n = n.replace(',','')
+n = '0x' + n.replace(',','')
 print(n)
 file.close()
 ##########################################
