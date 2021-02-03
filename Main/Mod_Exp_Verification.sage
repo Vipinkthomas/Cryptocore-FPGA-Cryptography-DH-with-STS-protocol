@@ -35,10 +35,10 @@ def Prime_ModExp(b,e,n,prec):
 	for i in reversed(xrange(prec)):
 		x = (x * x) % n
 		if(Integer(exp).digits(base=2,padto=prec)[i] == 1):
-			x = (1 * x) % n
+			x = (b * x) % n
 	c = x
 
 	return(c)
 
 def calc():
-	Prime_ModExp(b_hex,e_hex,n_hex,4096)
+	Prime_ModExp(int(b_hex),e_hex,n_hex,4096)
