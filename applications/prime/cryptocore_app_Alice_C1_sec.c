@@ -41,6 +41,9 @@ int main(void)
 	};
     
 	clock_gettime(CLOCK_MONOTONIC, &tstart);
+	
+    ModExp_4096_test.sec_calc = 1;
+    
 	//READ B from the file b.txt inside data_user
     FILE *fp1 = fopen("/home/data_user/b.txt", "r");
     if (fp1 == NULL) {
@@ -111,7 +114,7 @@ int main(void)
 		printf("%08x", ModExp_4096_test.e[i]);
 	}
 	printf("\n\n");	
-	
+
 	ret_val = ioctl(dd, IOCTL_MWMAC_MODEXP, &ModExp_4096_test);
 	
 	if(ret_val != 0) {
@@ -192,3 +195,4 @@ void Fileread(FILE *fp)
         exit(-4);                               // error in reallocating memory
     output = temp_n;
 }
+

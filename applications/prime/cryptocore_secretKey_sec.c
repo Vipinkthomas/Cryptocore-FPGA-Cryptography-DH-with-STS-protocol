@@ -27,7 +27,7 @@ int main(void)
 
 	double seconds;
 	struct timespec tstart={0,0}, tend={0,0};
-
+	
 	if ((dd = open_physical (dd)) == -1)
     return (-1);
 
@@ -41,26 +41,27 @@ int main(void)
 	};
     
 	clock_gettime(CLOCK_MONOTONIC, &tstart);
-	//READ B from the file b.txt inside data_user
-    FILE *fp1 = fopen("/home/data_user/b.txt", "r");
+
+    ModExp_4096_test.sec_calc = 1;
+
+	//----------------------------------------------------->>
+	FILE *fp1 = fopen("/home/alice/e.txt", "r");
     if (fp1 == NULL) {
         fprintf(stderr, "Can't read file");
         return 0;
     }
 
     Fileread(fp1);
-
 	
-    i = 0;
+	i = 0;
 	while (i < ModExp_4096_test.prec/32) {
 		
-		ModExp_4096_test.b[i] = output[i];
+		ModExp_4096_test.e[i] = output[i];
 		i++;
 		
-	}
+	}	
 
-	//----------------------------------------------------->>
-    FILE *fp2 = fopen("/home/data_user/n.txt", "r");
+	FILE *fp2 = fopen("/home/data_user/n.txt", "r");
     if (fp2 == NULL) {
         fprintf(stderr, "Can't read file");
         return 0;
@@ -75,30 +76,10 @@ int main(void)
 		i++;
 		
 	}	
-	//----------------------------------------------------->>
-	FILE *fp3 = fopen("/home/alice/e.txt", "r");
-    if (fp3 == NULL) {
-        fprintf(stderr, "Can't read file");
-        return 0;
-    }
-
-    Fileread(fp3);
-	
-	i = 0;
-	while (i < ModExp_4096_test.prec/32) {
-		
-		ModExp_4096_test.e[i] = output[i];
-		i++;
-		
-	}	
 	////-------------------------------------------------------->>
 
     
-
-	printf("B: 0x");
-	for(i=0; i<ModExp_4096_test.prec/32; i++){
-		printf("%08x", ModExp_4096_test.b[i]);
-	}
+ 
 	printf("\n\n");
 	printf("N: 0x");
 	for(i=0; i<ModExp_4096_test.prec/32; i++){
@@ -111,24 +92,69 @@ int main(void)
 		printf("%08x", ModExp_4096_test.e[i]);
 	}
 	printf("\n\n");	
-	
+
+	FILE *fp3 = fopen("/home/alice/cBob.txt", "r");
+    if (fp3 == NULL) {
+        fprintf(stderr, "Can't read file");
+        return 0;
+    }
+
+    Fileread(fp3);
+
+	i = 0;
+	while (i < ModExp_4096_test.prec/32) {
+		
+		ModExp_4096_test.b[i] = output[i];
+		i++;
+		
+	}
+	printf("B/cBob: 0x");
+	for(i=0; i<ModExp_4096_test.prec/32; i++){
+		printf("%08x", ModExp_4096_test.b[i]);
+	}
+	printf("\n\n");
+
+	FILE *fp4 = fopen("/home/alice/cAlice.txt", "r");
+    if (fp4 == NULL) {
+        fprintf(stderr, "Can't read file");
+        return 0;
+    }
+
+    Fileread(fp4);
+
+	FILE *fwrite = fopen("/home/alice/cAliceBob.txt", "w");
+    
+    char hexString [128]= "";
+
+
+  
+		for(i=0 ; i< ModExp_4096_test.prec/32; i++){
+        sprintf(hexString, "%08x", output[i]);
+        fprintf(fwrite,"%s",hexString);
+    }
+	    for(i=0 ; i< ModExp_4096_test.prec/32; i++){
+        sprintf(hexString, "%08x", ModExp_4096_test.b[i]);
+        fprintf(fwrite,"%s",hexString);
+    }
+
 	ret_val = ioctl(dd, IOCTL_MWMAC_MODEXP, &ModExp_4096_test);
-	
 	if(ret_val != 0) {
 		printf("Error occured\n");
 	}
-	FILE *f_write = fopen("/home/alice/cAlice.txt", "w");
-    
-    char hexString [128]= "";
-      for(i=0 ; i< ModExp_4096_test.prec/32; i++){
-        sprintf(hexString, "%08x,", ModExp_4096_test.c[i]);
-        fprintf(f_write,"%s",hexString);
-    }
-	printf("CAlice = ModExp(R,R,E,B,P): 0x");
+
+	printf("secret = ModExp(R,R,E,C2,P): 0x");
 	for(i=0; i<ModExp_4096_test.prec/32; i++){
 		printf("%08x", ModExp_4096_test.c[i]);
 	}
 	printf("\n\n");
+
+	FILE *f_write = fopen("/home/alice/secret.txt", "w");
+    
+    char hex_String [128]= "";
+      for(i=0 ; i< ModExp_4096_test.prec/32; i++){
+        sprintf(hex_String, "%08x", ModExp_4096_test.c[i]);
+        fprintf(f_write,"%s",hex_String);
+    }
 
 	clock_gettime(CLOCK_MONOTONIC, &tend);
 
@@ -140,10 +166,13 @@ int main(void)
 
 	close_physical (dd);   // close /dev/cryptocore
     //file close and free
+    
     fclose(fp1);
-    fclose(fp2);
 	fclose(fp3);
+	fclose(fp2);
+	fclose(fp4);
 	fclose(f_write);
+	fclose(fwrite);
 	return 0;
 }
 
@@ -192,3 +221,4 @@ void Fileread(FILE *fp)
         exit(-4);                               // error in reallocating memory
     output = temp_n;
 }
+
