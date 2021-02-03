@@ -5,21 +5,19 @@ file.close()
 ###################
 file = open("/home/data_user/b.txt", "rb")
 b = file.read(4096)
+b = b.replace('0x','')
+b = b.replace(',','')
 print(b)
 file.close()
 ##################3
 file = open("/home/data_user/n.txt", "rb")
 n = file.read(4096)
+n = n.replace('0x','')
+n = n.replace(',','')
 print(n)
 file.close()
 ##########################################
 
-print(e)
-print('\n')
-print(b)
-print('\n')
-print(n)
-print('\n')
 
 
 def Prime_ModExp(b,e,n,prec):
