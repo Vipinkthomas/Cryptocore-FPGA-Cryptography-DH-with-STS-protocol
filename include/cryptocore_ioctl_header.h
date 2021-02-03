@@ -26,6 +26,10 @@ typedef struct MontR_params{
 	__u32 r[128];
 } MontR_params_t;
 
+typedef struct TRNG_params{
+	__u32 rand;
+} TRNG_params_t;
+
 typedef struct MontR2_params{
 	__u32 prec;
 	__u32 f_sel;
