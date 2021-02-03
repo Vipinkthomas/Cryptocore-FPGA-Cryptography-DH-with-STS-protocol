@@ -19,7 +19,7 @@ print(n)
 file.close()
 ##########################################
 prec = 4096
-print(hex(n))
+print(hex(b))
 
 
 def Prime_ModExp(b,e,n,prec):
