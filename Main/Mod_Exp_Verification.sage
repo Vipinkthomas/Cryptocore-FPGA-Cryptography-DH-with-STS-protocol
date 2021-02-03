@@ -1,6 +1,7 @@
 file = open("/home/alice/e.txt", "rb")
 e = file.read(4096)
 e = e.replace(',','')
+print(e)
 file.close()
 ###################
 file = open("/home/data_user/b.txt", "rb")
@@ -17,10 +18,10 @@ n = n.replace(',','')
 print(n)
 file.close()
 ##########################################
+prec = 4096
 
 
-
-def Prime_ModExp(b,e,n,prec):
+def Prime_ModExp(hex(b),hex(e),(hex(n),prec):
  
 	x = (1) % n
 	exp = e
