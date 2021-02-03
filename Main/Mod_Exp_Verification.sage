@@ -34,4 +34,4 @@ def Prime_ModExp(b,e,n,prec):
 
 	return(c)
 
-Prime_ModExp(b,e,n,prec)
+Prime_ModExp(hex(int(b,16)),hex(int(e)),hex(int(n)),prec)
