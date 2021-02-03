@@ -36,7 +36,7 @@ def Prime_ModExp(b,e,n,prec):
 		x = (x * x) % n
 		if(Integer(exp).digits(base=2,padto=prec)[i] == 1):
 			x = (b * x) % n
-	c = x
+	#c = x
 
-	return(c)
+	#return(c)
 Prime_ModExp(b_hex,e_hex,n_hex,prec)
