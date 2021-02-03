@@ -25,6 +25,11 @@ int main(void)
 	__u32 trng_val = 0;
 	__u32 i = 0;
 
+	double seconds;
+	struct timespec tstart={0,0}, tend={0,0};
+	
+	if ((dd = open_physical (dd)) == -1)
+    return (-1);
 
 	ModExp_params_t ModExp_512_test = { 512,
 	1,
@@ -70,8 +75,7 @@ int main(void)
 	}	
 	////-------------------------------------------------------->>
 
-    if ((dd = open_physical (dd)) == -1)
-    return (-1);
+    
  
 	printf("\n\n");
 	printf("N: 0x");
