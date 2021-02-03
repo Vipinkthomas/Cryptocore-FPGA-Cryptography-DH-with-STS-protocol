@@ -2,7 +2,7 @@ file = open("/home/alice/e.txt", "rb")
 e = file.read(4096)
 file.close()
 
-print(e)
+print(e.replace(',',''))
 
 
 def Prime_ModExp(b,e,n,prec):
