@@ -1,20 +1,26 @@
 file = open("/home/alice/e.txt", "rb")
 e = file.read(4096)
 e = '0x' + e.replace(',','')
-print("E= ", e)
+e_integer = int(e, 16)
+e_hex = hex(e_integer)
+print("E= ", e_hex)
 file.close()
 ###################
 file = open("/home/data_user/b.txt", "rb")
 b = file.read(4096)
 b = b.replace('0x','')
 b = '0x' + b.replace(',','')
-print("B= ", b)
+b_integer = int(b, 16)
+b_hex = hex(b_integer)
+print("B= ", b_hex)
 file.close()
 ##################3
 file = open("/home/data_user/n.txt", "rb")
 n = file.read(4096)
 n = n.replace('0x','')
 n = '0x' + n.replace(',','')
+n_integer = int(n, 16)
+n_hex = hex(n_integer)
 print("N= ", n)
 file.close()
 ##########################################
@@ -33,4 +39,4 @@ def Prime_ModExp(b,e,n,prec):
 	c = x
 
 	return(hex(c))
-Prime_ModExp(b,e,n,prec)
+#Prime_ModExp(b,e,n,prec)
