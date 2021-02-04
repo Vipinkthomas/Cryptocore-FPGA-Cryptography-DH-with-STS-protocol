@@ -37,10 +37,6 @@ n_hex = hex(n_integer).rstrip("L")
 print(n_hex)
 file.close()
 ##########################################
-prec = 4096
-print(type(n_hex))
-Prime_ModExp(b_hex,e_hex,n_hex,4096)
-##########################################
 file = open("/home/bob/cAlice.txt", "rb")
 cAlice = file.read(4096)
 cAlice ='0x'+ n.replace(',','')
@@ -48,5 +44,10 @@ cAlice_integer = int(n, 16)
 cAlice_hex = hex(cAlice_integer).rstrip("L")
 print(cAlice_hex)
 file.close()
+##########################################
+prec = 4096
+print(type(n_hex))
+Prime_ModExp(b_hex,e_hex,n_hex,4096)
+
 ##########################################
 Prime_ModExp(cAlice_hex,e_hex,n_hex,4096)
