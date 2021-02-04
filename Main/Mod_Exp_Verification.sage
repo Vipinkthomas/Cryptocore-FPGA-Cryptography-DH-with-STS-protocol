@@ -21,7 +21,7 @@ file.close()
 file = open("/home/data_user/b.txt", "rb")
 b = file.read(4096)
 b = b.replace('0x','')
-b = b.replace(',','')
+b_hex = b.replace(',','')
 print(b_hex)
 file.close()
 ##################
