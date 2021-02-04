@@ -42,7 +42,7 @@ print(cAlice)
 file.close()
 ##########################################
 prec = 4096
-Prime_ModExp(b,e,n,4096)
+Prime_ModExp(hex(b),hex(e),hex(n),4096)
 
 ##########################################
-Prime_ModExp(cAlice,e,n,4096)
+Prime_ModExp(hex(cAlice),hex(e),hex(n),4096)
