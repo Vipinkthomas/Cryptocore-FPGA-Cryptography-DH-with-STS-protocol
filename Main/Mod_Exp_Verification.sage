@@ -13,6 +13,7 @@ def Prime_ModExp(b,e,n,prec):
 ###################
 file = open("/home/bob/e.txt", "rb")
 e = file.read(4096)
+b = b.replace('0x','')
 e = e.replace(',','')
 e_integer = int(e, 16)
 e_hex = hex(e_integer).rstrip("L")
