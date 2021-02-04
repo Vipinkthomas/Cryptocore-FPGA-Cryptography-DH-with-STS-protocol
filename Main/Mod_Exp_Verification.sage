@@ -39,8 +39,17 @@ file.close()
 ##########################################
 prec = 4096
 print(type(n_hex))
-Prime_ModExp(e_hex,e_hex,n_hex,4096)
-
+Prime_ModExp(b_hex,e_hex,n_hex,4096)
+##########################################
+file = open("/home/alice/cBob.txt", "rb")
+cBob = file.read(4096)
+cBob = '0x' + n.replace(',','')
+cBob_integer = int(n, 16)
+cBob_hex = hex(n_integer).rstrip("L")
+print(cBob_hex)
+file.close()
+##########################################
+Prime_ModExp(cBob_hex,e_hex,n_hex,4096)
 
 
 	
