@@ -36,7 +36,7 @@ file.close()
 ##########################################
 file = open("/home/bob/cAlice.txt", "rb")
 cAlice = file.read(4096)
-cAlice =cAlice.replace(',','')
+cAlice ='0x'+cAlice.replace(',','')
 cAlice = cAlice.replace('\n','')
 print(cAlice)
 file.close()
