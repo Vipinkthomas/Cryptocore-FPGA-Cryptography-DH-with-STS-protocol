@@ -48,7 +48,8 @@ print(cAlice_integer)
 file.close()
 ##########################################
 prec = 4096
-hex(Prime_ModExp(b_integer,e_integer,n_integer,4096))
-
+cBob = hex(Prime_ModExp(b_integer,e_integer,n_integer,4096))
+print(cBob)
 ##########################################
-hex(Prime_ModExp(cAlice_integer,e_integer,n_integer,4096))
+secret=hex(Prime_ModExp(cAlice_integer,e_integer,n_integer,4096))
+print(secret)
