@@ -137,6 +137,18 @@ int main(void)
 	else 
 		printf("Reading 4096 random bits took about %.5f us\n", seconds*1000000.0);
 
+
+	ModExp_4096_test.sec_calc = 1;	
+	clock_gettime(CLOCK_MONOTONIC, &tstart);
+	ret_val = ioctl(dd, IOCTL_MWMAC_MODEXP, &ModExp_4096_test);
+	clock_gettime(CLOCK_MONOTONIC, &tend);
+
+	seconds = ((double)tend.tv_sec + 1.0e-9*tend.tv_nsec) - ((double)tstart.tv_sec + 1.0e-9*tstart.tv_nsec);
+	if (seconds*1000000.0 > 1000.0)
+		printf("(With sec_calc=1) Reading 4096 random bits took about %.5f ms\n", seconds*1000.0);
+	else 
+		printf("(With sec_calc=1) Reading 4096 random bits took about %.5f us\n", seconds*1000000.0);
+
 	close_physical (dd);   // close /dev/cryptocore
     //file close and free
     fclose(fp1);
