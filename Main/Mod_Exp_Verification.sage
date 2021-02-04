@@ -14,7 +14,7 @@ def Prime_ModExp(b,e,n,prec):
 file = open("/home/bob/e.txt", "rb")
 e = file.read(4096)
 e = e.replace('0x','')
-e = e.replace(',','')
+e_hex = e.replace(',','')
 print(e_hex)
 file.close()
 ###################
@@ -28,7 +28,7 @@ file.close()
 file = open("/home/data_user/n.txt", "rb")
 n = file.read(4096)
 n = n.replace('0x','')
-n = n.replace(',','')
+n_hex  = n.replace(',','')
 print(n_hex)
 file.close()
 ##########################################
@@ -38,7 +38,7 @@ Prime_ModExp(hex(b_hex),hex(e_hex),hex(n_hex),4096)
 ##########################################
 file = open("/home/bob/cAlice.txt", "rb")
 cAlice = file.read(4096)
-cAlice =n.replace(',','')
+cAlice_hex  =n.replace(',','')
 print(cAlice_hex)
 file.close()
 ##########################################
