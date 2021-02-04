@@ -43,12 +43,12 @@ file = open("/home/bob/cAlice.txt", "rb")
 cAlice = file.read(4096)
 cAlice ='0x'+cAlice.replace(',','')
 cAlice = cAlice.replace('\n','')
-cAlice_integer = int(cAlice, 16)
+cAlice_integer = Integer(cAlice)
 print(cAlice_integer)
 file.close()
 ##########################################
 prec = 4096
-Prime_ModExp(b_integer,e_integer,n_integer,4096)
+hex(Prime_ModExp(b_integer,e_integer,n_integer,4096))
 
 ##########################################
-#Prime_ModExp(cAlice,e,n,4096)
+hex(Prime_ModExp(cAlice_integer,e_integer,n_integer,4096))
