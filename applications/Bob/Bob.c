@@ -113,7 +113,6 @@ int main(void)
 	ret_val = ioctl(dd, IOCTL_MWMAC_MODEXP, &ModExp_4096_test);
 	clock_gettime(CLOCK_MONOTONIC, &tend);
 
-
 	if(ret_val != 0) {
 		printf("Error occured\n");
 	}
