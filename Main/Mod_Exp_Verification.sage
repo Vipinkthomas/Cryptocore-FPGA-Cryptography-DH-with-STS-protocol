@@ -9,3 +9,44 @@ def Prime_ModExp(b,e,n,prec):
 	c = x
 
 	return(c)
+
+
+file = open("/home/bob/e.txt", "rb")
+e = file.read(4096)
+e = '0x' + e.replace(',','')
+e_integer = int(e, 16)
+e_hex = hex(e_integer).rstrip("L")
+print(e_hex)
+file.close()
+###################
+file = open("/home/data_user/b.txt", "rb")
+b = file.read(4096)
+b = b.replace('0x','')
+b = '0x' + b.replace(',','')
+b_integer = int(b, 16)
+b_hex = hex(b_integer).rstrip("L")
+print(b_hex)
+file.close()
+##################
+file = open("/home/data_user/n.txt", "rb")
+n = file.read(4096)
+n = n.replace('0x','')
+n = '0x' + n.replace(',','')
+n_integer = int(n, 16)
+n_hex = hex(n_integer).rstrip("L")
+print(n_hex)
+file.close()
+##########################################
+prec = 4096
+print(type(n_hex))
+Prime_ModExp(b_hex,e_hex,n_hex,4096)
+##########################################
+file = open("/home/bob/cAlice.txt", "rb")
+cAlice = file.read(4096)
+cAlice = '0x' + n.replace(',','')
+cAlice_integer = int(n, 16)
+cAlice_hex = hex(n_integer).rstrip("L")
+print(cAlice_hex)
+file.close()
+##########################################
+Prime_ModExp(cAlice_hex,e_hex,n_hex,4096)
