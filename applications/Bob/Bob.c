@@ -42,8 +42,6 @@ int main(void)
 	};
 
 
-	clock_gettime(CLOCK_MONOTONIC, &tstart);
-
 	FILE *fp0 = fopen("/home/bob/e.txt", "r");
     if (fp0 == NULL) {
         fprintf(stderr, "Can't read file");
@@ -111,8 +109,9 @@ int main(void)
 	}
 	printf("\n\n");	
 
-
+	clock_gettime(CLOCK_MONOTONIC, &tstart);
 	ret_val = ioctl(dd, IOCTL_MWMAC_MODEXP, &ModExp_4096_test);
+	clock_gettime(CLOCK_MONOTONIC, &tend);
 
 
 	if(ret_val != 0) {
@@ -131,7 +130,7 @@ int main(void)
 	}
 	printf("\n\n");
 
-	clock_gettime(CLOCK_MONOTONIC, &tend);
+	
 
 	seconds = ((double)tend.tv_sec + 1.0e-9*tend.tv_nsec) - ((double)tstart.tv_sec + 1.0e-9*tstart.tv_nsec);
 	if (seconds*1000000.0 > 1000.0)
