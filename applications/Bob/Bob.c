@@ -143,6 +143,8 @@ int main(void)
 	ret_val = ioctl(dd, IOCTL_MWMAC_MODEXP, &ModExp_4096_test);
 	clock_gettime(CLOCK_MONOTONIC, &tend);
 
+	printf("\n\n");
+	
 	seconds = ((double)tend.tv_sec + 1.0e-9*tend.tv_nsec) - ((double)tstart.tv_sec + 1.0e-9*tstart.tv_nsec);
 	if (seconds*1000000.0 > 1000.0)
 		printf("(With sec_calc=1) Reading 4096 random bits took about %.5f ms\n", seconds*1000.0);
