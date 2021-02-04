@@ -48,7 +48,7 @@ file.close()
 ##########################################
 prec = 4096
 cBob = hex(Prime_ModExp(b,e,n,4096))
-print("cBob: "+ str(hex(cBob)))
+print("cBob: "+ str(Bob))
 ##########################################
 secret=hex(Prime_ModExp(cAlice,e,n,4096))
-print("Shared Secret Key: "+ str(hex(secret)))
+print("Shared Secret Key: "+ str(secret))
