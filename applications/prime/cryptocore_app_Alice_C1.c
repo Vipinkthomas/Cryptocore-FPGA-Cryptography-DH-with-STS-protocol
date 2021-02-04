@@ -40,7 +40,7 @@ int main(void)
 	{  },
 	};
     
-	clock_gettime(CLOCK_MONOTONIC, &tstart);
+	
 	//READ B from the file b.txt inside data_user
     FILE *fp1 = fopen("/home/data_user/b.txt", "r");
     if (fp1 == NULL) {
@@ -111,9 +111,11 @@ int main(void)
 		printf("%08x", ModExp_4096_test.e[i]);
 	}
 	printf("\n\n");	
-	
+
+	clock_gettime(CLOCK_MONOTONIC, &tstart);
 	ret_val = ioctl(dd, IOCTL_MWMAC_MODEXP, &ModExp_4096_test);
-	
+	clock_gettime(CLOCK_MONOTONIC, &tend);
+
 	if(ret_val != 0) {
 		printf("Error occured\n");
 	}
@@ -130,13 +132,27 @@ int main(void)
 	}
 	printf("\n\n");
 
-	clock_gettime(CLOCK_MONOTONIC, &tend);
+	
 
 	seconds = ((double)tend.tv_sec + 1.0e-9*tend.tv_nsec) - ((double)tstart.tv_sec + 1.0e-9*tstart.tv_nsec);
 	if (seconds*1000000.0 > 1000.0)
 		printf("Reading 4096 random bits took about %.5f ms\n", seconds*1000.0);
 	else 
 		printf("Reading 4096 random bits took about %.5f us\n", seconds*1000000.0);
+
+	printf("\n\n");
+
+	ModExp_4096_test.sec_calc = 1;
+
+	clock_gettime(CLOCK_MONOTONIC, &tstart);
+	ret_val = ioctl(dd, IOCTL_MWMAC_MODEXP, &ModExp_4096_test);
+	clock_gettime(CLOCK_MONOTONIC, &tend);
+
+	seconds = ((double)tend.tv_sec + 1.0e-9*tend.tv_nsec) - ((double)tstart.tv_sec + 1.0e-9*tstart.tv_nsec);
+	if (seconds*1000000.0 > 1000.0)
+		printf("(With sec_calc=1) Reading 4096 random bits took about %.5f ms\n", seconds*1000.0);
+	else 
+		printf("(With sec_calc=1) Reading 4096 random bits took about %.5f us\n", seconds*1000000.0);
 
 	close_physical (dd);   // close /dev/cryptocore
     //file close and free
