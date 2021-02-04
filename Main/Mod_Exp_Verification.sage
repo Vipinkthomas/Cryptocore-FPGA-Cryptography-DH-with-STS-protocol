@@ -27,7 +27,7 @@ b_integer = int(b, 16)
 b_hex = hex(b_integer).rstrip("L")
 print(b_hex)
 file.close()
-##################3
+##################
 file = open("/home/data_user/n.txt", "rb")
 n = file.read(4096)
 n = n.replace('0x','')
