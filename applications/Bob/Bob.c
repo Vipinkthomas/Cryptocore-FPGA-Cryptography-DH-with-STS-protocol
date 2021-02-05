@@ -10,7 +10,9 @@
 #include <inttypes.h>
 
 #include "../../include/cryptocore_ioctl_header.h"
-__u32 *output;
+
+__u32 *output;// For reading the content of the file to a pointer
+
 /* Prototypes for functions used to access physical memory addresses */
 int open_physical (int);
 void close_physical (int);
