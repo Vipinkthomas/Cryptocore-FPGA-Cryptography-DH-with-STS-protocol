@@ -8,9 +8,10 @@
 #include <getopt.h>
 #include <stdint.h>
 #include <inttypes.h>
-
 #include "../../include/cryptocore_ioctl_header.h"
+
 __u32 *output;
+
 /* Prototypes for functions used to access physical memory addresses */
 int open_physical (int);
 void close_physical (int);
@@ -41,7 +42,7 @@ int main(void)
 	};
     
 
-	//----------------------------------------------------->>
+	//Read e from e.txt in alice
 	FILE *fp1 = fopen("/home/alice/e.txt", "r");
     if (fp1 == NULL) {
         fprintf(stderr, "Can't read file");
@@ -53,11 +54,12 @@ int main(void)
 	i = 0;
 	while (i < ModExp_4096_test.prec/32) {
 		
-		ModExp_4096_test.e[i] = output[i];
+		ModExp_4096_test.e[i] = output[i]; //assigning e
 		i++;
 		
 	}	
 
+	//reading the modulus from data_user
 	FILE *fp2 = fopen("/home/data_user/n.txt", "r");
     if (fp2 == NULL) {
         fprintf(stderr, "Can't read file");
@@ -69,27 +71,28 @@ int main(void)
 	i = 0;
 	while (i < ModExp_4096_test.prec/32) {
 		
-		ModExp_4096_test.n[i] = output[i];
+		ModExp_4096_test.n[i] = output[i]; //assigining the modulus
 		i++;
 		
 	}	
-	////-------------------------------------------------------->>
-
     
  
 	printf("\n\n");
+	//printing out n
 	printf("N: 0x");
 	for(i=0; i<ModExp_4096_test.prec/32; i++){
 		printf("%08x", ModExp_4096_test.n[i]);
 	}
 	printf("\n\n");
 	
+	//printing out e
 	printf("E: 0x");
 	for(i=0; i<ModExp_4096_test.prec/32; i++){
 		printf("%08x", ModExp_4096_test.e[i]);
 	}
 	printf("\n\n");	
 
+	//reading c for bob
 	FILE *fp3 = fopen("/home/alice/cBob.txt", "r");
     if (fp3 == NULL) {
         fprintf(stderr, "Can't read file");
@@ -101,7 +104,7 @@ int main(void)
 	i = 0;
 	while (i < ModExp_4096_test.prec/32) {
 		
-		ModExp_4096_test.b[i] = output[i];
+		ModExp_4096_test.b[i] = output[i]; //assigning c of bob
 		i++;
 		
 	}
@@ -122,9 +125,7 @@ int main(void)
 	FILE *fwrite = fopen("/home/alice/cAliceBob.txt", "w");
     
     char hexString [128]= "";
-
-
-  
+	//writing c for alice and c for bob  in cAliceBob.txt
 		for(i=0 ; i< ModExp_4096_test.prec/32; i++){
         sprintf(hexString, "%08x", output[i]);
         fprintf(fwrite,"%s",hexString);
@@ -142,6 +143,7 @@ int main(void)
 		printf("Error occured\n");
 	}
 
+	//generating the secret key
 	printf("secret = ModExp(R,R,E,C2,P): 0x");
 	for(i=0; i<ModExp_4096_test.prec/32; i++){
 		printf("%08x", ModExp_4096_test.c[i]);
@@ -151,6 +153,7 @@ int main(void)
 	FILE *f_write = fopen("/home/alice/secret.txt", "w");
     
     char hex_String [128]= "";
+	//writing the secret key in secret.txt which will be used later for encryption and decryption
       for(i=0 ; i< ModExp_4096_test.prec/32; i++){
         sprintf(hex_String, "%08x", ModExp_4096_test.c[i]);
         fprintf(f_write,"%s",hex_String);
@@ -177,8 +180,8 @@ int main(void)
 		printf("(With sec_calc=1) Reading 4096 random bits took about %.5f us\n", seconds*1000000.0);
 
 	close_physical (dd);   // close /dev/cryptocore
+
     //file close and free
-    
     fclose(fp1);
 	fclose(fp3);
 	fclose(fp2);
@@ -188,6 +191,7 @@ int main(void)
 	return 0;
 }
 
+// Open /dev/cryptocore, if not already done, to give access to physical addresses
 int open_physical (int dd)
 {
    if (dd == -1)
@@ -199,14 +203,13 @@ int open_physical (int dd)
    return dd;
 }
 
-
+// Close /dev/cryptocore to give access to physical addresses
 void close_physical (int dd)
 {
    close (dd);
 }
 
-// function
-
+// function to read the hexadecimal value from a text file
 void Fileread(FILE *fp)
 {	char n_string[4096]="";
 	__u32 *temp_n;
