@@ -46,7 +46,7 @@ print("\nn: 0x"+ str(hex(n)))
 file.close()
 
 ###################
-#####READING cBob ####
+#####READING cBob #
 ###################
 file = open("/home/alice/cBob.txt", "rb")
 cBob = file.read(4096)
