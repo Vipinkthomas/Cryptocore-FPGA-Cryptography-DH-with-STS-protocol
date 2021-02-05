@@ -221,13 +221,6 @@ if __name__ == '__main__':
             subprocess.call(['sh','/home/bob/stoesd_ii_2020-21/Main/verifyCertSig.sh'])
 
 #--------------------------------------------------------------------------------------------------->
-        print("\nplease Enter 10 to verify the values with sage math or press enter to skip")
-        userMenuInput=input()
-
-        if userMenuInput == '10':
-            subprocess.call('/home/bob/stoesd_ii_2020-21/Main/Mod_Exp_Verification.sage', shell=True)
-
-#--------------------------------------------------------------------------------------------------->
 
         print("\n***NOW YOU CAN USER THE KEY TO ENCRYPT/DECRYPT MESSAGES***")
         exit()
