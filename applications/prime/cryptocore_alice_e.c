@@ -28,7 +28,7 @@ int main(void)
 	double seconds;
 	struct timespec tstart={0,0}, tend={0,0};
 
-	// Random number creator for Ephermeral DH - exponent component
+	
 	if ((dd = open_physical (dd)) == -1)
       return (-1);
 
@@ -91,10 +91,11 @@ int main(void)
 	}
 
 
-	//Writing e to e.txt
+	//file pointer to write e to e.txt
 	FILE *f_write = fopen("/home/alice/e.txt", "w");
     
     char hexString [128]= "";
+	  //generating the exponent of precision 4096 and writing it to e.txt
       for(i=0 ; i< TRNG_4096_test.prec/32; i++){
         sprintf(hexString, "%08x,", TRNG_4096_test.rand[i]);
         fprintf(f_write,"%s",hexString);
@@ -111,11 +112,13 @@ int main(void)
 	else 
 		printf("Reading 4096 random bits took about %.5f us\n", seconds*1000000.0);	
 
-	close_physical (dd);
+	close_physical (dd);  // close /dev/cryptocore
 	return 0;
 
 
 }
+
+// Open /dev/cryptocore, if not already done, to give access to physical addresses
 int open_physical (int dd)
 {
    if (dd == -1)
@@ -127,7 +130,7 @@ int open_physical (int dd)
    return dd;
 }
 
-
+// Close /dev/cryptocore to give access to physical addresses
 void close_physical (int dd)
 {
    close (dd);
