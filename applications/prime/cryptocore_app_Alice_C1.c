@@ -54,12 +54,12 @@ int main(void)
     i = 0;
 	while (i < ModExp_4096_test.prec/32) {
 		
-		ModExp_4096_test.b[i] = output[i];
+		ModExp_4096_test.b[i] = output[i]; //assign b
 		i++;
 		
 	}
 
-	//----------------------------------------------------->>
+	//Read n from n.txt file in data_user
     FILE *fp2 = fopen("/home/data_user/n.txt", "r");
     if (fp2 == NULL) {
         fprintf(stderr, "Can't read file");
@@ -71,11 +71,12 @@ int main(void)
 	i = 0;
 	while (i < ModExp_4096_test.prec/32) {
 		
-		ModExp_4096_test.n[i] = output[i];
+		ModExp_4096_test.n[i] = output[i]; //assign n
 		i++;
 		
 	}	
-	//----------------------------------------------------->>
+	
+	//Read e from e.txt file in alice directory
 	FILE *fp3 = fopen("/home/alice/e.txt", "r");
     if (fp3 == NULL) {
         fprintf(stderr, "Can't read file");
@@ -87,25 +88,28 @@ int main(void)
 	i = 0;
 	while (i < ModExp_4096_test.prec/32) {
 		
-		ModExp_4096_test.e[i] = output[i];
+		ModExp_4096_test.e[i] = output[i]; //assign e
 		i++;
 		
 	}	
 	////-------------------------------------------------------->>
 
     
-
+	//printing out b
 	printf("B: 0x");
 	for(i=0; i<ModExp_4096_test.prec/32; i++){
 		printf("%08x", ModExp_4096_test.b[i]);
 	}
 	printf("\n\n");
+
+	//printing out n
 	printf("N: 0x");
 	for(i=0; i<ModExp_4096_test.prec/32; i++){
 		printf("%08x", ModExp_4096_test.n[i]);
 	}
 	printf("\n\n");
 	
+	//printing out e
 	printf("E: 0x");
 	for(i=0; i<ModExp_4096_test.prec/32; i++){
 		printf("%08x", ModExp_4096_test.e[i]);
@@ -119,13 +123,17 @@ int main(void)
 	if(ret_val != 0) {
 		printf("Error occured\n");
 	}
-	FILE *f_write = fopen("/home/alice/cAlice.txt", "w");
+
+	FILE *f_write = fopen("/home/alice/cAlice.txt", "w"); //file pointer for cAlice
     
     char hexString [128]= "";
+	//writing the result of Mod Exp to cAlice.txt
       for(i=0 ; i< ModExp_4096_test.prec/32; i++){
         sprintf(hexString, "%08x,", ModExp_4096_test.c[i]);
         fprintf(f_write,"%s",hexString);
     }
+
+	//priting out the value of cAlice
 	printf("CAlice = ModExp(R,R,E,B,P): 0x");
 	for(i=0; i<ModExp_4096_test.prec/32; i++){
 		printf("%08x", ModExp_4096_test.c[i]);
@@ -163,6 +171,8 @@ int main(void)
 	return 0;
 }
 
+
+// Open /dev/cryptocore, if not already done, to give access to physical addresses
 int open_physical (int dd)
 {
    if (dd == -1)
@@ -175,6 +185,7 @@ int open_physical (int dd)
 }
 
 
+// Close /dev/cryptocore to give access to physical addresses
 void close_physical (int dd)
 {
    close (dd);
