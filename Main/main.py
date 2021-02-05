@@ -5,7 +5,7 @@ import sys
 import os
 import time
 
-## This function will encode the message from user input and send it
+## REceiving messages from other party
 def connect(s):
     '''receive messages from other party, and decode them'''
 

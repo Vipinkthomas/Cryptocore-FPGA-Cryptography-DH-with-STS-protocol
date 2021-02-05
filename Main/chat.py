@@ -1,11 +1,8 @@
-# Have to add funcationality to check whether the files are avilable before sending it, 
-#if not ask the permission to create the files 
-
 import subprocess
 import socket
 import threading
 
-## This function will encode the message from user input and send it
+
 
 def connect(s):
     '''receive messages from other party, and decode them'''
