@@ -56,7 +56,7 @@ def sendMsg(s):
 
 if __name__ == '__main__':
 
-    PORT = 12345
+    PORT = 12346
     HOST = '127.0.0.1'  # address (localhost)
 
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

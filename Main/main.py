@@ -129,6 +129,8 @@ if __name__ == '__main__':
     thread1.start()
 
     userMenuInput= ''
+    
+    #--------------------------------------------------------------------------------------------->
 
     if userMenuInput != '0':
         print("\nEnter 1 to generate secret exponent")
@@ -211,13 +213,14 @@ if __name__ == '__main__':
         while not os.path.isfile("/home/bob/alice.crt"):
             print('waiting for alice to send certificate')
             time.sleep(5)
-        
+    
         print("\nplease Enter 9 to verify alice's certificate and signature")
         userMenuInput=input()
 
         if userMenuInput == '9':
             subprocess.call(['sh','/home/bob/stoesd_ii_2020-21/Main/verifyCertSig.sh'])
-            
+
+#--------------------------------------------------------------------------------------------------->
 
         print("\n***NOW YOU CAN USER THE KEY TO ENCRYPT/DECRYPT MESSAGES***")
         exit()
