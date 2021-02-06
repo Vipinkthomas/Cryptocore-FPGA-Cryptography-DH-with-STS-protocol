@@ -5,7 +5,7 @@ import sys
 import os
 import time
 
-## This function will encode the message from user input and send it
+## REceiving messages from other party
 def connect(s):
     '''receive messages from other party, and decode them'''
 
@@ -20,7 +20,7 @@ def connect(s):
         elif received ==' exit':
             s.send(b'exit')
 
-        elif received.decode() == 'cBob':
+        elif received.decode() == 'cBob':   # Receiving cBob from bob and write it to cBob.txt
             
             file = open("/home/alice/cBob.txt", "wb")
             RecvData = s.recv(4096)
@@ -28,7 +28,7 @@ def connect(s):
             file.close()
             print("\n*Received cBob*")
 
-        elif received.decode() == 'bobCertificate':
+        elif received.decode() == 'bobCertificate':   ## Receving the certificate for bob and save it in bob.crt
             
             file = open("/home/alice/bob.crt", "wb")
             RecvData = s.recv(4096)
@@ -36,7 +36,7 @@ def connect(s):
             file.close()
             print('\n*Received Bob Certificate*')
 
-        elif received.decode() == 'bobSignature':
+        elif received.decode() == 'bobSignature':    ##receving the signature from bob
            
             file = open("/home/alice/signatureBob.enc", "wb")
             RecvData = s.recv(4096)
@@ -64,21 +64,23 @@ def sendMsg(s):
     if s_msg == '':
         pass
 
-    elif s_msg.decode() == '3':
+    elif s_msg.decode() == '3': ##reading cAlice and send it to bob
+
         s.send(b'cAlice')
         file = open("/home/alice/cAlice.txt", "rb")
         SendData = file.read(4096)
         s.send(SendData)
         file.close()
 
-    elif s_msg.decode() == '9':
+    elif s_msg.decode() == '9': ##Reading alice's certificate and send it to bob
+
         s.send(b'aliceCertificate')
         file = open("/home/alice/alice.crt", "rb")
         SendData = file.read(4096)
         s.send(SendData)
         file.close()
 
-    elif s_msg.decode() == '8':
+    elif s_msg.decode() == '8': ##reading alice's signature and send it to bob
 
         s.send(b'aliceSignature')
         file = open("/home/alice/signatureAlice.enc", "rb")
@@ -102,18 +104,20 @@ def sendMsg(s):
 
 if __name__ == '__main__':
 
-    port = 12345
+    port = 12345 ##connection port
 
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     
     s.connect(('127.0.0.1', port))
 
-    thread1 = threading.Thread(target = connect, args = ([s]))
-    thread2 = threading.Thread(target = sendMsg, args = ([s]))
+    ##creating 4 threads
+    #--------------------
+    thread1 = threading.Thread(target = connect, args = ([s])) ##thread for receiving messages
+    thread2 = threading.Thread(target = sendMsg, args = ([s])) ##thread for sending messages
     
-    thread3 = threading.Thread(target = sendMsg, args = ([s]))
-    thread4 = threading.Thread(target = sendMsg, args = ([s]))
+    thread3 = threading.Thread(target = sendMsg, args = ([s])) ##thread for sending messages
+    thread4 = threading.Thread(target = sendMsg, args = ([s])) ##thread for sending messages
 
     
     thread1.start()
@@ -127,6 +131,7 @@ if __name__ == '__main__':
         userMenuInput=input()
 
         if userMenuInput == '1':
+            ##generating the exponent by running the compiled c program ( e )
             subprocess.call('/home/alice/stoesd_ii_2020-21/applications/prime/e', shell=True)
 
         print("\n*E has been generated*")
@@ -137,6 +142,7 @@ if __name__ == '__main__':
         userMenuInput=input()
 
         if userMenuInput =='2':
+            ##generating cAlice by running the compiled c program ( cAlice )
             subprocess.call('/home/alice/stoesd_ii_2020-21/applications/prime/cAlice', shell=True)
             
         print("\n*cAlice has been generated*")
@@ -147,10 +153,12 @@ if __name__ == '__main__':
         userMenuInput=input()
 
         if userMenuInput =='3':
+            ##sending cAlice to bob
             thread2.start()
             thread2.join()
             
         while not os.path.isfile("/home/alice/cBob.txt"):
+            ##waiting for bob to send cBob
             print('waiting for bob to send cBob')
             time.sleep(5)
 
@@ -161,6 +169,7 @@ if __name__ == '__main__':
         
             
         if userMenuInput =='4':
+            ##creating the secret key
             subprocess.call('/home/alice/stoesd_ii_2020-21/applications/prime/secret', shell=True)
 
         print("\n***SECRET KEY HAS BEEN CREATED***")
@@ -172,15 +181,17 @@ if __name__ == '__main__':
         userMenuInput=input()
 
         if userMenuInput == '5':
+            ##verifying other's signature and certificate
             subprocess.call(['sh','/home/alice/stoesd_ii_2020-21/Main/verifyCertSig.sh'])
             
 #---------------------------------------------------------------------------------------------------->
         
         print("\n*Now you can create the Certificate*")
-        print("\nplease Enter 6 to create bob's certificate it")
+        print("\nplease Enter 6 to create Alice's certificate it")
         userMenuInput=input()
 
         if userMenuInput == '6':
+            ##creating alice's certificate
             subprocess.call(['sh','/home/alice/stoesd_ii_2020-21/Main/createCertificate.sh'])
            
 #---------------------------------------------------------------------------------------------------->
@@ -190,6 +201,7 @@ if __name__ == '__main__':
         userMenuInput=input()
 
         if userMenuInput == '7':
+            #creating signature
             subprocess.call(['sh','/home/alice/stoesd_ii_2020-21/Main/createEncSig.sh'])
 
         print('\n*Created signature.*')
@@ -200,6 +212,7 @@ if __name__ == '__main__':
         userMenuInput=input()
 
         if userMenuInput == '8':
+            ##sending signature to bob
             thread3.start()
             thread3.join()
 
@@ -211,6 +224,7 @@ if __name__ == '__main__':
         userMenuInput=input()
 
         if userMenuInput == '9':
+            ##sending certificate to bob
             thread4.start()
             thread4.join()
         
