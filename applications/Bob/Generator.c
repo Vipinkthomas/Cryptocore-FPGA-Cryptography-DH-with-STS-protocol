@@ -98,7 +98,7 @@ int main(void)
 	clock_gettime(CLOCK_MONOTONIC, &tend); //Writing e to e.txt
 
 	
-	FILE *f_write = fopen("/home/bob/b.txt", "w");//Writing e to e.txt
+	FILE *f_write = fopen("/home/data_user/b.txt", "w");//Writing e to e.txt
     
     char hexString [128]= "";//Writing e to e.txt
 
