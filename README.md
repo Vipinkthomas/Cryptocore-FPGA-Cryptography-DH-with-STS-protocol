@@ -6,7 +6,7 @@ Selected Topics of Embedded Software Development II
 # Prerequisites:
 
 - Connected to THD vpn server
-- Putty or Linux terminal
+- Linux terminal or Putty already installed
 
 # How To Run the Full Station-To-Station
 
